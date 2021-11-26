@@ -11,6 +11,44 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 #import Utility
 
+class Ui_MainWindow2(object):
+    def setupUi(self, MainWindow2):
+        MainWindow2.setObjectName("MainWindow")
+        MainWindow2.resize(800, 600)
+        self.centralwidget = QtWidgets.QWidget(MainWindow2)
+        self.centralwidget.setObjectName("centralwidget")
+        self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
+        self.gridLayout.setObjectName("gridLayout")
+        self.listView_2 = QtWidgets.QListView(self.centralwidget)
+        self.listView_2.setObjectName("listView_2")
+        self.gridLayout.addWidget(self.listView_2, 3, 0, 1, 1)
+        self.pushButton2_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton2_2.setObjectName("pushButton_2")
+        self.gridLayout.addWidget(self.pushButton2_2, 4, 0, 1, 1)
+        self.pushButton2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton2.setObjectName("pushButton")
+        self.gridLayout.addWidget(self.pushButton2, 1, 0, 1, 1)
+        self.tableView = QtWidgets.QTableView(self.centralwidget)
+        self.tableView.setObjectName("tableView")
+        self.gridLayout.addWidget(self.tableView, 0, 0, 1, 1)
+        MainWindow2.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow2)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
+        self.menubar.setObjectName("menubar")
+        MainWindow2.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow2)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow2.setStatusBar(self.statusbar)
+
+        self.retranslateUi2(MainWindow2)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow2)
+
+    def retranslateUi2(self, MainWindow2):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow2.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.pushButton2_2.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton2.setText(_translate("MainWindow", "PushButton"))
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -80,12 +118,13 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton_2.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton.setText(_translate("MainWindow", "SendData"))
         self.pushButton_4.setText(_translate("MainWindow", "SerialNumber"))
         self.pushButton_3.setText(_translate("MainWindow", "ConnectCan"))
 
     def b1(self):
         print("Pulsado boton 1:")
+        MainWindow2.show()
 
     def b2(self):
         print("Pulsado boton 2:")
@@ -108,7 +147,10 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
+    MainWindow2 = QtWidgets.QMainWindow()
+    ui2 = Ui_MainWindow2()
     ui = Ui_MainWindow()
+    ui2.setupUi(MainWindow2)
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
