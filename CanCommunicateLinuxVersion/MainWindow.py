@@ -9,7 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import LEERCAN
+import Utility
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -30,6 +31,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.pushButton, 2, 0, 1, 1)
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_2.clicked.connect(self.b2)
         self.gridLayout.addWidget(self.pushButton_2, 3, 0, 1, 1)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
@@ -56,9 +58,10 @@ class Ui_MainWindow(object):
 
     def b1(self):
         print("Pulsado boton 1:")
-        LEERCAN.readCan()
+        Utility.connectCan("500000")
     def b2(self):
         print("Pulsado boton 2")
+        Utility.readCan()
 
 if __name__ == "__main__":
     import sys
