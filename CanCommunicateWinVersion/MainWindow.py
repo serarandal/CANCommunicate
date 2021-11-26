@@ -24,9 +24,11 @@ class Ui_MainWindow2(object):
         self.gridLayout.addWidget(self.listView_2, 3, 0, 1, 1)
         self.pushButton2_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton2_2.setObjectName("pushButton_2")
+        self.pushButton2_2.clicked.connect(self.b2)
         self.gridLayout.addWidget(self.pushButton2_2, 4, 0, 1, 1)
         self.pushButton2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton2.setObjectName("pushButton")
+        self.pushButton2.clicked.connect(self.b1)
         self.gridLayout.addWidget(self.pushButton2, 1, 0, 1, 1)
         self.tableView = QtWidgets.QTableView(self.centralwidget)
         self.tableView.setObjectName("tableView")
@@ -46,8 +48,16 @@ class Ui_MainWindow2(object):
     def retranslateUi2(self, MainWindow2):
         _translate = QtCore.QCoreApplication.translate
         MainWindow2.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton2_2.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton2.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton2_2.setText(_translate("MainWindow", "ChangeMode"))
+        self.pushButton2.setText(_translate("MainWindow", "SendData"))
+
+    def b1(self):
+        print("Pulsado boton 1_1:")
+
+    def b2(self):
+        print("Pulsado boton 1_2:")
+
+
 
 
 class Ui_MainWindow(object):
@@ -117,8 +127,8 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton_2.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton.setText(_translate("MainWindow", "SendData"))
+        self.pushButton_2.setText(_translate("MainWindow", "SendDataManually"))
+        self.pushButton.setText(_translate("MainWindow", "SendDataWithIcons"))
         self.pushButton_4.setText(_translate("MainWindow", "SerialNumber"))
         self.pushButton_3.setText(_translate("MainWindow", "ConnectCan"))
 
@@ -128,6 +138,7 @@ class Ui_MainWindow(object):
 
     def b2(self):
         print("Pulsado boton 2:")
+        #MainWindow3.show()
 
     def b3(self):
         print("Pulsado boton ConnectCan:"+self.serialNumber)
