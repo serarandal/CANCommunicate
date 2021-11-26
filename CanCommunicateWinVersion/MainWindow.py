@@ -95,12 +95,13 @@ class Ui_MainWindow(object):
 #        Utility.connectCan(serialNumber)
         it = QtGui.QStandardItem(self.serialNumber)
         self.model.appendRow(it)
-#        self.model.appendRow(Utility.canGetStatus())
+#       it = QtGui.QStandardItem(Utility.canGetStatus())
+#       self.model.appendRow(it)
 
     def b4(self):
         print("Pulsado boton SerialNumber:")
         self.serialNumber = self.plainTextEdit.toPlainText()
-        print (self.serialNumber)
+        print(self.serialNumber)
 
 
 if __name__ == "__main__":
