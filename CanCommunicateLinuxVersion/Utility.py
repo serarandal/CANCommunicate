@@ -13,7 +13,7 @@ def readCan():
 
 def connectCan(frequency):
 
-    os.system("sudo ip link set can0 up type can bitrate "+frequency)
-    os.system("sudo ip link set up can0")
+    os.system("echo password | sudo -S ip link set can0 up type can bitrate "+frequency)
+    os.system("echo password | sudo -S ip link set up can0")
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
