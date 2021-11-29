@@ -1,28 +1,18 @@
 from ctypes import *
 from datetime import datetime
+import can
 
-class CANALMSG(Structure):
-    _fields_ = [("flags",c_ulong),("obid",c_ulong),("id",c_ulong),("count",c_char),("data",c_char_p*8),("timestamp",c_ulong)]
+
 #self.pushButton.clicked.connect(self.b1)
 #self.plainTextEdit.toPlainText()
-mydll = cdll.LoadLibrary("C:\\usb2can.dll")
-
-def connectCan(serialNumber):
-    mydll.canalOpen(serialNumber, 500)
+bus = can.interface.Bus(bustype='usb2can', channel='can0', bitrate=500000)
 
 def canGetStatus():
-     return mydll.CanalGetStatus()
-
+    return bus.state
 def canSendMessage(id,count,data):
-    msg=CANALMSG()
-    msg.flags = '1000000000000000000000000000000'
-    msg.id = id
-    msg.count = count
-    for x in data:
-        msg.data[x] = data[x]
-    msg.timestamp = time()
-
-    return mydll.CanalSend(0,msg)
+    return 0
+def canGetMessage():
+    return 0
 
 def time():
     now = datetime.now()
