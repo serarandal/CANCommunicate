@@ -29,11 +29,8 @@ class Ui_MainWindow3(object):
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setContentsMargins(-1, 0, -1, -1)
         self.gridLayout.setObjectName("gridLayout")
-        self.pushButton3_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton3_3.setObjectName("pushButton3_3")
-        self.gridLayout.addWidget(self.pushButton3_3, 0, 2, 1, 1)
         self.pushButton3_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton3_2.setObjectName("pushButton3_2")
+        self.pushButton3_2.setObjectName("pushButton_2")
         self.gridLayout.addWidget(self.pushButton3_2, 0, 0, 1, 1)
         self.plainTextEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
         self.plainTextEdit.setObjectName("plainTextEdit")
@@ -41,7 +38,13 @@ class Ui_MainWindow3(object):
         self.plainTextEdit_2 = QtWidgets.QPlainTextEdit(self.centralwidget)
         self.plainTextEdit_2.setObjectName("plainTextEdit_2")
         self.gridLayout.addWidget(self.plainTextEdit_2, 0, 3, 1, 1)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem, 0, 2, 1, 1)
         self.verticalLayout_3.addLayout(self.gridLayout)
+        self.pushButton3_3 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton3_3.setObjectName("pushButton3_3")
+        self.pushButton3_3.clicked.connect(self.b3)
+        self.verticalLayout_3.addWidget(self.pushButton3_3)
         MainWindow3.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow3)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -58,12 +61,11 @@ class Ui_MainWindow3(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow3.setWindowTitle(_translate("MainWindow3", "MainWindow3"))
         self.pushButton3.setText(_translate("MainWindow3", "PushButton"))
-        self.pushButton3_3.setText(_translate("MainWindow3", "PushButton"))
         self.pushButton3_2.setText(_translate("MainWindow3", "PushButton"))
-
-
-
-
+        self.pushButton3_3.setText(_translate("MainWindows3","ChangeMode"))
+    def b3(self):
+        MainWindow2.show()
+        MainWindow3.hide()
 
 class Ui_MainWindow2(object):
     def setupUi(self, MainWindow2):
@@ -78,6 +80,7 @@ class Ui_MainWindow2(object):
         self.gridLayout.addWidget(self.listView_2, 3, 0, 1, 1)
         self.pushButton2_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton2_2.setObjectName("pushButton2_2")
+        self.pushButton2_2.clicked.connect(self.b1)
         self.gridLayout.addWidget(self.pushButton2_2, 4, 0, 1, 1)
         self.pushButton2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton2.setObjectName("pushButton2")
@@ -100,9 +103,11 @@ class Ui_MainWindow2(object):
     def retranslateUi(self, MainWindow2):
         _translate = QtCore.QCoreApplication.translate
         MainWindow2.setWindowTitle(_translate("MainWindow2", "MainWindow2"))
-        self.pushButton2_2.setText(_translate("MainWindow2", "PushButton"))
-        self.pushButton2.setText(_translate("MainWindow2", "PushButton"))
-
+        self.pushButton2_2.setText(_translate("MainWindow2", "ChangeMode"))
+        self.pushButton2.setText(_translate("MainWindow2", "SendMessage"))
+    def b1(self):
+        MainWindow3.show()
+        MainWindow2.hide()
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
