@@ -60,8 +60,8 @@ class Ui_MainWindow3(object):
     def retranslateUi(self, MainWindow3):
         _translate = QtCore.QCoreApplication.translate
         MainWindow3.setWindowTitle(_translate("MainWindow3", "MainWindow3"))
-        self.pushButton3.setText(_translate("MainWindow3", "PushButton"))
-        self.pushButton3_2.setText(_translate("MainWindow3", "PushButton"))
+        self.pushButton3.setText(_translate("MainWindow3", "SendMessage"))
+        self.pushButton3_2.setText(_translate("MainWindow3", "SetID_Data"))
         self.pushButton3_3.setText(_translate("MainWindows3","ChangeMode"))
     def b3(self):
         MainWindow2.show()

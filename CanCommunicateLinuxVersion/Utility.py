@@ -5,7 +5,7 @@ import can
 import os
 import subprocess as sp
 
-
+msg = can.Message()
 def readCan():
     bustype = 'socketcan'
     can_interface = 'can0'
@@ -19,6 +19,16 @@ def connectCan(frequency):
     output2 = sp.getoutput("echo password | sudo -S ip link set up can0")
     return output +"\n"+  output2
 
+def setId_Data(id,data):
+    global msg
+    msg = can.Message(arbitration_id=id,
+                      data=data,
+                      is_extended_id=0)
+def sendData(id,data):
+    bustype = 'socketcan'
+    can_interface = 'can0'
+    bus = can.interface.Bus(can_interface, bustype=bustype)
+    bus.send(msg)
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
