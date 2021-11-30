@@ -28,7 +28,11 @@ def sendData(id,data):
     bustype = 'socketcan'
     can_interface = 'can0'
     bus = can.interface.Bus(can_interface, bustype=bustype)
-    bus.send(msg)
+    try:
+        bus.send(msg)
+        print("Message sent on {}".format(bus.channel_info))
+    except can.CanError:
+        print("Message NOT sent"+bus.state)
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
