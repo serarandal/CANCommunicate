@@ -21,6 +21,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
+        self.model = QtGui.QStandardItemModel()
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -37,6 +38,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
         self.listView = QtWidgets.QListView(self.centralwidget)
         self.listView.setObjectName("listView")
+        self.listView.setModel(self.model)
         self.gridLayout.addWidget(self.listView, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -58,7 +60,9 @@ class Ui_MainWindow(object):
 
     def b1(self):
         print("Pulsado boton 1:")
-        Utility.connectCan("500000")
+        status = Utility.connectCan("500000")
+        it = QtGui.QStandardItem(status)
+        self.model.appendRow(it)
     def b2(self):
         print("Pulsado boton 2")
         Utility.readCan()
