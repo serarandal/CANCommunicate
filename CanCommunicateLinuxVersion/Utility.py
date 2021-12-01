@@ -6,12 +6,20 @@ import os
 import subprocess as sp
 
 msg = can.Message()
+
 def readCan():
     bustype = 'socketcan'
     can_interface = 'can0'
     bus = can.interface.Bus(can_interface, bustype=bustype)
     for msg in bus:
         print(msg.data)
+
+def readOneCan():
+    bustype = 'socketcan'
+    can_interface = 'can0'
+    bus = can.interface.Bus(can_interface, bustype=bustype)
+    msg = bus.recv()
+    return processMessage(msg)
 
 def connectCan(frequency):
 
@@ -33,6 +41,13 @@ def sendData(id,data):
         print("Message sent on {}".format(bus.channel_info))
     except can.CanError:
         print("Message NOT sent"+bus.state)
+
+def processMessage(msg):
+
+    imagen = str(msg.arbitration_id)
+    imagen = imagen + msg.data.hex()
+    imagen = imagen + str(msg.timestamp)
+    return imagen
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

@@ -176,7 +176,10 @@ class Ui_MainWindow(object):
         self.model.appendRow(it)
     def b2(self):
         print("Pulsado boton 2:")
-        Utility.readCan()
+        msg = Utility.readOneCan()
+        #msg = Utility.processMessage(msg)
+        it = QtGui.QStandardItem(msg)
+        self.model.appendRow(it)
     def b3(self):
         print("Pulsado boton 3:")
         MainWindow2.show()
@@ -199,3 +202,5 @@ if __name__ == "__main__":
     ui3.setupUi(MainWindow3)
     MainWindow.show()
     sys.exit(app.exec_())
+
+#TO DO -> add send multiple message to ui -> add new bottons -> add thread to be able to read and send at the same time
