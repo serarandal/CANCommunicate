@@ -11,6 +11,15 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import Utility
 
+class Worker(QtCore.QObject):
+    finished = QtCore.pyqtSignal()
+    progress = QtCore.pyqtSignal(int)
+
+    def run(self):
+        print("hola")
+        self.progress.emit("hola")
+        self.finished.emit()
+
 
 class Ui_MainWindow3(object):
     def setupUi(self, MainWindow3):
@@ -61,7 +70,7 @@ class Ui_MainWindow3(object):
 
         self.retranslateUi(MainWindow3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow3)
-
+        self.runLongTask()
     def retranslateUi(self, MainWindow3):
         _translate = QtCore.QCoreApplication.translate
         MainWindow3.setWindowTitle(_translate("MainWindow3", "MainWindow3"))
@@ -81,6 +90,18 @@ class Ui_MainWindow3(object):
         self.model3.appendRow(it)
         Utility.sendData()
         print("ohohohohohoho feliz navidad")
+    def runLongTask(self):
+        self.thread = QtCore.QThread()
+        self.worker = Worker()
+        self.worker.moveToThread(self.thread)
+        self.thread.started.connect(self.worker.run)
+        self.worker.finished.connect(self.thread.quit)
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.thread.finished.connect(self.thread.deleteLater)
+        self.thread.start()
+
+
+
 class Ui_MainWindow2(object):
     def setupUi(self, MainWindow2):
         MainWindow2.setObjectName("MainWindow2")
