@@ -16,12 +16,16 @@ class Ui_MainWindow3(object):
     def setupUi(self, MainWindow3):
         MainWindow3.setObjectName("MainWindow3")
         MainWindow3.resize(800, 600)
+        self.id = "a"
+        self.data ="0"
+        self.model3 = QtGui.QStandardItemModel()
         self.centralwidget = QtWidgets.QWidget(MainWindow3)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.listView = QtWidgets.QListView(self.centralwidget)
         self.listView.setObjectName("listView")
+        self.listView.setModel(self.model3)
         self.verticalLayout_3.addWidget(self.listView)
         self.pushButton3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton3.setObjectName("pushButton3")
@@ -31,6 +35,7 @@ class Ui_MainWindow3(object):
         self.gridLayout.setObjectName("gridLayout")
         self.pushButton3_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton3_2.setObjectName("pushButton_2")
+        self.pushButton3_2.clicked.connect(self.b2)
         self.gridLayout.addWidget(self.pushButton3_2, 0, 0, 1, 1)
         self.plainTextEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
         self.plainTextEdit.setObjectName("plainTextEdit")
@@ -66,17 +71,28 @@ class Ui_MainWindow3(object):
     def b3(self):
         MainWindow2.show()
         MainWindow3.hide()
-
+    def b2(self):
+        self.id = self.plainTextEdit.toPlainText()
+        self.data = self.plainTextEdit_2.toPlainText()
+        Utility.setId_Data(self.id,self.data)
+    def b1(self):
+        envio = "tx" + " " + self.id + " " + self.data
+        it = QtGui.QStandardItem(envio)
+        self.model3.appendRow(it)
+        Utility.sendData()
+        print("ohohohohohoho feliz navidad")
 class Ui_MainWindow2(object):
     def setupUi(self, MainWindow2):
         MainWindow2.setObjectName("MainWindow2")
         MainWindow2.resize(800, 600)
+        self.model2 = QtGui.QStandardItemModel()
         self.centralwidget = QtWidgets.QWidget(MainWindow2)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
         self.listView_2 = QtWidgets.QListView(self.centralwidget)
         self.listView_2.setObjectName("listView_2")
+        self.listView_2.setModel(self.model2)
         self.gridLayout.addWidget(self.listView_2, 3, 0, 1, 1)
         self.pushButton2_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton2_2.setObjectName("pushButton2_2")

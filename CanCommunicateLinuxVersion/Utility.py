@@ -8,23 +8,22 @@ import subprocess as sp
 msg = can.Message()
 
 def readCan():
-    bustype = 'socketcan'
-    can_interface = 'can0'
-    bus = can.interface.Bus(can_interface, bustype=bustype)
+    global bus
     for msg in bus:
         print(msg.data)
 
 def readOneCan():
-    bustype = 'socketcan'
-    can_interface = 'can0'
-    bus = can.interface.Bus(can_interface, bustype=bustype)
+    global bus
     msg = bus.recv()
     return processMessage(msg)
 
 def connectCan(frequency):
-
+    global bus
     output = sp.getoutput("echo password | sudo -S ip link set can0 up type can bitrate "+frequency)
     output2 = sp.getoutput("echo password | sudo -S ip link set up can0")
+    bustype = 'socketcan'
+    can_interface = 'can0'
+    bus = can.interface.Bus(can_interface, bustype=bustype)
     return output +"\n"+  output2
 
 def setId_Data(id,data):
@@ -32,10 +31,8 @@ def setId_Data(id,data):
     msg = can.Message(arbitration_id=id,
                       data=data,
                       is_extended_id=0)
-def sendData(id,data):
-    bustype = 'socketcan'
-    can_interface = 'can0'
-    bus = can.interface.Bus(can_interface, bustype=bustype)
+def sendData():
+    global bus
     try:
         bus.send(msg)
         print("Message sent on {}".format(bus.channel_info))
@@ -43,7 +40,6 @@ def sendData(id,data):
         print("Message NOT sent"+bus.state)
 
 def processMessage(msg):
-
     imagen = str(msg.arbitration_id)
     imagen = imagen + msg.data.hex()
     imagen = imagen + str(msg.timestamp)
