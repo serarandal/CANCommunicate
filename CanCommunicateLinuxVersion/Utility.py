@@ -41,8 +41,8 @@ def sendData():
 
 def processMessage(msg):
     imagen = str(msg.arbitration_id)
-    imagen = imagen + msg.data.hex()
-    imagen = imagen + str(msg.timestamp)
+    imagen = imagen +" "+ msg.data.hex()
+    imagen = imagen +" "+ str(msg.timestamp)
     return imagen
 
 

@@ -15,10 +15,10 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="3" column="0">
+    <item row="4" column="0">
      <widget class="QListView" name="listView_2"/>
     </item>
-    <item row="4" column="0">
+    <item row="5" column="0">
      <widget class="QPushButton" name="pushButton_2">
       <property name="text">
        <string>PushButton</string>
@@ -26,6 +26,9 @@
      </widget>
     </item>
     <item row="1" column="0">
+     <widget class="QTableView" name="tableView"/>
+    </item>
+    <item row="2" column="0">
      <widget class="QPushButton" name="pushButton">
       <property name="text">
        <string>PushButton</string>
@@ -33,7 +36,11 @@
      </widget>
     </item>
     <item row="0" column="0">
-     <widget class="QTableView" name="tableView"/>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="text">
+       <string>PushButton</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
