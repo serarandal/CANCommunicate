@@ -19,7 +19,7 @@ class Worker(QtCore.QObject):
     def run(self):
         print("hola")
         while 1 :
-            #sleep(1)
+            sleep(1)
             msg=Utility.readOneCan()
             self.progress.emit(msg)
         self.finished.emit()
@@ -57,6 +57,7 @@ class Ui_MainWindow3(object):
         sizePolicy.setHeightForWidth(self.pushButton3.sizePolicy().hasHeightForWidth())
         self.pushButton3.setSizePolicy(sizePolicy)
         self.pushButton3.setObjectName("pushButton")
+        self.pushButton3.clicked.connect(self.b1)
         self.verticalLayout_3.addWidget(self.pushButton3)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setContentsMargins(-1, 0, -1, -1)
@@ -105,13 +106,10 @@ class Ui_MainWindow3(object):
     def b2(self):
         self.id = self.plainTextEdit.toPlainText()
         self.data = self.plainTextEdit_2.toPlainText()
-        Utility.setId_Data(self.id,self.data)
+        Utility.setId_Data(int(self.id),self.data)
     def b4(self):
         self.runLongTask()
     def b1(self):
-        envio = "tx" + " " + self.id + " " + self.data
-        it = QtGui.QStandardItem(envio)
-        self.model3.appendRow(it)
         Utility.sendData()
         print("ohohohohohoho feliz navidad")
     def reportProgress(self,n):

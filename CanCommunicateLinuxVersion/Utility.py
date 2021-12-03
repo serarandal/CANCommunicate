@@ -19,7 +19,7 @@ def readOneCan():
 
 def connectCan(frequency):
     global bus
-    output = sp.getoutput("echo password | sudo -S ip link set can0 up type can bitrate "+frequency)
+    output = sp.getoutput("echo password | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback on")
     output2 = sp.getoutput("echo password | sudo -S ip link set up can0")
     bustype = 'socketcan'
     can_interface = 'can0'
@@ -28,6 +28,9 @@ def connectCan(frequency):
 
 def setId_Data(id,data):
     global msg
+
+    data=bytearray.fromhex(data)
+    print(data)
     msg = can.Message(arbitration_id=id,
                       data=data,
                       is_extended_id=0)
@@ -40,7 +43,7 @@ def sendData():
         print("Message NOT sent"+bus.state)
 
 def processMessage(msg):
-    imagen = str(msg.arbitration_id)
+    imagen = "Rx"+" " +str(hex(msg.arbitration_id))
     imagen = imagen +" "+ msg.data.hex()
     imagen = imagen +" "+ str(msg.timestamp)
     return imagen
