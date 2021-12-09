@@ -25,6 +25,50 @@ class Worker(QtCore.QObject):
         self.finished.emit()
 
 
+class Ui_MainWindow4(object):
+    def setupUi(self, MainWindow4):
+        MainWindow4.setObjectName("MainWindow4")
+        MainWindow4.resize(800, 600)
+        self.centralwidget = QtWidgets.QWidget(MainWindow4)
+        self.centralwidget.setObjectName("centralwidget")
+        self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
+        self.gridLayout.setObjectName("gridLayout")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setObjectName("label")
+        self.gridLayout.addWidget(self.label, 1, 1, 1, 1)
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem, 0, 1, 1, 1)
+        self.pushButton4 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton4.setObjectName("pushButton")
+        self.gridLayout.addWidget(self.pushButton4, 1, 2, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem1, 3, 1, 1, 1)
+        self.pushButton4_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton4_2.setObjectName("pushButton_2")
+        self.gridLayout.addWidget(self.pushButton4_2, 2, 1, 1, 1)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem2, 1, 0, 1, 1)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem3, 1, 3, 1, 1)
+        MainWindow4.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow4)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
+        self.menubar.setObjectName("menubar")
+        MainWindow4.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow4)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow4.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow4)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow4)
+
+    def retranslateUi(self, MainWindow4):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow4.setWindowTitle(_translate("MainWindow", "AddMessage"))
+        self.label.setText(_translate("MainWindow", "TextLabel"))
+        self.pushButton4.setText(_translate("MainWindow", "Explore"))
+        self.pushButton4_2.setText(_translate("MainWindow", "AddMessage"))
+
 class Ui_MainWindow3(object):
     def setupUi(self, MainWindow3):
         MainWindow3.setObjectName("MainWindow")
@@ -110,6 +154,11 @@ class Ui_MainWindow3(object):
     def b4(self):
         self.runLongTask()
     def b1(self):
+        patata = self.id
+        patata = "Tx"+ " "+ patata +" " + self.data
+        it = QtGui.QStandardItem(patata)
+        self.model3.appendRow(it)
+        self.listView.scrollToBottom()
         Utility.sendData()
         print("ohohohohohoho feliz navidad")
     def reportProgress(self,n):
@@ -126,8 +175,6 @@ class Ui_MainWindow3(object):
         self.thread.finished.connect(self.thread.deleteLater)
         self.worker.progress.connect(self.reportProgress)
         self.thread.start()
-
-
 
 class Ui_MainWindow2(object):
     def setupUi(self, MainWindow2):
@@ -169,6 +216,10 @@ class Ui_MainWindow2(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow2)
         self.statusbar.setObjectName("statusbar")
         MainWindow2.setStatusBar(self.statusbar)
+        with open('Messages/Mensajes CAN_CANADAD_TENSION.xmt','r',encoding='iso-8859-1') as f:
+            content=f.readlines()
+
+        print(content[11])
 
         self.retranslateUi(MainWindow2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow2)
@@ -222,11 +273,15 @@ class Ui_MainWindow(object):
         self.listView.setObjectName("listView")
         self.listView.setModel(self.model)
         self.listView.setAutoScroll(True)
-        self.gridLayout.addWidget(self.listView, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.listView, 1, 0, 1, 1)
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_3.clicked.connect(self.b3)
         self.gridLayout.addWidget(self.pushButton_3, 6, 0, 1, 1)
+        self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_5.setObjectName("pushButton_5")
+        self.pushButton_5.clicked.connect(self.b5)
+        self.gridLayout.addWidget(self.pushButton_5, 0, 0, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem1, 1, 0, 1, 1)
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
@@ -262,6 +317,7 @@ class Ui_MainWindow(object):
         self.pushButton.setText(_translate("MainWindow", "ConnectCan"))
         self.pushButton_3.setText(_translate("MainWindow", "SendPreMadeMessage"))
         self.pushButton_4.setText(_translate("MainWindow", "SendManMessage"))
+        self.pushButton_5.setText(_translate("MainWindow","AddMessages"))
 
     def b1(self):
         print("Pulsado boton 1:")
@@ -281,6 +337,9 @@ class Ui_MainWindow(object):
     def b4(self):
         print("Pulsado boton 4:")
         MainWindow3.show()
+    def b5(self):
+        print("Pulsado boton 5:")
+        MainWindow4.show()
     def reportProgress(self,n):
         n = str(n)
         it = QtGui.QStandardItem(n)
@@ -304,13 +363,15 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     MainWindow2 = QtWidgets.QMainWindow()
     MainWindow3 = QtWidgets.QMainWindow()
+    MainWindow4 = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui2 = Ui_MainWindow2()
     ui3 = Ui_MainWindow3()
+    ui4 = Ui_MainWindow4()
     ui.setupUi(MainWindow)
     ui2.setupUi(MainWindow2)
     ui3.setupUi(MainWindow3)
+    ui4.setupUi(MainWindow4)
     MainWindow.show()
     sys.exit(app.exec_())
 
-#TO DO -> add send multiple message to ui -> add new bottons -> add thread to be able to read and send at the same time
