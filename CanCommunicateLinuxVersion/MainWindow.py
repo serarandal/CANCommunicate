@@ -33,18 +33,20 @@ class Ui_MainWindow4(object):
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setObjectName("label")
-        self.gridLayout.addWidget(self.label, 1, 1, 1, 1)
+        self.text = QtWidgets.QLineEdit(self.centralwidget)
+        self.text.setObjectName("text")
+        self.gridLayout.addWidget(self.text, 1, 1, 1, 1)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem, 0, 1, 1, 1)
         self.pushButton4 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton4.setObjectName("pushButton")
+        self.pushButton4.clicked.connect(self.setBrowerPath)
         self.gridLayout.addWidget(self.pushButton4, 1, 2, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem1, 3, 1, 1, 1)
         self.pushButton4_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton4_2.setObjectName("pushButton_2")
+        self.pushButton4_2.clicked.connect(self.addMessages)
         self.gridLayout.addWidget(self.pushButton4_2, 2, 1, 1, 1)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem2, 1, 0, 1, 1)
@@ -65,9 +67,20 @@ class Ui_MainWindow4(object):
     def retranslateUi(self, MainWindow4):
         _translate = QtCore.QCoreApplication.translate
         MainWindow4.setWindowTitle(_translate("MainWindow", "AddMessage"))
-        self.label.setText(_translate("MainWindow", "TextLabel"))
+        self.text.setText(_translate("MainWindow", ""))
         self.pushButton4.setText(_translate("MainWindow", "Explore"))
         self.pushButton4_2.setText(_translate("MainWindow", "AddMessage"))
+
+    def setBrowerPath(self):
+        file_path, file_type = QtWidgets.QFileDialog.getOpenFileName(MainWindow4, 'open file','./Messages')
+        self.text.setText(file_path)
+        self.text.selectAll()
+        self.text.setFocus()
+
+    def addMessages(self):
+        filepath = self.text.text()
+        Utility.processCreationNewMessages(filepath)
+
 
 class Ui_MainWindow3(object):
     def setupUi(self, MainWindow3):
@@ -216,10 +229,6 @@ class Ui_MainWindow2(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow2)
         self.statusbar.setObjectName("statusbar")
         MainWindow2.setStatusBar(self.statusbar)
-        with open('Messages/Mensajes CAN_CANADAD_TENSION.xmt','r',encoding='iso-8859-1') as f:
-            content=f.readlines()
-
-        print(content[11])
 
         self.retranslateUi(MainWindow2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow2)
@@ -327,10 +336,7 @@ class Ui_MainWindow(object):
     def b2(self):
         print("Pulsado boton 2:")
         self.runLongTask()
-        #msg = Utility.readOneCan()
-        #msg = Utility.processMessage(msg)
-        #it = QtGui.QStandardItem(msg)
-        #self.model.appendRow(it)
+
     def b3(self):
         print("Pulsado boton 3:")
         MainWindow2.show()

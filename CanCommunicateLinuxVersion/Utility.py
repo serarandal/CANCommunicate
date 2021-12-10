@@ -49,4 +49,23 @@ def processMessage(msg):
     return imagen
 
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+def processCreationNewMessages(filepath):
+    with open(filepath, 'r', encoding='iso-8859-1') as f:
+        content = f.readlines()
+    print(content[11])
+    for i in range(0, 11):
+        content.pop(0)
+
+    for x in range(len(content)):
+        a = content[x].split(";")
+        name=a[1]
+        name = name.replace(" ","_")
+        name = name[1:]
+        name = name[:-1]
+        name = name+".txt"
+        sp.getoutput("touch "+name)
+        b = a[0].split()
+        id = b[0][:-1]
+        data = b [4][:-1] +" "+b[5][:-1]+" "+b[6][:-1]+" "+b[7][:-1]+" "+b[8][:-1]+" "+b[9][:-1]+" "+b[10][:-1]+" "+b[11][:-1]+" "
+        sp.getoutput("echo "+id+" "+data+" > "+name)
+        sp.getoutput("mv *.txt Messages")
