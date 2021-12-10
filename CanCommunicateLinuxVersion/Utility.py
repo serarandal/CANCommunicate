@@ -29,11 +29,10 @@ def connectCan(frequency):
 def setId_Data(id,data):
     global msg
 
-    data=bytearray.fromhex(data)
-    print(data)
-    msg = can.Message(arbitration_id=id,
+    print(data) #arbitration_id hex del id -> 0x608 #data=[]cada hex en su correspondiente int
+    msg = can.Message(arbitration_id=int(id,16),
                       data=data,
-                      is_extended_id=0)
+                      is_extended_id=False)
 def sendData():
     global bus
     try:
@@ -43,8 +42,17 @@ def sendData():
         print("Message NOT sent"+bus.state)
 
 def processMessage(msg):
+    finish = False
+    i=2
     imagen = "Rx"+" " +str(hex(msg.arbitration_id))
-    imagen = imagen +" "+ msg.data.hex()
+    data = msg.data.hex()
+    length=len(data)
+    while finish == False:
+        if i >= length :
+            finish = True
+        data = data[:i]+" "+data[i:]
+        i = i+3
+    imagen = imagen + " " + data
     imagen = imagen +" "+ str(msg.timestamp)
     return imagen
 
@@ -69,3 +77,29 @@ def processCreationNewMessages(filepath):
         data = b [4][:-1] +" "+b[5][:-1]+" "+b[6][:-1]+" "+b[7][:-1]+" "+b[8][:-1]+" "+b[9][:-1]+" "+b[10][:-1]+" "+b[11][:-1]+" "
         sp.getoutput("echo "+id+" "+data+" > "+name)
         sp.getoutput("mv *.txt Messages")
+
+
+def sendPremadeData(filename):
+    dataF = []
+    with open("Messages/"+filename, 'r', encoding='iso-8859-1') as f:
+        content = f.readline()
+        print(content)
+    b = content.split()
+    id = b[0]
+    data = b[1]+ b[2] +  b[3] +  b[4] + b[5] + b[6] +b[7] +b[8]
+    print(data)
+    b.pop(0)
+    for i in range(len(b)):
+        dataF.append(int(b[i],16))
+    setId_Data(id,dataF)
+    sendData()
+
+def processManData(id,data):
+    dataF = []
+    print(id)
+    b = data.split()
+    length = len(b)
+    for i in range(length):
+        dataF.append(int(b[i],16))
+    setId_Data(id,dataF)
+
