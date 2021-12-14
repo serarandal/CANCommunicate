@@ -6,6 +6,8 @@ import os
 import subprocess as sp
 
 msg = can.Message()
+idG = ""
+dataG = ""
 
 def readCan():
     global bus
@@ -19,8 +21,8 @@ def readOneCan():
 
 def connectCan(frequency):
     global bus
-    output = sp.getoutput("echo password | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback on")
-    output2 = sp.getoutput("echo password | sudo -S ip link set up can0")
+    output = sp.getoutput("echo Sergio | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
+    output2 = sp.getoutput("echo Sergio | sudo -S ip link set up can0")
     bustype = 'socketcan'
     can_interface = 'can0'
     bus = can.interface.Bus(can_interface, bustype=bustype)
@@ -66,7 +68,7 @@ def processCreationNewMessages(filepath):
 
     for x in range(len(content)):
         a = content[x].split(";")
-        name=a[1]
+        name=a[1] # puede no haber nombre, hace falta hacer un try catch
         name = name.replace(" ","_")
         name = name[1:]
         name = name[:-1]
@@ -95,6 +97,11 @@ def sendPremadeData(filename):
     sendData()
 
 def processManData(id,data):
+    global idG
+    global dataG
+    idG = id
+    dataG = data
+
     dataF = []
     print(id)
     b = data.split()
@@ -103,3 +110,10 @@ def processManData(id,data):
         dataF.append(int(b[i],16))
     setId_Data(id,dataF)
 
+def createNewPreMadeMessage(name):
+    global idG
+    global dataG
+
+    name = name + ".txt"
+    sp.getoutput("echo " + idG + " " + dataG + " > " + name)
+    sp.getoutput("mv *.txt Messages")
