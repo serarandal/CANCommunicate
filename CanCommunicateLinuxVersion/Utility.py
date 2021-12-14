@@ -68,11 +68,14 @@ def processCreationNewMessages(filepath):
 
     for x in range(len(content)):
         a = content[x].split(";")
-        name=a[1] # puede no haber nombre, hace falta hacer un try catch
-        name = name.replace(" ","_")
-        name = name[1:]
-        name = name[:-1]
-        name = name+".txt"
+        try:
+            name=a[1]
+            name = name.replace(" ", "_")
+            name = name[1:]
+            name = name[:-1]
+            name = name + ".txt"
+        except IndexError:
+            name = "noname.txt"
         sp.getoutput("touch "+name)
         b = a[0].split()
         id = b[0][:-1]
