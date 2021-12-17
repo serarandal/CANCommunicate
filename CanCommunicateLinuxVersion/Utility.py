@@ -8,6 +8,18 @@ import subprocess as sp
 msg = can.Message()
 idG = ""
 dataG = ""
+password = ""
+
+def setPassword(passW):
+    global password
+    with open("password.txt",'r')as f:
+        data = f.read()
+    if data == passW :
+        None
+    else:
+        with open("password.txt",'w') as f:
+            f.write(passW)
+        password = passW
 
 def readCan():
     global bus
@@ -21,8 +33,11 @@ def readOneCan():
 
 def connectCan(frequency):
     global bus
-    output = sp.getoutput("echo Sergio | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
-    output2 = sp.getoutput("echo Sergio | sudo -S ip link set up can0")
+    global password
+    with ("password.txt",'r') as f:
+        password = f.read()
+    output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
+    output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
     bustype = 'socketcan'
     can_interface = 'can0'
     bus = can.interface.Bus(can_interface, bustype=bustype)

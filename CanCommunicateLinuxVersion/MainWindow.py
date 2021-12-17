@@ -21,10 +21,54 @@ class Worker(QtCore.QObject):
     def run(self):
         print("hola")
         while 1 :
-            sleep(1)
             msg=Utility.readOneCan()
             self.progress.emit(msg)
         self.finished.emit()
+
+class Ui_MainWindow6(object):
+    def setupUi(self, MainWindow6):
+        MainWindow6.setObjectName("MainWindow6")
+        MainWindow6.resize(800, 600)
+        self.centralwidget = QtWidgets.QWidget(MainWindow6)
+        self.centralwidget.setObjectName("centralwidget")
+        self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
+        self.gridLayout.setObjectName("gridLayout")
+        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.plainTextEdit.setObjectName("plainTextEdit")
+        self.gridLayout.addWidget(self.plainTextEdit, 1, 1, 1, 1)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
+        self.pushButton6 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton6.setObjectName("pushButton")
+        self.pushButton6.clicked.connect(self.b1)
+        self.gridLayout.addWidget(self.pushButton6, 1, 2, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem1, 2, 1, 1, 1)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem2, 0, 1, 1, 1)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem3, 1, 3, 1, 1)
+        MainWindow6.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow6)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
+        self.menubar.setObjectName("menubar")
+        MainWindow6.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow6)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow6.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow6)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow6)
+
+    def retranslateUi(self, MainWindow6):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow6.setWindowTitle(_translate("MainWindow", "MainWindow6"))
+        self.pushButton6.setText(_translate("MainWindow", "AddPassword"))
+
+    def b1(self):
+        pas=self.plainTextEdit.toPlainText()
+        Utility.setPassword(pas)
+
 
 class Ui_MainWindow5(object):
     def setupUi(self,MainWindow5):
@@ -355,13 +399,14 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
+        self.connected = False
         self.model = QtGui.QStandardItemModel()
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem, 5, 0, 1, 1)
+        self.gridLayout.addItem(spacerItem, 7, 0, 1, 1)
         self.listView = QtWidgets.QListView(self.centralwidget)
         self.listView.setObjectName("listView")
         self.listView.setModel(self.model)
@@ -370,27 +415,31 @@ class Ui_MainWindow(object):
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_3.clicked.connect(self.b3)
-        self.gridLayout.addWidget(self.pushButton_3, 6, 0, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_3, 10, 0, 1, 1)
         self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_5.setObjectName("pushButton_5")
         self.pushButton_5.clicked.connect(self.b5)
         self.gridLayout.addWidget(self.pushButton_5, 0, 0, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem1, 1, 0, 1, 1)
+        self.gridLayout.addItem(spacerItem1, 2, 0, 1, 1)
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_2.clicked.connect(self.b2)
-        self.gridLayout.addWidget(self.pushButton_2, 3, 0, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_2, 5, 0, 1, 1)
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setObjectName("pushButton")
         self.pushButton.clicked.connect(self.b1)
-        self.gridLayout.addWidget(self.pushButton, 2, 0, 1, 1)
+        self.gridLayout.addWidget(self.pushButton, 4, 0, 1, 1)
+        self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_6.setObjectName("pushButton_6")
+        self.pushButton_6.clicked.connect(self.b6)
+        self.gridLayout.addWidget(self.pushButton_6, 3, 0, 1, 1)
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_4.setObjectName("pushButton_4")
         self.pushButton_4.clicked.connect(self.b4)
         self.gridLayout.addWidget(self.pushButton_4, 8, 0, 1, 1)
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem2, 9, 0, 1, 1)
+        self.gridLayout.addItem(spacerItem2, 11, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -411,6 +460,7 @@ class Ui_MainWindow(object):
         self.pushButton_3.setText(_translate("MainWindow", "SendPreMadeMessage"))
         self.pushButton_4.setText(_translate("MainWindow", "SendManMessage"))
         self.pushButton_5.setText(_translate("MainWindow","AddMessages"))
+        self.pushButton_6.setText(_translate("MainWindow", "SetPassword"))
 
     def b1(self):
         print("Pulsado boton 1:")
@@ -427,9 +477,15 @@ class Ui_MainWindow(object):
     def b4(self):
         print("Pulsado boton 4:")
         MainWindow3.show()
-    def b5(self):
+
+    def b5(self): #wait 10 seconds and close it
         print("Pulsado boton 5:")
         MainWindow4.show()
+
+    def b6(self):
+        print("Pulsado boton 6:")
+        MainWindow6.show()
+
     def reportProgress(self,n):
         n = str(n)
         it = QtGui.QStandardItem(n)
@@ -455,16 +511,19 @@ if __name__ == "__main__":
     MainWindow3 = QtWidgets.QMainWindow()
     MainWindow4 = QtWidgets.QMainWindow()
     MainWindow5 = QtWidgets.QMainWindow()
+    MainWindow6 = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui2 = Ui_MainWindow2()
     ui3 = Ui_MainWindow3()
     ui4 = Ui_MainWindow4()
     ui5 = Ui_MainWindow5()
+    ui6 = Ui_MainWindow6()
     ui.setupUi(MainWindow)
     ui2.setupUi(MainWindow2)
     ui3.setupUi(MainWindow3)
     ui4.setupUi(MainWindow4)
     ui5.setupUi(MainWindow5)
+    ui6.setupUi(MainWindow6)
     MainWindow.show()
     sys.exit(app.exec_())
 
