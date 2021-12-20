@@ -34,7 +34,7 @@ def readOneCan():
 def connectCan(frequency):
     global bus
     global password
-    with ("password.txt",'r') as f:
+    with open("password.txt") as f:
         password = f.read()
     output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
     output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
