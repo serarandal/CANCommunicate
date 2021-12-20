@@ -21,6 +21,7 @@ class Worker(QtCore.QObject):
     def run(self):
         print("hola")
         while 1 :
+            sleep(0.1)
             msg=Utility.readOneCan()
             self.progress.emit(msg)
         self.finished.emit()
