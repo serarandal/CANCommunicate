@@ -113,7 +113,7 @@ class Ui_MainWindow5(object):
 
     def retranslateUi(self, MainWindow5):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow5", "CreateNewMessage"))
+        MainWindow5.setWindowTitle(_translate("MainWindow5", "CreateNewMessage"))
         self.pushButton5_2.setText(_translate("MainWindow5", "Create"))
         self.label.setText(_translate("MainWindow5", "Add new name to this message"))
 
