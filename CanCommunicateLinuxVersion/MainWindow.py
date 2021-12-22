@@ -21,7 +21,6 @@ class Worker(QtCore.QObject):
     def run(self):
         print("hola")
         while 1 :
-            sleep(0.1)
             msg=Utility.readOneCan()
             self.progress.emit(msg)
         self.finished.emit()
@@ -528,3 +527,22 @@ if __name__ == "__main__":
     MainWindow.show()
     sys.exit(app.exec_())
 
+#TODO 1-Make the windows app. -> You can use os.system for cmd to, so maybe we can make only one app and add a window at the beggining that will make you choose which os you are working on. Or even better, you can just chech with os you are working on, import platform. platform.system() -> Linux, Windows, Darwin.
+# 2-Refactor and divide.
+# 3-Fix ui bug, Qtthread.
+# 4- Add new python threads instead of ui threads.
+# 5-Learn to use QWidgets.
+# 6-Add tx to the premade messages.
+# 7-Add filter to the read display, like only show with x id...
+# 8-Stop hardcoding the frecuency in connectCan.
+# 9-Translate the error messages to readable text.
+# 10-Use as less global variables as possible.
+# 11-Try to add the messages and password inside the app so we don't have to copy it.
+# 12- IF 11 doesn't work, learn how to encrypt the password file.
+# 13- Remove delay from qtthread and fix it if 3 or 4 doesn't work.
+# 14- Update the guide if needed, maybe add a video in the future to show the app.
+# 15 - Add label to id and data in the manmademessage
+# 16 - Add a box for each byte -> Choose from both
+# 17 - Add a label to say if the new message was save
+# 18 - Fix bug new premade message doesnt appear.
+# 19 - Test explorer
