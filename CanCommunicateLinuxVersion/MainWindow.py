@@ -20,9 +20,15 @@ class Worker(QtCore.QObject):
 
     def run(self):
         print("hola")
+        i = 0
         while 1 :
-            msg=Utility.readOneCan()
-            self.progress.emit(msg)
+            if i == 700000 :
+                msg = Utility.testOneCan()
+                i = 0
+                self.progress.emit(msg)
+            else :
+                i = i+1
+
         self.finished.emit()
 
 class Ui_MainWindow6(object):

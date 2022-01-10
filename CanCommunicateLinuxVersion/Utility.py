@@ -1,15 +1,15 @@
-# This is a sample Python script.
 import can
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import os
 import subprocess as sp
+import threading
+
+import MainWindow
 
 msg = can.Message()
 idG = ""
 dataG = ""
 password = ""
-
+ready = False
 def setPassword(passW):
     global password
     with open("password.txt",'r')as f:
@@ -31,6 +31,11 @@ def readOneCan():
     msg = bus.recv()
     return processMessage(msg)
 
+def testOneCan():
+    global bus
+    global msg
+    return processMessage(msg)
+
 def connectCan(frequency):
     global bus
     global password
@@ -41,6 +46,7 @@ def connectCan(frequency):
     bustype = 'socketcan'
     can_interface = 'can0'
     bus = can.interface.Bus(can_interface, bustype=bustype)
+    initThreads()
     return output +"\n"+  output2
 
 def setId_Data(id,data):
@@ -135,3 +141,39 @@ def createNewPreMadeMessage(name):
     name = name + ".txt"
     sp.getoutput("echo " + idG + " " + dataG + " > " + name)
     sp.getoutput("mv *.txt Messages") # new to add a filter here
+
+def pushThread():
+    global ready
+    global msg
+    stop_event = threading.Event()
+    f = threading.Thread(target=flagger_thread, args=[stop_event])
+    f.setDaemon(True)
+    f.start()
+    if ready == True :
+        ready = False
+        return processMessage(msg)
+
+def flagger_thread(event):
+    event.set()
+    ready = True
+def waiter_thread(event):
+    global msg
+    while True:
+        msg = bus.recv()
+
+        #event2.set()
+#def unflagger_thread(event,event2):
+#    global ready
+#    ready = True
+#    if event2.wait():
+#        event.clear()
+#        event2.clear()
+def initThreads():
+    stop_event = threading.Event()
+#    continue_event = threading.Event()
+    w = threading.Thread(target=waiter_thread, args=[stop_event])
+#    u = threading.Thread(target=unflagger_thread, args=[stop_event, continue_event])
+    w.setDaemon(True)
+#    u.setDaemon(True)
+    w.start()
+#    u.start()
