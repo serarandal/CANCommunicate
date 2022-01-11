@@ -44,7 +44,7 @@ def connectCan(frequency):
     with open("password.txt") as f:
         password = f.read()
     if sistema == 'Linux':
-        output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
+        output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback on")
         output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
         bustype = 'socketcan'
         can_interface = 'can0'
@@ -126,8 +126,10 @@ def sendPremadeData(filename):
     b.pop(0)
     for i in range(len(b)):
         dataF.append(int(b[i],16))
+    sData=id+"/"+data
     setId_Data(id,dataF)
     sendData()
+    return sData
 
 def processManData(id,data):
     global idG

@@ -302,7 +302,6 @@ class Ui_MainWindow3(object):
         self.model3.appendRow(it)
         self.listView.scrollToBottom()
         Utility.sendData()
-        print("ohohohohohoho feliz navidad")
 
     def b5(self):
         print("Pushed show save message gui:")
@@ -390,7 +389,12 @@ class Ui_MainWindow2(object):
     def b3(self):
         print("Send_Premade_Data:")
         index=self.listView_2.selectedIndexes()
-        Utility.sendPremadeData(index[0].data())
+        data=Utility.sendPremadeData(index[0].data())
+        patata = data.split("/")
+        patata = "Tx" + " 0x" + patata[0] + " " + patata[1]
+        it = QtGui.QStandardItem(patata)
+        self.model2_2.appendRow(it)
+        self.listView2_2.scrollToBottom()
 
     def addItemsListView(self):
         icon = QtGui.QIcon("icon.png")
@@ -550,12 +554,12 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
 
 #TODO
-# 1-Make the windows app. -> You can use os.system for cmd too, so maybe we can make only one app and add a window at the beggining that will make you choose which os you are working on. Or even better, you can just chech with os you are working on, import platform. platform.system() -> Linux, Windows, Darwin.
+# 22-Make the windows app. -> You can use os.system for cmd too, so maybe we can make only one app and add a window at the beggining that will make you choose which os you are working on. Or even better, you can just chech with os you are working on, import platform. platform.system() -> Linux, Windows, Darwin.
 # 2-Refactor and divide.
 # 3-Fix ui bug, Qtthread. -> almost there.
 # 4-Add new python threads instead of ui threads. -> Used this but not really.
 # 5-Learn to use QWidgets.
-# 6-Add tx to the premade messages.
+# 6-Add tx to the premade messages -> Done
 # 7-Add filter to the read display, like only show with x id...
 # 8-Stop hardcoding the frecuency in connectCan, need to add a new window.
 # 9-Translate the error messages to readable text.
@@ -571,3 +575,4 @@ if __name__ == "__main__":
 # 19-Test explorer.
 # 20-Add better commentary and traces.
 # 21-Fix Readme
+# 22-Stop reading the same message if no new message in the bus.
