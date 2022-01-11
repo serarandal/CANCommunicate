@@ -21,11 +21,20 @@ class Worker(QtCore.QObject):
     def run(self):
         print("hola")
         i = 0
+        j = 0
         while 1 :
             if i == 700000 :
-                msg = Utility.testOneCan()  #TODO try to make processmessage before invoking this
+                msg = Utility.testOneCan()
                 i = 0
-                self.progress.emit(msg)
+                if msg == "" or msg == None :
+                    if j == 0:
+                        self.progress.emit("NoMessages")
+                        j=1
+                    else:
+                        None
+                else :
+                    self.progress.emit(msg)
+                    j = 0
             else :
                 i = i+1
 

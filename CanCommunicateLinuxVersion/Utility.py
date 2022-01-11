@@ -1,11 +1,12 @@
 import can
-import os
+#import os
 import subprocess as sp
 import threading
 
 import MainWindow
 
 msg = can.Message()
+processedMsg = ""
 idG = ""
 dataG = ""
 password = ""
@@ -33,8 +34,8 @@ def readOneCan():
 
 def testOneCan():
     global bus
-    global msg
-    return processMessage(msg)
+    global processedMsg
+    return processedMsg
 
 def connectCan(frequency):
     global bus
@@ -158,9 +159,10 @@ def flagger_thread(event):
     ready = True
 def waiter_thread(event):
     global msg
+    global processedMsg
     while True:
         msg = bus.recv()
-
+        processedMsg = processMessage(msg)
         #event2.set()
 #def unflagger_thread(event,event2):
 #    global ready
