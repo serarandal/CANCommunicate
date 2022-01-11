@@ -1,9 +1,8 @@
 import can
-#import os
+import platform
 import subprocess as sp
 import threading
 
-import MainWindow
 
 msg = can.Message()
 processedMsg = ""
@@ -11,6 +10,8 @@ idG = ""
 dataG = ""
 password = ""
 ready = False
+sistema = platform.system()
+
 def setPassword(passW):
     global password
     with open("password.txt",'r')as f:
@@ -42,11 +43,18 @@ def connectCan(frequency):
     global password
     with open("password.txt") as f:
         password = f.read()
-    output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
-    output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
-    bustype = 'socketcan'
-    can_interface = 'can0'
-    bus = can.interface.Bus(can_interface, bustype=bustype)
+    if sistema == 'Linux':
+        output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
+        output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
+        bustype = 'socketcan'
+        can_interface = 'can0'
+        bus = can.interface.Bus(can_interface, bustype=bustype)
+    else:
+        output = sp.getoutput("echo " + password + " | sudo -S ip link set can0 up type can bitrate " + frequency + " loopback off")
+        output2 = sp.getoutput("echo " + password + " | sudo -S ip link set up can0")
+        bustype = 'usb2can'
+        can_interface = 'can0'
+        bus = can.interface.Bus(can_interface, bustype=bustype)
     initThreads()
     return output +"\n"+  output2
 
@@ -160,6 +168,7 @@ def flagger_thread(event):
 def waiter_thread(event):
     global msg
     global processedMsg
+    print("Starting the reading worker real thread")
     while True:
         msg = bus.recv()
         processedMsg = processMessage(msg)
