@@ -65,7 +65,7 @@ if __name__ == "__main__":
     ui6 = PasswordWindow.Ui_MainWindow6()
     ui.setupUi(MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6)
     ui2.setupUi(MainWindow2,MainWindow3)
-    ui3.setupUi(MainWindow3)
+    ui3.setupUi(MainWindow3,MainWindow2,MainWindow5)
     ui4.setupUi(MainWindow4)
     ui5.setupUi(MainWindow5)
     ui6.setupUi(MainWindow6)
