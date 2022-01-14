@@ -1,40 +1,38 @@
 import PyQt5.QtCore
 #import can
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 import Utility
 import os
-#from time import sleep
+import time
 
-class Worker(QtCore.QObject):
+class Popup(object):
+    def setupUi(self,PopupWindow):
+        PopupWindow.setObjectName("Form")
+        PopupWindow.resize(400, 300)
+        self.gridLayout = QtWidgets.QGridLayout(PopupWindow)
+        self.gridLayout.setObjectName("gridLayout")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
+        self.label = QtWidgets.QLabel(PopupWindow)
+        self.label.setObjectName("label")
+        self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem1, 0, 2, 1, 1)
 
-    finished = QtCore.pyqtSignal()
-    progress = QtCore.pyqtSignal(str)
+        self.retranslateUi(PopupWindow)
+        QtCore.QMetaObject.connectSlotsByName(PopupWindow)
 
-    def run(self):
-        print("Starting the reading worker gui thread")
-        i = 0
-        j = 0
-        while 1 :
-            if i == 700000 :
-                msg = Utility.testOneCan()
-                i = 0
-                if msg == "" or msg == None :
-                    if j == 0:
-                        self.progress.emit("NoMessages")
-                        j=1
-                    else:
-                        None
-                else :
-                    self.progress.emit(msg)
-                    j = 0
-            else :
-                i = i+1
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Popup1"))
+        self.label.setText(_translate("Form", "Contraseña Guardada"))
 
-        self.finished.emit()
 
 
 class Ui_MainWindow6(object):
-    def setupUi(self, MainWindow6):
+    def setupUi(self, MainWindow6,PopupWindow):
+        self.Popup = PopupWindow
         MainWindow6.setObjectName("MainWindow6")
         MainWindow6.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow6)
@@ -77,3 +75,5 @@ class Ui_MainWindow6(object):
         print("Pushed add new password button:")
         pas=self.plainTextEdit.toPlainText()
         Utility.setPassword(pas)
+        self.Popup.show()
+        #self.Popup.close()
