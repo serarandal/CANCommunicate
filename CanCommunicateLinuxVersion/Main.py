@@ -63,7 +63,6 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
 
 #TODO
-# 23-Make the windows app. -> You can use os.system for cmd too, so maybe we can make only one app and add a window at the beggining that will make you choose which os you are working on. Or even better, you can just chech with os you are working on, import platform. platform.system() -> Linux, Windows, Darwin.
 # 7-Add filter to the read display, like only show with x id...
 # 9-Translate the error messages to readable text.
 # 15-Add label to id and data in the manmademessage.
