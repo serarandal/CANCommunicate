@@ -6,58 +6,58 @@ import Utility
 import os
 import time
 
-class Popup(object):
-    def setupUi(self,PopupWindow):
-        PopupWindow.setObjectName("Form")
-        PopupWindow.resize(400, 300)
-        self.gridLayout = QtWidgets.QGridLayout(PopupWindow)
+class Popup3(object):
+    def setupUi(self, PopupWindow3):
+        PopupWindow3.setObjectName("Form")
+        PopupWindow3.resize(400, 300)
+        self.gridLayout = QtWidgets.QGridLayout(PopupWindow3)
         self.gridLayout.setObjectName("gridLayout")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
-        self.label = QtWidgets.QLabel(PopupWindow)
+        self.label = QtWidgets.QLabel(PopupWindow3)
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem1, 0, 2, 1, 1)
 
-        self.retranslateUi(PopupWindow)
-        QtCore.QMetaObject.connectSlotsByName(PopupWindow)
+        self.retranslateUi(PopupWindow3)
+        QtCore.QMetaObject.connectSlotsByName(PopupWindow3)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Popup1"))
-        self.label.setText(_translate("Form", "Contraseña Guardada"))
+        self.label.setText(_translate("Form", "Frecuencia Guardada"))
 
-class Popup2(object):
-    def setupUi(self,PopupWindow2):
-        PopupWindow2.setObjectName("Form")
-        PopupWindow2.resize(400, 300)
-        self.gridLayout = QtWidgets.QGridLayout(PopupWindow2)
+class Popup4(object):
+    def setupUi(self, PopupWindow4):
+        PopupWindow4.setObjectName("Form")
+        PopupWindow4.resize(400, 300)
+        self.gridLayout = QtWidgets.QGridLayout(PopupWindow4)
         self.gridLayout.setObjectName("gridLayout")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
-        self.label = QtWidgets.QLabel(PopupWindow2)
+        self.label = QtWidgets.QLabel(PopupWindow4)
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem1, 0, 2, 1, 1)
 
-        self.retranslateUi(PopupWindow2)
-        QtCore.QMetaObject.connectSlotsByName(PopupWindow2)
+        self.retranslateUi(PopupWindow4)
+        QtCore.QMetaObject.connectSlotsByName(PopupWindow4)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Popup2"))
         self.label.setText(_translate("Form", "Fallo al guardar"))
 
-class Ui_MainWindow6(object):
-    def setupUi(self, MainWindow6,PopupWindow,PopupWindow2):
+class Ui_MainWindow7(object):
+    def setupUi(self, MainWindow7,PopupWindow,PopupWindow2):
         self.Popup = PopupWindow
         self.Popup2 = PopupWindow2
-        self.MainWindow6 = MainWindow6
-        MainWindow6.setObjectName("MainWindow6")
-        MainWindow6.resize(800, 600)
-        self.centralwidget = QtWidgets.QWidget(MainWindow6)
+        self.MainWindow7 = MainWindow7
+        MainWindow7.setObjectName("MainWindow7")
+        MainWindow7.resize(800, 600)
+        self.centralwidget = QtWidgets.QWidget(MainWindow7)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
@@ -76,30 +76,30 @@ class Ui_MainWindow6(object):
         self.gridLayout.addItem(spacerItem2, 0, 1, 1, 1)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem3, 1, 3, 1, 1)
-        MainWindow6.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow6)
+        MainWindow7.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow7)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
         self.menubar.setObjectName("menubar")
-        MainWindow6.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow6)
+        MainWindow7.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow7)
         self.statusbar.setObjectName("statusbar")
-        MainWindow6.setStatusBar(self.statusbar)
+        MainWindow7.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow6)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow6)
+        self.retranslateUi(MainWindow7)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow7)
 
-    def retranslateUi(self, MainWindow6):
+    def retranslateUi(self, MainWindow7):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow6.setWindowTitle(_translate("MainWindow", "MainWindow6"))
-        self.pushButton6.setText(_translate("MainWindow", "AddPassword"))
+        MainWindow7.setWindowTitle(_translate("MainWindow", "MainWindow7"))
+        self.pushButton6.setText(_translate("MainWindow", "SetFrecuency"))
 
     def b1(self):
-        print("Pushed add new password button:")
-        pas=self.plainTextEdit.toPlainText()
-        savePass = Utility.setPassword(pas)
+        print("Pushed add new frequency button:")
+        frec=self.plainTextEdit.toPlainText()
+        savePass = Utility.setFrequency(frec)
         if savePass == True:
             self.Popup.show()
-            self.MainWindow6.close()
+            self.MainWindow7.close()
         else:
             self.Popup2.show()
 

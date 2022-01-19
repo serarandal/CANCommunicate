@@ -11,17 +11,19 @@ dataG = ""
 password = ""
 ready = False
 sistema = platform.system()
+frequency =""
 
 def setPassword(passW):
     global password
     with open("password.txt",'r')as f:
         data = f.read()
     if data == passW :
-        None
+        return True
     else:
         with open("password.txt",'w') as f:
             f.write(passW)
         password = passW
+        return True
 
 def debugReadCan():
     global bus
@@ -38,9 +40,18 @@ def testOneCan():
     global processedMsg
     return processedMsg
 
-def connectCan(frequency):
+def setFrequency(fre):
+    global frequency
+    if fre == "":
+        return False
+    else:
+        frequency = fre
+        return True
+
+def connectCan():
     global bus
     global password
+    global frequency
     with open("password.txt") as f:
         password = f.read()
     if sistema == 'Linux':
@@ -174,13 +185,6 @@ def waiter_thread(event):
     while True:
         msg = bus.recv()
         processedMsg = processMessage(msg)
-        #event2.set()
-#def unflagger_thread(event,event2):
-#    global ready
-#    ready = True
-#    if event2.wait():
-#        event.clear()
-#        event2.clear()
 def initThreads():
     stop_event = threading.Event()
 #    continue_event = threading.Event()
