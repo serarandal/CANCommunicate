@@ -5,36 +5,55 @@ import Utility
 import os
 #from time import sleep
 
-class Worker(QtCore.QObject):
+class Popup6(object):
+    def setupUi(self, PopupWindow6):
+        PopupWindow6.setObjectName("Form")
+        PopupWindow6.resize(400, 300)
+        self.gridLayout = QtWidgets.QGridLayout(PopupWindow6)
+        self.gridLayout.setObjectName("gridLayout")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
+        self.label = QtWidgets.QLabel(PopupWindow6)
+        self.label.setObjectName("label")
+        self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem1, 0, 2, 1, 1)
 
-    finished = QtCore.pyqtSignal()
-    progress = QtCore.pyqtSignal(str)
+        self.retranslateUi(PopupWindow6)
+        QtCore.QMetaObject.connectSlotsByName(PopupWindow6)
 
-    def run(self):
-        print("Starting the reading worker gui thread")
-        i = 0
-        j = 0
-        while 1 :
-            if i == 700000 :
-                msg = Utility.testOneCan()
-                i = 0
-                if msg == "" or msg == None :
-                    if j == 0:
-                        self.progress.emit("NoMessages")
-                        j=1
-                    else:
-                        None
-                else :
-                    self.progress.emit(msg)
-                    j = 0
-            else :
-                i = i+1
+    def retranslateUi(self, Form2):
+        _translate = QtCore.QCoreApplication.translate
+        Form2.setWindowTitle(_translate("Form", "Popup2"))
+        self.label.setText(_translate("Form", "Error al guardar el nuevo mensaje"))
 
-        self.finished.emit()
+class Popup5(object):
+    def setupUi(self, PopupWindow5):
+        PopupWindow5.setObjectName("Form")
+        PopupWindow5.resize(400, 300)
+        self.gridLayout = QtWidgets.QGridLayout(PopupWindow5)
+        self.gridLayout.setObjectName("gridLayout")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
+        self.label = QtWidgets.QLabel(PopupWindow5)
+        self.label.setObjectName("label")
+        self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem1, 0, 2, 1, 1)
 
+        self.retranslateUi(PopupWindow5)
+        QtCore.QMetaObject.connectSlotsByName(PopupWindow5)
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Popup1"))
+        self.label.setText(_translate("Form", "Contraseña Guardada"))
 
 class Ui_MainWindow5(object):
-    def setupUi(self,MainWindow5):
+    def setupUi(self,MainWindow5,PopupWindow5,PopupWindow6):
+        self.Popup = PopupWindow5
+        self.Popup2 = PopupWindow6
+        self.MainWindow5 = MainWindow5
         MainWindow5.setObjectName("MainWindow5")
         MainWindow5.resize(800,600)
         self.centralwidget = QtWidgets.QWidget(MainWindow5)
@@ -71,7 +90,12 @@ class Ui_MainWindow5(object):
         name=self.lineEdit.text()
         print(name)
         print("Pushed add new message button:")
-        Utility.createNewPreMadeMessage(name)
+        save = Utility.createNewPreMadeMessage(name)
+        if save == True:
+            self.MainWindow5.close()
+            self.Popup.show()
+        else:
+            self.Popup2.show()
 
     def retranslateUi(self, MainWindow5):
         _translate = QtCore.QCoreApplication.translate

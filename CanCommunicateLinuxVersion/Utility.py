@@ -162,8 +162,12 @@ def createNewPreMadeMessage(name):
 
     name = name + ".txt"
     sp.getoutput("echo " + idG + " " + dataG + " > " + name)
-    sp.getoutput("mv *.txt Messages") # new to add a filter here
-
+    a=sp.getoutput("mv *.txt Messages") # new to add a filter here
+    if a == "":
+        return True
+    else:
+        print(a)
+        return False
 def pushThread():
     global ready
     global msg

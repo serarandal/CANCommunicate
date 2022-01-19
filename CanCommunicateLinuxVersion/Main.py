@@ -36,6 +36,8 @@ if __name__ == "__main__":
     PopupWindow2 = QtWidgets.QWidget()
     PopupWindow3 = QtWidgets.QWidget()
     PopupWindow4 = QtWidgets.QWidget()
+    PopupWindow5 = QtWidgets.QWidget()
+    PopupWindow6 = QtWidgets.QWidget()
     ui = RealMainWindow.Ui_MainWindow()
     ui2 = PreMadeWindow.Ui_MainWindow2()
     ui3 = ManMadeWindow.Ui_MainWindow3()
@@ -47,27 +49,29 @@ if __name__ == "__main__":
     ui9 = FrequencyWindow.Ui_MainWindow7()
     ui10 = FrequencyWindow.Popup3()
     ui11 = FrequencyWindow.Popup4()
+    ui12 = SaveMessageWindow.Popup5()
+    ui13 = SaveMessageWindow.Popup6()
     ui.setupUi(MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7)
     ui2.setupUi(MainWindow2,MainWindow3)
     ui3.setupUi(MainWindow3,MainWindow2,MainWindow5)
     ui4.setupUi(MainWindow4)
-    ui5.setupUi(MainWindow5)
+    ui5.setupUi(MainWindow5,PopupWindow5,PopupWindow6)
     ui6.setupUi(MainWindow6,PopupWindow,PopupWindow2)
     ui7.setupUi(PopupWindow)
     ui8.setupUi(PopupWindow2)
     ui9.setupUi(MainWindow7,PopupWindow3,PopupWindow4)
     ui10.setupUi(PopupWindow3)
     ui11.setupUi(PopupWindow4)
-
+    ui12.setupUi(PopupWindow5)
+    ui13.setupUi(PopupWindow6)
     MainWindow.show()
     sys.exit(app.exec_())
 
 #TODO
 # 7-Add filter to the read display, like only show with x id...
 # 9-Translate the error messages to readable text.
-# 15-Add label to id and data in the manmademessage.
 # 16-Add a box for each byte -> Choose from both.
-# 17-Add a label to say if the new message was save.
+# 17-Add a label to say if the new message was save ->Done
 # 18-Fix bug new premade message doesnt appear(refresh viewlist every second or so).
 # 19-Test explorer.
 # 20-Add better commentary and traces.
