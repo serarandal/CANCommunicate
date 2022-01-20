@@ -25,6 +25,22 @@ def setPassword(passW):
         password = passW
         return True
 
+
+def setFrequency(fre):
+    global frequency
+    if fre == "":
+        return False
+    else:
+        with open("frequency.txt",'r')as f:
+            data = f.read()
+        if data == fre :
+            return True
+        else:
+            with open("frequency.txt",'w') as f:
+                f.write(fre)
+            frequency = fre
+            return True
+
 def debugReadCan():
     global bus
     for msg in bus:
@@ -40,20 +56,14 @@ def testOneCan():
     global processedMsg
     return processedMsg
 
-def setFrequency(fre):
-    global frequency
-    if fre == "":
-        return False
-    else:
-        frequency = fre
-        return True
-
 def connectCan():
     global bus
     global password
     global frequency
     with open("password.txt") as f:
         password = f.read()
+    with open("frequency.txt") as f:
+        frequency = f.read()
     if sistema == 'Linux':
         output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
         output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
