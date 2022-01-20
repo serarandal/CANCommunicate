@@ -5,7 +5,8 @@ import threading
 
 
 msg = can.Message()
-processedMsg = ""
+msg2 = can.Message()
+processedMsg = None
 idG = ""
 dataG = ""
 password = ""
@@ -178,20 +179,7 @@ def createNewPreMadeMessage(name):
     else:
         print(a)
         return False
-def pushThread():
-    global ready
-    global msg
-    stop_event = threading.Event()
-    f = threading.Thread(target=flagger_thread, args=[stop_event])
-    f.setDaemon(True)
-    f.start()
-    if ready == True :
-        ready = False
-        return processMessage(msg)
 
-def flagger_thread(event):
-    event.set()
-    ready = True
 def waiter_thread(event):
     global msg
     global processedMsg
@@ -199,6 +187,18 @@ def waiter_thread(event):
     while True:
         msg = bus.recv()
         processedMsg = processMessage(msg)
+
+def processThreadInfo():#need to test
+    global msg2
+    global msg
+    if msg == msg2:
+        return "NoNewMessages"
+    elif msg !=None:
+        msg2 = msg
+        return processMessage(msg)
+    else:
+        return "NoMessages"
+
 def initThreads():
     stop_event = threading.Event()
 #    continue_event = threading.Event()
