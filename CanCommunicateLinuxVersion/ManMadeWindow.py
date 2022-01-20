@@ -3,32 +3,41 @@ import PyQt5.QtCore
 from PyQt5 import QtCore, QtGui, QtWidgets
 import Utility
 import os
-#from time import sleep
+import time
 
 class Worker(QtCore.QObject):
-
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
-
     def run(self):
         print("Starting the reading worker gui thread")
-        i = 0
         j = 0
+        z = 0
+        t0 = time.perf_counter()
+        t1 = time.perf_counter()
+        msg2 = ""
         while 1 :
-            if i == 700000 :
+            if t1 - t0 >0.1 :
                 msg = Utility.testOneCan()
-                i = 0
+                t0 = time.perf_counter()
                 if msg == "" or msg == None :
                     if j == 0:
                         self.progress.emit("NoMessages")
                         j=1
                     else:
                         None
-                else :
+                elif msg is msg2 :
+                    if z == 0:
+                        self.progress.emit("NoNewMessages")
+                        z=1
+                    else:
+                        None
+                else:
+                    msg2 = msg
                     self.progress.emit(msg)
                     j = 0
+                    z = 0
             else :
-                i = i+1
+                t1 = time.perf_counter()
 
         self.finished.emit()
 

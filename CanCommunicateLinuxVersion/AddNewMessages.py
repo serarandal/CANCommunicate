@@ -6,33 +6,6 @@ import Utility
 import os
 #from time import sleep
 
-class Worker(QtCore.QObject):
-
-    finished = QtCore.pyqtSignal()
-    progress = QtCore.pyqtSignal(str)
-
-    def run(self):
-        print("Starting the reading worker gui thread")
-        i = 0
-        j = 0
-        while 1 :
-            if i == 700000 :
-                msg = Utility.testOneCan()
-                i = 0
-                if msg == "" or msg == None :
-                    if j == 0:
-                        self.progress.emit("NoMessages")
-                        j=1
-                    else:
-                        None
-                else :
-                    self.progress.emit(msg)
-                    j = 0
-            else :
-                i = i+1
-
-        self.finished.emit()
-
 class Ui_MainWindow4(object):
     def setupUi(self, MainWindow4):
         self.MainWindow4 = MainWindow4
