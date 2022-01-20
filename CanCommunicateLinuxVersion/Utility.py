@@ -55,7 +55,7 @@ def connectCan():
     with open("password.txt") as f:
         password = f.read()
     if sistema == 'Linux':
-        output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback on")
+        output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
         output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
         bustype = 'socketcan'
         can_interface = 'can0'

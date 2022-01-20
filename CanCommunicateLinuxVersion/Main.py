@@ -68,6 +68,7 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
 
 #TODO
+# 1-Fix frecuency, needs to work like password
 # 18-Fix bug new premade message doesnt appear(refresh viewlist every second or so).
 # 19-Test explorer.
 # Future Lines
