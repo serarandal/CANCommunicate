@@ -135,7 +135,7 @@ class Ui_MainWindow(object):
 
     def b1(self):
         print("Pushed connect to can button:")
-        status = Utility.connectCan("500000")
+        status = Utility.connectCan()
         it = QtGui.QStandardItem(status)
         self.model.appendRow(it)
     def b2(self):
