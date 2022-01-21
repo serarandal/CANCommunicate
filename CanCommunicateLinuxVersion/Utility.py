@@ -84,9 +84,13 @@ def setId_Data(id,data):
     global msg
 
     print(data) #arbitration_id hex del id -> 0x608 #data=[]cada hex en su correspondiente int
-    msg = can.Message(arbitration_id=int(id,16),
+    try :
+        msg = can.Message(arbitration_id=int(id,16),
                       data=data,
                       is_extended_id=False)
+    except:
+        print("The id cannot be \"\" or the data cannot be \"\"")
+
 def sendData():
     global bus
     try:
