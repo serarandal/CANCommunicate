@@ -61,10 +61,16 @@ def connectCan():
     global bus
     global password
     global frequency
-    with open("password.txt") as f:
-        password = f.read()
-    with open("frequency.txt") as f:
-        frequency = f.read()
+    try:
+        with open("password.txt") as f:
+            password = f.read()
+    except:
+        print("Cannot open password.txt, make sure it is created and you have reading rights")
+    try:
+        with open("frequency.txt") as f:
+            frequency = f.read()
+    except:
+        print("Cannot open frequency.txt, make sure it is created and you have reading rights")
     if sistema == 'Linux':
        try:
             output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback on")
@@ -126,8 +132,11 @@ def processMessage(msg):
 
 
 def processCreationNewMessages(filepath):
-    with open(filepath, 'r', encoding='iso-8859-1') as f:
-        content = f.readlines()
+    try:
+        with open(filepath, 'r', encoding='iso-8859-1') as f:
+            content = f.readlines()
+    except:
+        print("No messages inside")
     print("creating new messages")
     for i in range(0, 11):
         content.pop(0)
