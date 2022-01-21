@@ -66,18 +66,28 @@ def connectCan():
     with open("frequency.txt") as f:
         frequency = f.read()
     if sistema == 'Linux':
-        output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback on")
-        output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
-        bustype = 'socketcan'
-        can_interface = 'can0'
-        bus = can.interface.Bus(can_interface, bustype=bustype)
+       try:
+            output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback on")
+            output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
+            bustype = 'socketcan'
+            can_interface = 'can0'
+            bus = can.interface.Bus(can_interface, bustype=bustype)
+       except:
+           print("No usb2can connected")
     else:
-        output = sp.getoutput("echo " + password + " | sudo -S ip link set can0 up type can bitrate " + frequency + " loopback off")
-        output2 = sp.getoutput("echo " + password + " | sudo -S ip link set up can0")
-        bustype = 'usb2can'
-        can_interface = 'can0'
-        bus = can.interface.Bus(can_interface, bustype=bustype)
-    initThreads()
+        try:
+            output = sp.getoutput("echo " + password + " | sudo -S ip link set can0 up type can bitrate " + frequency + " loopback off")
+            output2 = sp.getoutput("echo " + password + " | sudo -S ip link set up can0")
+            bustype = 'usb2can'
+            can_interface = 'can0'
+            bus = can.interface.Bus(can_interface, bustype=bustype)
+        except:
+            print("No usb2can connected")
+
+    try:
+        initThreads()
+    except:
+        print("Error threads")
     return output +"\n"+  output2
 
 def setId_Data(id,data):
