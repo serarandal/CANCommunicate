@@ -66,7 +66,7 @@ def connectCan():
     with open("frequency.txt") as f:
         frequency = f.read()
     if sistema == 'Linux':
-        output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
+        output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback on")
         output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
         bustype = 'socketcan'
         can_interface = 'can0'
@@ -114,7 +114,7 @@ def processMessage(msg):
 def processCreationNewMessages(filepath):
     with open(filepath, 'r', encoding='iso-8859-1') as f:
         content = f.readlines()
-    print(content[11])
+    print("creating new messages")
     for i in range(0, 11):
         content.pop(0)
 
@@ -125,15 +125,15 @@ def processCreationNewMessages(filepath):
             name = name.replace(" ", "_")
             name = name[1:]
             name = name[:-1]
-            name = name + ".txt"
+            name = name + "M.txt"
         except IndexError:
-            name = "noname.txt"
+            name = "nonameM.txt"
         sp.getoutput("touch "+name)
         b = a[0].split()
         id = b[0][:-1]
         data = b [4][:-1] +" "+b[5][:-1]+" "+b[6][:-1]+" "+b[7][:-1]+" "+b[8][:-1]+" "+b[9][:-1]+" "+b[10][:-1]+" "+b[11][:-1]+" "
         sp.getoutput("echo "+id+" "+data+" > "+name)
-        sp.getoutput("mv *.txt Messages")
+        sp.getoutput("mv *M.txt Messages")
 
 
 def sendPremadeData(filename):
