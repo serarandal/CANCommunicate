@@ -54,10 +54,13 @@ class Ui_MainWindow4(object):
         self.pushButton4_2.setText(_translate("MainWindow", "AddMessage"))
 
     def setBrowerPath(self):
-        file_path, file_type = QtWidgets.QFileDialog.getOpenFileName(self.MainWindow4, 'open file','./Messages')
-        self.text.setText(file_path)
-        self.text.selectAll()
-        self.text.setFocus()
+        try:
+            file_path, file_type = QtWidgets.QFileDialog.getOpenFileName(self.MainWindow4, 'open file','./Messages')
+            self.text.setText(file_path)
+            self.text.selectAll()
+            self.text.setFocus()
+        except:
+            print("Cannot open file browser,try to add rights to this code ")
 
     def addMessages(self):
         filepath = self.text.text()

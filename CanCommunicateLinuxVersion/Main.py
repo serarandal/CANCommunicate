@@ -68,11 +68,9 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
 
 #TODO
-# 1-Fix frecuency, needs to work like password -> DONE
 # 18-Fix bug new premade message doesnt appear(refresh viewlist every second or so).
-# 19-Test explorer.
 # Future Lines
 # 1-Add filter to the read display, like only show with x id...
-# 2-Translate the error messages to readable text.->
+# 2-Translate the error messages to readable text.
 # 3-Add a box for each byte -> Choose from both.
 # 4-Add better commentary and traces.
