@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import Utility
 import os
 import time
+a = 0
 
 class Worker(QtCore.QObject):
     finished = QtCore.pyqtSignal()
@@ -159,8 +160,13 @@ class Ui_MainWindow3(object):
         Utility.processManData(self.id, self.data)
 
     def b4(self):
-        print("Pushed reading can button:")
-        self.runLongTask()
+        global a
+        if a == 0:
+            a=1
+            print("Pushed reading can button:")
+            self.runLongTask()
+        else:
+            print("Already reading(ManuallyMadeWindow)")
 
     def b1(self):
         print("Pushed send message button:")

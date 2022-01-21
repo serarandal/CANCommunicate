@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import Utility
 import os
 import time
+a=0
 
 class Worker(QtCore.QObject):
     finished = QtCore.pyqtSignal()
@@ -104,8 +105,14 @@ class Ui_MainWindow2(object):
         self.MainWindow3.show()
         self.MainWindow2.hide()
     def b2(self):
-        print("Pushed reading can button:")
-        self.runLongTask()
+        global a
+        if a == 0:
+            a=1
+            print("Pushed reading can button:")
+            self.runLongTask()
+        else:
+            print("Already reading(PremadeWindow)")
+
     def b3(self):
         print("Send_Premade_Data:")
         index=self.listView_2.selectedIndexes()

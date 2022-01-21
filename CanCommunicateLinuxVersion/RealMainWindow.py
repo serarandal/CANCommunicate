@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import Utility
 import os
 #from time import sleep
-
+a = 0
 
 class Worker(QtCore.QObject):
     finished = QtCore.pyqtSignal()
@@ -141,8 +141,13 @@ class Ui_MainWindow(object):
         it = QtGui.QStandardItem(status)
         self.model.appendRow(it)
     def b2(self):
-        print("Pushed reading can button:")
-        self.runLongTask()
+        global a
+        if a == 0:
+            a=1
+            print("Pushed reading can button:")
+            self.runLongTask()
+        else:
+            print("Already reading")
 
     def b3(self):
         print("Pushed show premade gui:")
