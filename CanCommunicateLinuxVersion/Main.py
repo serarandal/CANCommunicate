@@ -68,7 +68,6 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
 
 #TODO
-# 18-Fix bug new premade message doesnt appear(refresh viewlist every second or so).
 # Future Lines
 # 1-Add filter to the read display, like only show with x id...
 # 2-Translate the error messages to readable text.
