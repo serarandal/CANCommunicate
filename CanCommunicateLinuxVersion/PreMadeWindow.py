@@ -103,10 +103,12 @@ class Ui_MainWindow2(object):
         self.pushButton2_2.setText(_translate("MainWindow2", "ChangeMode"))
         self.pushButton2.setText(_translate("MainWindow2", "SendData"))
         self.pushButton2_3.setText(_translate("MainWindow2", "ReadCan"))
+
     def b1(self):
         print("Pushed change window button:")
         self.MainWindow3.show()
         self.MainWindow2.hide()
+
     def b2(self):
         global a
         if a == 0:
@@ -131,13 +133,16 @@ class Ui_MainWindow2(object):
 
     def addItemsListView(self):
         icon = QtGui.QIcon("icon.png")
+        self.model2.clear()
         for file in sorted(os.listdir("Messages")):
             it = QtGui.QStandardItem(icon,file)
             self.model2.appendRow(it)
+
     def reportProgress(self,n):
         it = QtGui.QStandardItem(n)
         self.model2_2.appendRow(it)
         self.listView2_2.scrollToBottom()
+
     def runLongTask(self):
         self.thread = QtCore.QThread()
         self.worker = Worker()
@@ -148,6 +153,7 @@ class Ui_MainWindow2(object):
         self.thread.finished.connect(self.thread.deleteLater)
         self.worker.progress.connect(self.reportProgress)
         self.thread.start()
+
     def stopLongTask(self):
         print("here")
         self.worker.stop()

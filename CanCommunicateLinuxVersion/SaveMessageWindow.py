@@ -1,6 +1,8 @@
 import PyQt5.QtCore
 #import can
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+import PreMadeWindow
 import Utility
 import os
 #from time import sleep
@@ -50,8 +52,9 @@ class Popup5(object):
         self.label.setText(_translate("Form", "Nuevo mensaje Guardado"))
 
 class Ui_MainWindow5(object):
-    def setupUi(self,MainWindow5,PopupWindow5,PopupWindow6):
+    def setupUi(self,MainWindow5,ui2,PopupWindow5,PopupWindow6):
         self.Popup = PopupWindow5
+        self.ui2 = ui2
         self.Popup2 = PopupWindow6
         self.MainWindow5 = MainWindow5
         MainWindow5.setObjectName("MainWindow5")
@@ -92,6 +95,7 @@ class Ui_MainWindow5(object):
         print("Pushed add new message button:")
         save = Utility.createNewPreMadeMessage(name)
         if save == True:
+            PreMadeWindow.Ui_MainWindow2.addItemsListView(self.ui2)
             self.MainWindow5.close()
             self.Popup.show()
         else:

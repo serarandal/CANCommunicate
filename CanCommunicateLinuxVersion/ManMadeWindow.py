@@ -157,6 +157,7 @@ class Ui_MainWindow3(object):
         self.MainWindow2.show()
         self.MainWindow3.hide()
 
+
     def b2(self):
         print("Pushed button to set id and data:")
         self.id = self.plainTextEdit.toPlainText()
