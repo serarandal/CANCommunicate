@@ -47,7 +47,7 @@ class Popup5(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Popup1"))
-        self.label.setText(_translate("Form", "Contraseña Guardada"))
+        self.label.setText(_translate("Form", "Nuevo mensaje Guardado"))
 
 class Ui_MainWindow5(object):
     def setupUi(self,MainWindow5,PopupWindow5,PopupWindow6):

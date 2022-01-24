@@ -194,9 +194,9 @@ def createNewPreMadeMessage(name):
     global idG
     global dataG
 
-    name = name + ".txt"
+    name = name + "M.txt"
     sp.getoutput("echo " + idG + " " + dataG + " > " + name)
-    a=sp.getoutput("mv *.txt Messages") # new to add a filter here
+    a=sp.getoutput("mv *M.txt Messages")
     if a == "":
         return True
     else:
