@@ -50,6 +50,7 @@ class Ui_MainWindow3(object):
     def setupUi(self, MainWindow3,MainWindow2,MainWindow5):
         self.id = "a"
         self.data = "0"
+        self.i = 0
         self.MainWindow3 = MainWindow3
         self.MainWindow2 = MainWindow2
         self.MainWindow5 = MainWindow5
@@ -192,12 +193,19 @@ class Ui_MainWindow3(object):
     def b6(self):
         print("Pushed Change Mode Data")
 
-
     def reportProgress(self, n):
+        n = str(n)
         it = QtGui.QStandardItem(n)
-        self.model3.appendRow(it)
-        self.listView.scrollToBottom()
-
+        if self.i >= 40:
+            self.model3.removeRows(self.i - 39, 3)
+            self.i = 38
+            self.model3.appendRow(it)
+            self.listView.scrollToBottom()
+        else:
+            self.model3.appendRow(it)
+            self.listView.scrollToBottom()
+            self.i += 1
+            
     def runLongTask(self):
         self.thread = QtCore.QThread()
         self.worker = Worker()

@@ -50,6 +50,7 @@ class Ui_MainWindow2(object):
     def setupUi(self, MainWindow2,MainWindow3):
         self.MainWindow2 = MainWindow2
         self.MainWindow3 = MainWindow3
+        self.i = 0
         MainWindow2.setObjectName("MainWindow2")
         MainWindow2.resize(800, 600)
         self.model2 = QtGui.QStandardItemModel()
@@ -138,10 +139,18 @@ class Ui_MainWindow2(object):
             it = QtGui.QStandardItem(icon,file)
             self.model2.appendRow(it)
 
-    def reportProgress(self,n):
+    def reportProgress(self, n):
+        n = str(n)
         it = QtGui.QStandardItem(n)
-        self.model2_2.appendRow(it)
-        self.listView2_2.scrollToBottom()
+        if self.i >= 40:
+            self.model2_2.removeRows(self.i - 39, 3)
+            self.i = 38
+            self.model2_2.appendRow(it)
+            self.listView2_2.scrollToBottom()
+        else:
+            self.model2_2.appendRow(it)
+            self.listView2_2.scrollToBottom()
+            self.i += 1
 
     def runLongTask(self):
         self.thread = QtCore.QThread()

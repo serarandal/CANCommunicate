@@ -63,6 +63,7 @@ class Ui_MainWindow(object):
         self.MainWindow4 = MainWindow4
         self.MainWindow6 = MainWindow6
         self.MainWindow7 = MainWindow7
+        self.i =0
         self.connected = False
         self.model = QtGui.QStandardItemModel()
         MainWindow.setObjectName("MainWindow")
@@ -178,8 +179,17 @@ class Ui_MainWindow(object):
     def reportProgress(self,n):
         n = str(n)
         it = QtGui.QStandardItem(n)
-        self.model.appendRow(it)
-        self.listView.scrollToBottom()
+        if self.i >=40:
+            self.model.removeRows(self.i-39,3)
+            self.i =38
+            self.model.appendRow(it)
+            self.listView.scrollToBottom()
+        else:
+            self.model.appendRow(it)
+            self.listView.scrollToBottom()
+            self.i += 1
+
+
     def runLongTask(self):
         self.thread = QtCore.QThread()
         self.worker = Worker()
