@@ -11,12 +11,13 @@ class Worker(QtCore.QObject):
     progress = QtCore.pyqtSignal(str)
     def run(self):
         print("Starting the reading worker gui thread")
+        self.isKilled = False
         j = 0
         z = 0
         t0 = time.perf_counter()
         t1 = time.perf_counter()
         msg2 = ""
-        while 1 :
+        while 1 and self.isKilled==False:
             if t1 - t0 >0.1 :
                 msg = Utility.testOneCan()
                 t0 = time.perf_counter()
@@ -42,6 +43,8 @@ class Worker(QtCore.QObject):
 
         self.finished.emit()
 
+    def stop(self):
+        self.isKilled = True
 
 class Ui_MainWindow2(object):
     def setupUi(self, MainWindow2,MainWindow3):
@@ -111,7 +114,10 @@ class Ui_MainWindow2(object):
             print("Pushed reading can button:")
             self.runLongTask()
         else:
-            print("Already reading(PremadeWindow)")
+            print("Already reading(ManuallyMadeWindow)")
+            print("stopping")
+            self.stopLongTask()
+            a = 0
 
     def b3(self):
         print("Send_Premade_Data:")
@@ -142,3 +148,6 @@ class Ui_MainWindow2(object):
         self.thread.finished.connect(self.thread.deleteLater)
         self.worker.progress.connect(self.reportProgress)
         self.thread.start()
+    def stopLongTask(self):
+        print("here")
+        self.worker.stop()
