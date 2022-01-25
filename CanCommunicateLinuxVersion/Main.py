@@ -75,7 +75,6 @@ if __name__ == "__main__":
 
 #TODO
 # 1- Fix send message, need two clicks to send it through
-# 2- Add popup to addNewMessages
 # Future Lines
 # 1-Increase Font size.
 # 1-Add filter to the read display, like only show with x id...
