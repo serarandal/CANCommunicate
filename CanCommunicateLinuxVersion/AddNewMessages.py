@@ -5,10 +5,55 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import Utility
 import os
 #from time import sleep
+class Popup7(object):
+    def setupUi(self, PopupWindow7):
+        PopupWindow7.setObjectName("Form")
+        PopupWindow7.resize(400, 300)
+        self.gridLayout = QtWidgets.QGridLayout(PopupWindow7)
+        self.gridLayout.setObjectName("gridLayout")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
+        self.label = QtWidgets.QLabel(PopupWindow7)
+        self.label.setObjectName("label")
+        self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem1, 0, 2, 1, 1)
+
+        self.retranslateUi(PopupWindow7)
+        QtCore.QMetaObject.connectSlotsByName(PopupWindow7)
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Popup"))
+        self.label.setText(_translate("Form", "Nuevos mensajes generados"))
+
+class Popup8(object):
+    def setupUi(self, PopupWindow8):
+        PopupWindow8.setObjectName("Form")
+        PopupWindow8.resize(400, 300)
+        self.gridLayout = QtWidgets.QGridLayout(PopupWindow8)
+        self.gridLayout.setObjectName("gridLayout")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
+        self.label = QtWidgets.QLabel(PopupWindow8)
+        self.label.setObjectName("label")
+        self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem1, 0, 2, 1, 1)
+
+        self.retranslateUi(PopupWindow8)
+        QtCore.QMetaObject.connectSlotsByName(PopupWindow8)
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Popup2"))
+        self.label.setText(_translate("Form", "Fallo al guardar,revise permisos y si existe el archivo .xmt"))
 
 class Ui_MainWindow4(object):
-    def setupUi(self, MainWindow4):
+    def setupUi(self, MainWindow4,PopupWindow7,PopupWindow8):
         self.MainWindow4 = MainWindow4
+        self.PopupWindow7 = PopupWindow7
+        self.PopupWindow8 = PopupWindow8
         MainWindow4.setObjectName("MainWindow4")
         MainWindow4.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow4)
@@ -64,4 +109,9 @@ class Ui_MainWindow4(object):
 
     def addMessages(self):
         filepath = self.text.text()
-        Utility.processCreationNewMessages(filepath)
+        a = Utility.processCreationNewMessages(filepath)
+        if a == True:
+            self.PopupWindow7.show()
+            self.MainWindow4.close()
+        else :
+            self.PopupWindow8.show()

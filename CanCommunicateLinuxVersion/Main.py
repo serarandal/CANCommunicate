@@ -38,6 +38,8 @@ if __name__ == "__main__":
     PopupWindow4 = QtWidgets.QWidget()
     PopupWindow5 = QtWidgets.QWidget()
     PopupWindow6 = QtWidgets.QWidget()
+    PopupWindow7 = QtWidgets.QWidget()
+    PopupWindow8 = QtWidgets.QWidget()
     ui = RealMainWindow.Ui_MainWindow()
     ui2 = PreMadeWindow.Ui_MainWindow2()
     ui3 = ManMadeWindow.Ui_MainWindow3()
@@ -51,10 +53,12 @@ if __name__ == "__main__":
     ui11 = FrequencyWindow.Popup4()
     ui12 = SaveMessageWindow.Popup5()
     ui13 = SaveMessageWindow.Popup6()
+    ui14 = AddNewMessages.Popup7()
+    ui15 = AddNewMessages.Popup8()
     ui.setupUi(MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7)
     ui2.setupUi(MainWindow2,MainWindow3)
     ui3.setupUi(MainWindow3,MainWindow2,MainWindow5)
-    ui4.setupUi(MainWindow4)
+    ui4.setupUi(MainWindow4,PopupWindow7,PopupWindow8)
     ui5.setupUi(MainWindow5,ui2,PopupWindow5,PopupWindow6)
     ui6.setupUi(MainWindow6,PopupWindow,PopupWindow2)
     ui7.setupUi(PopupWindow)
@@ -64,11 +68,16 @@ if __name__ == "__main__":
     ui11.setupUi(PopupWindow4)
     ui12.setupUi(PopupWindow5)
     ui13.setupUi(PopupWindow6)
+    ui14.setupUi(PopupWindow7)
+    ui15.setupUi(PopupWindow8)
     MainWindow.show()
     sys.exit(app.exec_())
 
 #TODO
+# 1- Fix send message, need two clicks to send it through
+# 2- Add popup to addNewMessages
 # Future Lines
+# 1-Increase Font size.
 # 1-Add filter to the read display, like only show with x id...
 # 2-Translate the error messages to readable text.
 # 3-Add a box for each byte -> Choose from both.

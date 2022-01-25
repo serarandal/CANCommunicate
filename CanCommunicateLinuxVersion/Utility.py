@@ -73,7 +73,7 @@ def connectCan():
         print("Cannot open frequency.txt, make sure it is created and you have reading rights")
     if sistema == 'Linux':
        try:
-            output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback on")
+            output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
             output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
             bustype = 'socketcan'
             can_interface = 'can0'
@@ -137,6 +137,7 @@ def processCreationNewMessages(filepath):
             content = f.readlines()
     except:
         print("No messages inside")
+        return False
     print("creating new messages")
     for i in range(0, 11):
         content.pop(0)
@@ -157,7 +158,7 @@ def processCreationNewMessages(filepath):
         data = b [4][:-1] +" "+b[5][:-1]+" "+b[6][:-1]+" "+b[7][:-1]+" "+b[8][:-1]+" "+b[9][:-1]+" "+b[10][:-1]+" "+b[11][:-1]+" "
         sp.getoutput("echo "+id+" "+data+" > "+name)
         sp.getoutput("mv *M.txt Messages")
-
+        return True
 
 def sendPremadeData(filename):
     dataF = []
