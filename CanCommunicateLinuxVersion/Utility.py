@@ -225,10 +225,6 @@ def processThreadInfo():#need to test
 
 def initThreads():
     stop_event = threading.Event()
-#    continue_event = threading.Event()
     w = threading.Thread(target=waiter_thread, args=[stop_event])
-#    u = threading.Thread(target=unflagger_thread, args=[stop_event, continue_event])
     w.setDaemon(True)
-#    u.setDaemon(True)
     w.start()
-#    u.start()
