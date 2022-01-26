@@ -74,11 +74,11 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
 
 #TODO
-# 1- Fix send message, need two clicks to send it through
+# 1- Fix send message, need two clicks to send it through.
 # 2- Split data in premade send .
 # 3- Split last data byte in manmade send.
 # Future Lines
-# 1-Increase Font size.
+# 1-Increase Font size. -> Doing
 # 1-Add filter to the read display, like only show with x id...
 # 2-Translate the error messages to readable text.
 # 3-Add a box for each byte -> Choose from both.

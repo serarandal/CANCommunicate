@@ -8,6 +8,7 @@ import time
 
 class Popup3(object):
     def setupUi(self, PopupWindow3):
+        self.Font = PyQt5.QtGui.QFont('Arial', 14)
         PopupWindow3.setObjectName("Form")
         PopupWindow3.resize(400, 300)
         self.gridLayout = QtWidgets.QGridLayout(PopupWindow3)
@@ -16,6 +17,7 @@ class Popup3(object):
         self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
         self.label = QtWidgets.QLabel(PopupWindow3)
         self.label.setObjectName("label")
+        self.label.setFont(self.Font)
         self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem1, 0, 2, 1, 1)
@@ -30,6 +32,7 @@ class Popup3(object):
 
 class Popup4(object):
     def setupUi(self, PopupWindow4):
+        self.Font = PyQt5.QtGui.QFont('Arial', 14)
         PopupWindow4.setObjectName("Form")
         PopupWindow4.resize(400, 300)
         self.gridLayout = QtWidgets.QGridLayout(PopupWindow4)
@@ -38,6 +41,7 @@ class Popup4(object):
         self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
         self.label = QtWidgets.QLabel(PopupWindow4)
         self.label.setObjectName("label")
+        self.label.setFont(self.Font)
         self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem1, 0, 2, 1, 1)
@@ -55,6 +59,7 @@ class Ui_MainWindow7(object):
         self.Popup = PopupWindow
         self.Popup2 = PopupWindow2
         self.MainWindow7 = MainWindow7
+        self.Font = PyQt5.QtGui.QFont('Arial', 14)
         MainWindow7.setObjectName("MainWindow7")
         MainWindow7.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow7)
@@ -63,12 +68,14 @@ class Ui_MainWindow7(object):
         self.gridLayout.setObjectName("gridLayout")
         self.plainTextEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
         self.plainTextEdit.setObjectName("plainTextEdit")
+        self.plainTextEdit.setFont(self.Font)
         self.gridLayout.addWidget(self.plainTextEdit, 1, 1, 1, 1)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
         self.pushButton6 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton6.setObjectName("pushButton")
         self.pushButton6.clicked.connect(self.b1)
+        self.pushButton6.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton6, 1, 2, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem1, 2, 1, 1, 1)
