@@ -125,11 +125,26 @@ class Ui_MainWindow2(object):
             a = 0
 
     def b3(self):
+        finish = False
+        i = 2
         print("Send_Premade_Data:")
         index=self.listView_2.selectedIndexes()
         data=Utility.sendPremadeData(index[0].data())
         patata = data.split("/")
-        patata = "Tx" + " 0x" + patata[0] + " " + patata[1]
+        data = patata[1]
+        length = len(data)
+        while finish == False:
+            if i >= length:
+                finish = True
+            data = data[:i] + " " + data[i:]
+            i = i + 3
+        if length == 16:
+            data = data[:length + 4] + " " + data[length + 4:]
+        if length == 14:
+            data = data[:length + 3] + " " + data[length + 3:]
+        if length == 12:
+            data = data[:length + 2] + " " + data[length + 2]
+        patata = "Tx" + " 0x" + patata[0] + " " + data
         it = QtGui.QStandardItem(patata)
         self.model2_2.appendRow(it)
         self.listView2_2.scrollToBottom()

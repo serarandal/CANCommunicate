@@ -74,13 +74,12 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
 
 #TODO
-# 1- Fix send message, need two clicks to send it through.
-# 2- Split data in premade send .
-# 3- Split last data byte in manmade send.
+# 1- Fix send message, need two clicks to send it through. -> can.ThreadSafeBus -> my_bus = can.ThreadSafeBus(interface=’socketcan’, channel=’vcan0’) # Need to test it
+# 2- Split data in premade send -> Done
+# 3- Split last data byte in read.-> Done
 # Future Lines
-# 1-Increase Font size. -> Doing
 # 1-Add filter to the read display, like only show with x id...
 # 2-Translate the error messages to readable text.
 # 3-Add a box for each byte -> Choose from both.
 # 4-Add better commentary and traces.
-# maybe erase the old messages,or save them.
+# erase the old messages,or save them.

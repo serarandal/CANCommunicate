@@ -53,7 +53,6 @@ def readOneCan():
     return processMessage(msg)
 
 def testOneCan():
-    global bus
     global processedMsg
     return processedMsg
 
@@ -77,7 +76,7 @@ def connectCan():
             output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
             bustype = 'socketcan'
             can_interface = 'can0'
-            bus = can.interface.Bus(can_interface, bustype=bustype)
+            bus = can.ThreadSafeBus(interfrace=can_interface, channel=bustype)
        except:
            print("No usb2can connected")
     else:
@@ -86,7 +85,7 @@ def connectCan():
             output2 = sp.getoutput("echo " + password + " | sudo -S ip link set up can0")
             bustype = 'usb2can'
             can_interface = 'can0'
-            bus = can.interface.Bus(can_interface, bustype=bustype)
+            bus = can.ThreadSafeBus(interfrace=can_interface, channel=bustype)
         except:
             print("No usb2can connected")
 
@@ -110,7 +109,7 @@ def setId_Data(id,data):
 def sendData():
     global bus
     try:
-        bus.send(msg)
+        bus.send(msg)#need to be tested,if threadsafe doesnt work , add timegate (msg,1)
         print("Message sent on {}".format(bus.channel_info))
     except can.CanError:
         print("Message NOT sent"+bus.state)
