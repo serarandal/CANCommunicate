@@ -76,6 +76,7 @@ if __name__ == "__main__":
     ui15.setupUi(PopupWindow8)
     ui16.setupUi(MainWindow8)
     MainWindow.show()
+    MainWindow8.show()
     sys.exit(app.exec_())
 
 # Future Lines
