@@ -10,6 +10,8 @@ import PyQt5.QtCore
 #import can
 import can
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+import FilterWindow
 import Utility
 import os
 #from time import sleep
@@ -32,6 +34,7 @@ if __name__ == "__main__":
     MainWindow5 = QtWidgets.QMainWindow()
     MainWindow6 = QtWidgets.QMainWindow()
     MainWindow7 = QtWidgets.QMainWindow()
+    MainWindow8 = QtWidgets.QMainWindow()
     PopupWindow = QtWidgets.QWidget()
     PopupWindow2 = QtWidgets.QWidget()
     PopupWindow3 = QtWidgets.QWidget()
@@ -55,6 +58,7 @@ if __name__ == "__main__":
     ui13 = SaveMessageWindow.Popup6()
     ui14 = AddNewMessages.Popup7()
     ui15 = AddNewMessages.Popup8()
+    ui16 = FilterWindow.Ui_MainWindow8()
     ui.setupUi(MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7)
     ui2.setupUi(MainWindow2,MainWindow3)
     ui3.setupUi(MainWindow3,MainWindow2,MainWindow5)
@@ -70,13 +74,10 @@ if __name__ == "__main__":
     ui13.setupUi(PopupWindow6)
     ui14.setupUi(PopupWindow7)
     ui15.setupUi(PopupWindow8)
+    ui16.setupUi(MainWindow8)
     MainWindow.show()
     sys.exit(app.exec_())
 
-#TODO
-# 1- Fix send message, need two clicks to send it through. -> can.ThreadSafeBus -> my_bus = can.ThreadSafeBus(interface=’socketcan’, channel=’vcan0’) # Need to test it
-# 2- Split data in premade send -> Done
-# 3- Split last data byte in read.-> Done
 # Future Lines
 # 1-Add filter to the read display, like only show with x id...
 # 2-Translate the error messages to readable text.
