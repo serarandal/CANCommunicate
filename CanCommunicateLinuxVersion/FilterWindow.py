@@ -59,6 +59,6 @@ class Ui_MainWindow8(object):
     def retranslateUi(self, MainWindow8):
         _translate = QtCore.QCoreApplication.translate
         MainWindow8.setWindowTitle(_translate("MainWindow", "MainWindow8"))
-        self.label.setText(_translate("MainWindow", "TextLabel"))
-        self.label_2.setText(_translate("MainWindow", "TextLabel"))
-        self.pushButton.setText(_translate("MainWindow", "PushButton"))
+        self.label.setText(_translate("MainWindow", "Dispositivo"))
+        self.label_2.setText(_translate("MainWindow", "Datos"))
+        self.pushButton.setText(_translate("MainWindow", "Set id for filtering"))
