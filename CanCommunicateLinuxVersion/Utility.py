@@ -7,6 +7,7 @@ import threading
 msg = can.Message()
 msg2 = can.Message()
 processedMsg = None
+processedMsgFiltered = None
 idG = ""
 dataG = ""
 password = ""
@@ -56,6 +57,9 @@ def testOneCan():
     global processedMsg
     return processedMsg
 
+def testTwoCan():
+    global processedMsgFiltered
+    return processedMsgFiltered
 def connectCan():
     global bus
     global password
@@ -206,12 +210,14 @@ def createNewPreMadeMessage(name):
 def waiter_thread(event):
     global msg
     global processedMsg
+    global processedMsgFiltered
     print("Starting the reading worker real thread")
     while True:
         msg = bus.recv()
         processedMsg = processMessage(msg)
+        processedMsgFiltered = processedMsgFilter(msg)
 
-def processThreadInfo():#need to test
+def processThreadInfo():#doesn't work with threads, but usefull enough to save
     global msg2
     global msg
     if msg == msg2:
@@ -227,3 +233,18 @@ def initThreads():
     w = threading.Thread(target=waiter_thread, args=[stop_event])
     w.setDaemon(True)
     w.start()
+
+def processedMsgFilter(msg):
+    finish = False
+    i = 2
+    imagen = str(hex(msg.arbitration_id))
+    data = msg.data.hex()
+    length = len(data)
+    while finish == False:
+        if i >= length:
+            finish = True
+        data = data[:i] + " " + data[i:]
+        i = i + 3
+    imagen = imagen + "/" + data
+    imagen = imagen + " /" + str(msg.timestamp)
+    return imagen

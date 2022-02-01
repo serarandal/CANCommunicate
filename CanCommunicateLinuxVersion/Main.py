@@ -84,4 +84,3 @@ if __name__ == "__main__":
 # 2-Translate the error messages to readable text.
 # 3-Add a box for each byte -> Choose from both.
 # 4-Add better commentary and traces.
-# erase the old messages,or save them.

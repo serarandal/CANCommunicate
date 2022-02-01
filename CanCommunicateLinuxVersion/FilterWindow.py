@@ -12,11 +12,13 @@ import PyQt5.QtCore
 from PyQt5 import QtCore, QtGui, QtWidgets
 import time
 import Utility
-
+a =0
 class Worker(QtCore.QObject):
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
     def run(self):
+        global a
+        global b
         print("Starting the reading worker gui thread")
         self.isKilled = False
         j = 0
@@ -26,25 +28,28 @@ class Worker(QtCore.QObject):
         msg2 = ""
         while 1 and self.isKilled==False:
             if t1 - t0 >0.1 :
-                msg = Utility.testOneCan()
+                msg = Utility.testTwoCan()
                 t0 = time.perf_counter()
                 if msg == "" or msg == None :
                     if j == 0:
-                        self.progress.emit("NoMessages")
+                        self.progress.emit("NoMessagesFromThatSource")
                         j=1
                     else:
                         None
                 elif msg is msg2 :
                     if z == 0:
-                        self.progress.emit("NoNewMessages")
+                        self.progress.emit("NoNewMessagesFromThatSource")
                         z=1
                     else:
                         None
                 else:
                     msg2 = msg
-                    self.progress.emit(msg)
-                    j = 0
-                    z = 0
+                    msgsplited = msg.split("/")
+                    msgid = int(msgsplited[0], 16)
+                    if msgid == b:
+                        self.progress.emit(msg)
+                        j = 0
+                        z = 0
             else :
                 t1 = time.perf_counter()
 
@@ -111,12 +116,27 @@ class Ui_MainWindow8(object):
         self.pushButton.setText(_translate("MainWindow", "Set id for filtering"))
 
     def b1(self):
-        a=self.textEdit.toPlainText()
-        self.runLongTask()
-        #only show in the listview the messages from that id.
-        #need to change hex data to real data with the id.
-        #id -> file with id , find which device it's from.
-        # in the list view show -> real name of the device - data already translated. ej: Wheel sensor - 142º
+        global b
+        global a
+        b=self.textEdit.toPlainText()
+        if b == "000":
+            b = 0
+        elif b == "00":
+            b = 0
+        elif b == "0":
+            b = 0
+        else:
+            b = int(b,16)
+        print(b)
+        if a == 0:
+            a=1
+            print("Pushed reading can button:")
+            self.runLongTask()
+        else:
+            print("Already reading(ManuallyMadeWindow)")
+            print("stopping")
+            self.stopLongTask()
+            a = 0
 
     def reportProgress(self,n):
         n = str(n)
