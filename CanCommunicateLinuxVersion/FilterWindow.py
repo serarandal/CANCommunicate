@@ -140,7 +140,10 @@ class Ui_MainWindow8(object):
 
     def reportProgress(self,n):
         n = str(n)
-        it = QtGui.QStandardItem(n)
+        n = n.split("/")
+        imagen = n[0]+" "
+        imagen = imagen +n[1] + " " +n[2]
+        it = QtGui.QStandardItem(imagen)
         if self.i >=40:
             self.model.removeRows(self.i-39,3)
             self.i =38
