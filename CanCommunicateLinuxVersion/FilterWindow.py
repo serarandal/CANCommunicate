@@ -23,6 +23,7 @@ class Worker(QtCore.QObject):
         self.isKilled = False
         j = 0
         z = 0
+        x = 0
         t0 = time.perf_counter()
         t1 = time.perf_counter()
         msg2 = ""
@@ -50,6 +51,11 @@ class Worker(QtCore.QObject):
                         self.progress.emit(msg)
                         j = 0
                         z = 0
+                    elif x == 0:
+                        self.progress.emit("NoNewMessagesFromThatSource")
+                        x = 1
+                    else:
+                        None
             else :
                 t1 = time.perf_counter()
 
@@ -139,11 +145,15 @@ class Ui_MainWindow8(object):
             a = 0
 
     def reportProgress(self,n):
-        n = str(n)
-        n = n.split("/")
-        imagen = n[0]+" "
-        imagen = imagen +n[1] + " " +n[2]
-        it = QtGui.QStandardItem(imagen)
+        if n =="NoMessagesFromThatSource" or n=="NoNewMessagesFromThatSource":
+            n = str(n)
+            it = QtGui.QStandardItem(n)
+        else:
+            n = str(n)
+            n = n.split("/")
+            imagen = n[0]+"                       "
+            imagen = imagen +n[1] + " " +n[2]
+            it = QtGui.QStandardItem(imagen)
         if self.i >=40:
             self.model.removeRows(self.i-39,3)
             self.i =38

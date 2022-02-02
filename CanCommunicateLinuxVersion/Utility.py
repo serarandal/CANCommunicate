@@ -76,7 +76,7 @@ def connectCan():
         print("Cannot open frequency.txt, make sure it is created and you have reading rights")
     if sistema == 'Linux':
        try:
-            output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
+            output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback on")
             output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
             bustype = 'socketcan'
             can_interface = 'can0'
