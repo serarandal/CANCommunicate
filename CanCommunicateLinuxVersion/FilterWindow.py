@@ -12,7 +12,7 @@ import PyQt5.QtCore
 from PyQt5 import QtCore, QtGui, QtWidgets
 import time
 import Utility
-a =0
+a = 0
 class Worker(QtCore.QObject):
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
@@ -28,19 +28,19 @@ class Worker(QtCore.QObject):
         t1 = time.perf_counter()
         msg2 = ""
         while 1 and self.isKilled==False:
-            if t1 - t0 >0.1 :
+            if t1 - t0 > 0.1 :
                 msg = Utility.testTwoCan()
                 t0 = time.perf_counter()
                 if msg == "" or msg == None :
                     if j == 0:
                         self.progress.emit("NoMessagesFromThatSource")
-                        j=1
+                        j = 1
                     else:
                         None
                 elif msg is msg2 :
                     if z == 0:
                         self.progress.emit("NoNewMessagesFromThatSource")
-                        z=1
+                        z = 1
                     else:
                         None
                 else:
@@ -129,7 +129,7 @@ class Ui_MainWindow8(object):
     def b1(self):
         global b
         global a
-        b=self.textEdit.toPlainText()
+        b = self.textEdit.toPlainText()
         if b == "000":
             b = 0
         elif b == "00":
@@ -140,7 +140,7 @@ class Ui_MainWindow8(object):
             b = int(b,16)
         print(b)
         if a == 0:
-            a=1
+            a = 1
             print("Pushed reading can button:")
             self.runLongTask()
         else:
@@ -150,7 +150,7 @@ class Ui_MainWindow8(object):
             a = 0
 
     def reportProgress(self,n):
-        if n =="NoMessagesFromThatSource" or n=="NoNewMessagesFromThatSource":
+        if n == "NoMessagesFromThatSource" or n == "NoNewMessagesFromThatSource":
             n = str(n)
             it = QtGui.QStandardItem(n)
         else:
@@ -159,9 +159,9 @@ class Ui_MainWindow8(object):
             imagen = n[0]+"                       "
             imagen = imagen +n[1] + " " +n[2]
             it = QtGui.QStandardItem(imagen)
-        if self.i >=40:
+        if self.i >= 40:
             self.model.removeRows(self.i-39,3)
-            self.i =38
+            self.i = 38
             self.model.appendRow(it)
             self.listView.scrollToBottom()
         else:
