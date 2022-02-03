@@ -13,6 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import time
 import Utility
 a = 0
+b=""
 class Worker(QtCore.QObject):
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
@@ -129,16 +130,41 @@ class Ui_MainWindow8(object):
     def b1(self):
         global b
         global a
-        b = self.textEdit.toPlainText()
-        if b == "000":
-            b = 0
-        elif b == "00":
-            b = 0
-        elif b == "0":
-            b = 0
+        global deviceName
+        global deviceDataBytes
+        global devicesCalculations
+        c = self.textEdit.toPlainText()
+        if b == c:
+            alreadyopen = 1
+            if b == "000":
+                b = 0
+            elif b == "00":
+                b = 0
+            elif b == "0":
+                b = 0
+            else:
+                try:
+                    b = int(b,16)
+                except:
+                    print("id vacio, intentalo de nuevo")
+            print(b)
         else:
-            b = int(b,16)
-        print(b)
+            b = c
+            alreadyopen = 0
+        if alreadyopen == 0:
+            try:
+                with open("devices.txt") as f:
+                    content = f.readlines()
+            except:
+                print("Cannot open devices.txt, make sure it is created and you have reading rights")
+            for item in content:
+                item = item.split(" ")
+                if item[1] == b :
+                    deviceName = item[0]
+                    deviceDataBytes = item[2]
+                    devicesCalculations = item[3]
+        else:
+            alreadyopen = 1
         if a == 0:
             a = 1
             print("Pushed reading can button:")
