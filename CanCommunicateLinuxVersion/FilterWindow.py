@@ -14,6 +14,7 @@ import time
 import Utility
 a = 0
 b=""
+d=""
 class Worker(QtCore.QObject):
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
@@ -130,11 +131,12 @@ class Ui_MainWindow8(object):
     def b1(self):
         global b
         global a
+        global d
         global deviceName
         global deviceDataBytes
         global devicesCalculations
         c = self.textEdit.toPlainText()
-        if b == c:
+        if d == c:
             alreadyopen = 1
             if b == "000":
                 b = 0
@@ -149,7 +151,7 @@ class Ui_MainWindow8(object):
                     print("id vacio, intentalo de nuevo")
             print(b)
         else:
-            b = c
+            d = c
             alreadyopen = 0
         if alreadyopen == 0:
             try:
@@ -158,11 +160,13 @@ class Ui_MainWindow8(object):
             except:
                 print("Cannot open devices.txt, make sure it is created and you have reading rights")
             for item in content:
-                item = item.split(" ")
-                if item[1] == b :
-                    deviceName = item[0]
-                    deviceDataBytes = item[2]
-                    devicesCalculations = item[3]
+                stritem=str(item)
+                print(stritem)
+                stritem = stritem.split(" ")
+                if stritem[1] == b :
+                    deviceName = stritem[0]
+                    deviceDataBytes = stritem[2]
+                    devicesCalculations = stritem[3]
         else:
             alreadyopen = 1
         if a == 0:
@@ -176,14 +180,21 @@ class Ui_MainWindow8(object):
             a = 0
 
     def reportProgress(self,n):
+        global deviceName
+        global deviceDataBytes
+        global devicesCalculations
         if n == "NoMessagesFromThatSource" or n == "NoNewMessagesFromThatSource":
             n = str(n)
             it = QtGui.QStandardItem(n)
         else:
             n = str(n)
             n = n.split("/")
-            imagen = n[0]+"                       "
-            imagen = imagen +n[1] + " " +n[2]
+            imagen = deviceName+"                       "
+            if len(deviceDataBytes) == 1:
+                imagen = imagen +n[deviceDataBytes]*devicesCalculations + " " +n[2]
+            elif len(deviceDataBytes) !=1:
+                #dividir el databytes y organizar dependiendo de si es motorola o intel
+                None
             it = QtGui.QStandardItem(imagen)
         if self.i >= 40:
             self.model.removeRows(self.i-39,3)
