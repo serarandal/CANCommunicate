@@ -203,8 +203,21 @@ class Ui_MainWindow8(object):
                 self.i += 1
         else:
             n = str(n)
-            a = n.split("/")
-            n =deviceName+"                 "+a[1]+a[2]
+            g = n.split("/")#cambiar a[1] por procesamiento de deviceDataBytes con deviceCal
+            z = g[2].split(" ")
+            y = g[1].split(" ")
+            j =""
+            if z[0] == "M":
+                for items in y:#Motorola - Big endian, no girar
+                    #añadir if devicesdatabyte == item, sino esta en la lista de bytes importantes ignorarlo
+                    j = j +items
+            else:
+                for items in y:#Intel - Little endian, girar
+                    j = items+j
+            x = devicesCalculations.split(" ")
+            print(x)
+            data = int(j,16)*float(x[2])
+            n =deviceName+"                  "+str(data)    +" "+g[2]
             it = QtGui.QStandardItem(n)
             if self.i >= 40:
                 self.model.removeRows(self.i - 39, 3)

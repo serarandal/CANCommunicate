@@ -43,21 +43,21 @@ def setFrequency(fre):
             frequency = fre
             return True
 
-def debugReadCan():
+def debugReadCan(): #not in use
     global bus
     for msg in bus:
         print(msg.data)
 
-def readOneCan():
+def readOneCan():#not in use
     global bus
     msg = bus.recv()
     return processMessage(msg)
 
-def testOneCan():
+def testOneCan():#Normal reading
     global processedMsg
     return processedMsg
 
-def testTwoCan():
+def testTwoCan():#Filter reading
     global processedMsgFiltered
     return processedMsgFiltered
 def connectCan():
