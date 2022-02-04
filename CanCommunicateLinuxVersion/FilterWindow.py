@@ -203,6 +203,8 @@ class Ui_MainWindow8(object):
                 self.i += 1
         else:
             n = str(n)
+            a = n.split("/")
+            n =deviceName+"                 "+a[1]+a[2]
             it = QtGui.QStandardItem(n)
             if self.i >= 40:
                 self.model.removeRows(self.i - 39, 3)
@@ -228,4 +230,15 @@ class Ui_MainWindow8(object):
 
     def stopLongTask(self):
         print("here")
+        n = "Stopped reading"
+        it = QtGui.QStandardItem(n)
+        if self.i >= 40:
+            self.model.removeRows(self.i - 39, 3)
+            self.i = 38
+            self.model.appendRow(it)
+            self.listView.scrollToBottom()
+        else:
+            self.model.appendRow(it)
+            self.listView.scrollToBottom()
+            self.i += 1
         self.worker.stop()
