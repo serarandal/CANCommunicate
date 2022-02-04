@@ -135,8 +135,9 @@ class Ui_MainWindow8(object):
         global deviceName
         global deviceDataBytes
         global devicesCalculations
-        c = self.textEdit.toPlainText()
-        if d == c:
+        b = self.textEdit.toPlainText()
+        c = b   #this is needed bc you change b into integer below
+        if d == b:
             alreadyopen = 1
             if b == "000":
                 b = 0
@@ -149,10 +150,10 @@ class Ui_MainWindow8(object):
                     b = int(b,16)
                 except:
                     print("id vacio, intentalo de nuevo")
-            print(b)
         else:
-            d = c
+            d = c  #c is nedded instead of b.
             alreadyopen = 0
+        ##############tested##############
         if alreadyopen == 0:
             try:
                 with open("devices.txt") as f:
@@ -162,16 +163,18 @@ class Ui_MainWindow8(object):
             for item in content:
                 stritem=str(item)
                 print(stritem)
-                stritem = stritem.split(" ")
-                if stritem[1] == b :
-                    deviceName = stritem[0]
-                    deviceDataBytes = stritem[2]
-                    devicesCalculations = stritem[3]
+                stritem = stritem.split("/")
+                strdi2 = stritem[0].split(" ")
+                if strdi2[1] == b :
+                    deviceName = strdi2[0]
+                    deviceDataBytes = stritem[1]
+                    devicesCalculations = stritem[2]
         else:
             alreadyopen = 1
         if a == 0:
             a = 1
             print("Pushed reading can button:")
+            ##########tested########
             self.runLongTask()
         else:
             print("Already reading(ManuallyMadeWindow)")
@@ -188,23 +191,17 @@ class Ui_MainWindow8(object):
             it = QtGui.QStandardItem(n)
         else:
             n = str(n)
-            n = n.split("/")
-            imagen = deviceName+"                       "
-            if len(deviceDataBytes) == 1:
-                imagen = imagen +n[deviceDataBytes]*devicesCalculations + " " +n[2]
-            elif len(deviceDataBytes) !=1:
-                #dividir el databytes y organizar dependiendo de si es motorola o intel
-                None
-            it = QtGui.QStandardItem(imagen)
-        if self.i >= 40:
-            self.model.removeRows(self.i-39,3)
-            self.i = 38
-            self.model.appendRow(it)
-            self.listView.scrollToBottom()
-        else:
-            self.model.appendRow(it)
-            self.listView.scrollToBottom()
-            self.i += 1
+            it = QtGui.QStandardItem(n)
+            if self.i >= 40:
+                self.model.removeRows(self.i - 39, 3)
+                self.i = 38
+                self.model.appendRow(it)
+                self.listView.scrollToBottom()
+            else:
+                self.model.appendRow(it)
+                self.listView.scrollToBottom()
+                self.i += 1
+
 
     def runLongTask(self):
         self.thread = QtCore.QThread()
