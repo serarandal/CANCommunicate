@@ -15,12 +15,14 @@ import Utility
 a = 0
 b=""
 d=""
+c=""
 class Worker(QtCore.QObject):
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
     def run(self):
         global a
         global b
+        global c
         print("Starting the reading worker gui thread")
         self.isKilled = False
         j = 0
@@ -49,7 +51,7 @@ class Worker(QtCore.QObject):
                     msg2 = msg
                     msgsplited = msg.split("/")
                     msgid = int(msgsplited[0], 16)
-                    if msgid == b:
+                    if msgid == int(c,16):
                         self.progress.emit(msg)
                         j = 0
                         z = 0
@@ -132,6 +134,7 @@ class Ui_MainWindow8(object):
         global b
         global a
         global d
+        global c
         global deviceName
         global deviceDataBytes
         global devicesCalculations
@@ -181,7 +184,7 @@ class Ui_MainWindow8(object):
             print("stopping")
             self.stopLongTask()
             a = 0
-
+###################
     def reportProgress(self,n):
         global deviceName
         global deviceDataBytes
@@ -189,6 +192,15 @@ class Ui_MainWindow8(object):
         if n == "NoMessagesFromThatSource" or n == "NoNewMessagesFromThatSource":
             n = str(n)
             it = QtGui.QStandardItem(n)
+            if self.i >= 40:
+                self.model.removeRows(self.i - 39, 3)
+                self.i = 38
+                self.model.appendRow(it)
+                self.listView.scrollToBottom()
+            else:
+                self.model.appendRow(it)
+                self.listView.scrollToBottom()
+                self.i += 1
         else:
             n = str(n)
             it = QtGui.QStandardItem(n)
@@ -202,7 +214,7 @@ class Ui_MainWindow8(object):
                 self.listView.scrollToBottom()
                 self.i += 1
 
-
+###############
     def runLongTask(self):
         self.thread = QtCore.QThread()
         self.worker = Worker()
