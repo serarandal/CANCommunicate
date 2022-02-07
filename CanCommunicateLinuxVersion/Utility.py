@@ -76,7 +76,7 @@ def connectCan():
         print("Cannot open frequency.txt, make sure it is created and you have reading rights")
     if sistema == 'Linux':
        try:
-            output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
+            output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback on")
             output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
             bustype = 'socketcan'
             can_interface = 'can0'
@@ -248,3 +248,28 @@ def processedMsgFilter(msg):
     imagen = imagen + "/" + data
     imagen = imagen + " /" + str(msg.timestamp)
     return imagen
+
+
+def filterDevices(deviceName):
+    None
+    # z = devicesCalculations.split(" ")
+    # y = g[1].split(" ")
+    # j =""
+    # k = deviceDataBytes.split(" ")
+    # l =0
+    # i= 1
+    # if z[1] == "M":#Motorola - Big endian, no girar
+    #    for i in range(1,len(y)):
+    #        for l in range(len(k)):
+    #            if str(i) == k[l]:#añadir if devicesdatabyte == item, sino esta en la lista de bytes importantes ignorarlo
+    #                j = j +y[i-1]
+    # else:
+    #    for i in range(1,len(y)):
+    #        for l in range(len(k)):
+    #            if str(i) == k[l]:#Intel - Little endian, girar
+    #                j = y[i-1]+j
+    # x = devicesCalculations.split(" ")
+    # try:
+    #    data = int(j,16)*float(x[2])
+    # except:
+    #    print("Error")

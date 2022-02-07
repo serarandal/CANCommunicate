@@ -16,6 +16,7 @@ a = 0
 b=""
 d=""
 c=""
+b2Pressed = False
 class Worker(QtCore.QObject):
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
@@ -136,8 +137,6 @@ class Ui_MainWindow8(object):
         global d
         global c
         global deviceName
-        global deviceDataBytes
-        global devicesCalculations
         b = self.textEdit.toPlainText()
         c = b   #this is needed bc you change b into integer below
         if d == b:
@@ -156,7 +155,6 @@ class Ui_MainWindow8(object):
         else:
             d = c  #c is nedded instead of b.
             alreadyopen = 0
-        ##############tested##############
         if alreadyopen == 0:
             try:
                 with open("devices.txt") as f:
@@ -170,25 +168,23 @@ class Ui_MainWindow8(object):
                 strdi2 = stritem[0].split(" ")
                 if strdi2[1] == b :
                     deviceName = strdi2[0]
-                    deviceDataBytes = stritem[1]
-                    devicesCalculations = stritem[2]
         else:
             alreadyopen = 1
         if a == 0:
             a = 1
             print("Pushed reading can button:")
-            ##########tested########
             self.runLongTask()
         else:
             print("Already reading(ManuallyMadeWindow)")
             print("stopping")
             self.stopLongTask()
             a = 0
-###################
+
     def reportProgress(self,n):
         global deviceName
         global deviceDataBytes
         global devicesCalculations
+        global b2Pressed
         if n == "NoMessagesFromThatSource" or n == "NoNewMessagesFromThatSource":
             n = str(n)
             it = QtGui.QStandardItem(n)
@@ -201,23 +197,10 @@ class Ui_MainWindow8(object):
                 self.model.appendRow(it)
                 self.listView.scrollToBottom()
                 self.i += 1
-        else:
+        elif b2Pressed == False:
             n = str(n)
-            g = n.split("/")#cambiar a[1] por procesamiento de deviceDataBytes con deviceCal
-            z = g[2].split(" ")
-            y = g[1].split(" ")
-            j =""
-            if z[0] == "M":
-                for items in y:#Motorola - Big endian, no girar
-                    #añadir if devicesdatabyte == item, sino esta en la lista de bytes importantes ignorarlo
-                    j = j +items
-            else:
-                for items in y:#Intel - Little endian, girar
-                    j = items+j
-            x = devicesCalculations.split(" ")
-            print(x)
-            data = int(j,16)*float(x[2])
-            n =deviceName+"                  "+str(data)    +" "+g[2]
+            g = n.split("/")
+            n =deviceName+"                  "+g[1]+"                     "+g[2]
             it = QtGui.QStandardItem(n)
             if self.i >= 40:
                 self.model.removeRows(self.i - 39, 3)
@@ -228,8 +211,9 @@ class Ui_MainWindow8(object):
                 self.model.appendRow(it)
                 self.listView.scrollToBottom()
                 self.i += 1
+        else:
+            Utility.filterDevices(deviceName)
 
-###############
     def runLongTask(self):
         self.thread = QtCore.QThread()
         self.worker = Worker()
