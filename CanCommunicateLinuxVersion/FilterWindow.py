@@ -212,7 +212,17 @@ class Ui_MainWindow8(object):
                 self.listView.scrollToBottom()
                 self.i += 1
         else:
-            Utility.filterDevices(deviceName)
+            n=Utility.filterDevices(deviceName)
+            it=QtGui.QStandardItem(n)
+            if self.i >= 40:
+                self.model.removeRows(self.i - 39, 3)
+                self.i = 38
+                self.model.appendRow(it)
+                self.listView.scrollToBottom()
+            else:
+                self.model.appendRow(it)
+                self.listView.scrollToBottom()
+                self.i += 1
 
     def runLongTask(self):
         self.thread = QtCore.QThread()
