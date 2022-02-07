@@ -250,9 +250,16 @@ def processedMsgFilter(msg):
     return imagen
 
 
-def filterDevices(deviceName):
-    def one():
-        return "January"
+def filterDevices(deviceName,mesg):
+    def steeringSensor():
+        id = 0x305
+        print(id)
+        x = mesg.split("/")
+        #procesar el mensaje y traducir el dato
+        n = "steeringSensor"+"data"+"timestamp"
+        print(x)
+        return n
+
 
     def two():
         return "February"
@@ -289,7 +296,7 @@ def filterDevices(deviceName):
 
     def numbers_to_months(argument):
         switcher = {
-            1: one,
+            "steeringSensor": steeringSensor(),
             2: two,
             3: three,
             4: four,

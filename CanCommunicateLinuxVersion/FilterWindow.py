@@ -212,7 +212,7 @@ class Ui_MainWindow8(object):
                 self.listView.scrollToBottom()
                 self.i += 1
         else:
-            n=Utility.filterDevices(deviceName)
+            n=Utility.filterDevices(deviceName,n)
             it=QtGui.QStandardItem(n)
             if self.i >= 40:
                 self.model.removeRows(self.i - 39, 3)
