@@ -2,7 +2,7 @@ import can
 import platform
 import subprocess as sp
 import threading
-
+import re
 
 msg = can.Message()
 msg2 = can.Message()
@@ -253,10 +253,28 @@ def processedMsgFilter(msg):
 def filterDevices(deviceName,mesg):
     def steeringSensor():
         id = 0x305
+        dataF =0
+        p = re.compile('[e-f]+')
+        p2 = re.compile('[b-d]+')
         print(id)
         x = mesg.split("/")
+        data = x[1].split(" ")
+        print(data)
+        timestamp = x[2]
+        for i in range(len(data)):
+            if i == 0 or i ==1:
+                m = p.match(data[i])
+                j = p2.match(data[i])
+                if m :#si es Falgo o Ealgo- hacer FF menos el valor y eso *0.13 para sacar el valor
+                    dataF = dataF  + (255 - data[i])
+                elif j:
+                    None
+                else:
+                    dataF = dataF + data[i]
         #procesar el mensaje y traducir el dato
-        n = "steeringSensor"+"data"+"timestamp"
+
+        dataF = dataF*0.13
+        n = "steeringSensor"+dataF+timestamp
         print(x)
         return n
 
