@@ -1,3 +1,5 @@
+#Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
+
 import can
 import platform
 import subprocess as sp

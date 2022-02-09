@@ -46,7 +46,7 @@ if __name__ == "__main__":
     ui14 = AddNewMessages.Popup7()
     ui15 = AddNewMessages.Popup8()
     ui16 = FilterWindow.Ui_MainWindow8()
-    ui.setupUi(MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7)
+    ui.setupUi(MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7,MainWindow8)
     ui2.setupUi(MainWindow2,MainWindow3)
     ui3.setupUi(MainWindow3,MainWindow2,MainWindow5)
     ui4.setupUi(MainWindow4,PopupWindow7,PopupWindow8)
@@ -63,6 +63,5 @@ if __name__ == "__main__":
     ui15.setupUi(PopupWindow8)
     ui16.setupUi(MainWindow8)
     MainWindow.show()
-    MainWindow8.show()
     sys.exit(app.exec_())
 
