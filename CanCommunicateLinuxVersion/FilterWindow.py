@@ -73,14 +73,14 @@ class Worker(QtCore.QObject):
         self.isKilled = True
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
+class Ui_MainWindow8(object):
+    def setupUi(self, MainWindow8):
+        MainWindow8.setObjectName("MainWindow")
+        MainWindow8.resize(800, 600)
         self.Font = PyQt5.QtGui.QFont('Arial', 14)
         self.i = 0
         self.model = QtGui.QStandardItemModel()
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget = QtWidgets.QWidget(MainWindow8)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout_2.setObjectName("gridLayout_2")
@@ -122,21 +122,21 @@ class Ui_MainWindow(object):
         self.pushButton_2.clicked.connect(self.b2)
         self.gridLayout.addWidget(self.pushButton_2, 1, 1, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        MainWindow8.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow8)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
         self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        MainWindow8.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow8)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        MainWindow8.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(MainWindow8)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow8)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, MainWindow8):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow8.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label_2.setText(_translate("MainWindow", "Data"))
         self.pushButton.setText(_translate("MainWindow", "Filter by id without translation"))
         self.label.setText(_translate("MainWindow", "Sensor name"))
@@ -193,6 +193,7 @@ class Ui_MainWindow(object):
 
     def b2(self):
         global b2Pressed
+        print("Pressed b2")
         b2Pressed = True
 
     def reportProgress(self, n):
