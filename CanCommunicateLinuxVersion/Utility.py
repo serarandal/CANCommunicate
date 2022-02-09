@@ -273,8 +273,8 @@ def filterDevices(deviceName,mesg):
                     dataF = dataF + data[i]
         #procesar el mensaje y traducir el dato
 
-        dataF = dataF*0.13
-        n = "steeringSensor"+dataF+timestamp
+        dataF = float(int(dataF,16))*0.13
+        n = "steeringSensor"+str(dataF)+timestamp
         print(x)
         return n
 
