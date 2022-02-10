@@ -116,6 +116,8 @@ class Ui_MainWindow(object):
         self.gridLayout.addItem(spacerItem2, 13, 0, 1, 1)
         self.listView = QtWidgets.QListView(self.centralwidget)
         self.listView.setObjectName("listView")
+        self.listView.setModel(self.model)
+        self.listView.setFont(self.Font)
         self.gridLayout.addWidget(self.listView, 1, 0, 1, 1)
         self.pushButton_8 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_8.setObjectName("pushButton_8")

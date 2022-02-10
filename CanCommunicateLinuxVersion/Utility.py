@@ -253,87 +253,24 @@ def processedMsgFilter(msg):
 
 
 def filterDevices(deviceName,mesg):
-    def steeringSensor():
-        id = 0x305
-        dataF =0
-        p = re.compile('[e-f]+')
-        p2 = re.compile('[b-d]+')
-        print(id)
-        x = mesg.split("/")
-        data = x[1].split(" ")
-        print(data)
-        timestamp = x[2]
-        for i in range(len(data)):
-            if i == 0 or i ==1:
-                m = p.match(data[i])
-                j = p2.match(data[i])
-                if m :#si es Falgo o Ealgo- hacer FF menos el valor y eso *0.13 para sacar el valor
-                    dataF = dataF  + (255 - data[i])
-                elif j:
-                    None
-                else:
-                    dataF = dataF + data[i]
-        #procesar el mensaje y traducir el dato
-
-        dataF = float(int(dataF,16))*0.13
-        n = "steeringSensor"+str(dataF)+timestamp
-        print(x)
-        return n
-
-
-    def two():
-        return "February"
-
-    def three():
-        return "March"
-
-    def four():
-        return "April"
-
-    def five():
-        return "May"
-
-    def six():
-        return "June"
-
-    def seven():
-        return "July"
-
-    def eight():
-        return "August"
-
-    def nine():
-        return "September"
-
-    def ten():
-        return "October"
-
-    def eleven():
-        return "November"
-
-    def twelve():
-        return "December"
-
-    def numbers_to_months(argument):
-        switcher = {
-            "steeringSensor": steeringSensor(),
-            2: two,
-            3: three,
-            4: four,
-            5: five,
-            6: six,
-            7: seven,
-            8: eight,
-            9: nine,
-            10: ten,
-            11: eleven,
-            12: twelve
-        }
-        # Get the function from switcher dictionary
-        func = switcher.get(deviceName, lambda: "Invalid month")
-        # Execute the function
-        func()
-    # z = devicesCalculations.split(" ")
+    switcher = {
+        "steeringSensor": steeringSensor(mesg),
+        2: two,
+        3: three,
+        4: four,
+        5: five,
+        6: six,
+        7: seven,
+        8: eight,
+        9: nine,
+        10: ten,
+        11: eleven,
+        12: twelve
+    }
+    # Get the function from switcher dictionary
+    return switcher.get(deviceName, lambda: "Invalid month")
+    # Execute the function
+    #z = devicesCalculations.split(" ")
     # y = g[1].split(" ")
     # j =""
     # k = deviceDataBytes.split(" ")
@@ -354,3 +291,63 @@ def filterDevices(deviceName,mesg):
     #    data = int(j,16)*float(x[2])
     # except:
     #    print("Error")
+def steeringSensor(mesg):
+    id = 0x305
+    dataF =0.0
+    p = re.compile('[e-f]+')
+    p2 = re.compile('[b-d]+')
+    print(id)
+    x = mesg.split("/")
+    data = x[1].split(" ")
+    print(data)
+    timestamp = x[2]
+    for i in range(len(data)):
+        if i == 0 or i ==1:
+            m = p.match(data[i])
+            j = p2.match(data[i])
+            if m :#si es Falgo o Ealgo- hacer FF menos el valor y eso *0.13 para sacar el valor
+                dataF = dataF  + (255 - int(data[i],16))
+            elif j:
+                None
+            else:
+                dataF = dataF + int(data[i])
+        #procesar el mensaje y traducir el dato
+
+    dataF = dataF*0.13
+    n = "steeringSensor"+str(dataF)+timestamp
+    print(x)
+    return n
+
+
+def two():
+    return "February"
+
+def three():
+    return "March"
+
+def four():
+    return "April"
+
+def five():
+    return "May"
+
+def six():
+    return "June"
+
+def seven():
+    return "July"
+
+def eight():
+    return "August"
+
+def nine():
+    return "September"
+
+def ten():
+    return "October"
+
+def eleven():
+    return "November"
+
+def twelve():
+    return "December"

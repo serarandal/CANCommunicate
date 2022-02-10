@@ -10,6 +10,7 @@ a = 0
 b = ""
 d = ""
 c = ""
+y = 0
 b2Pressed = False
 
 
@@ -187,8 +188,26 @@ class Ui_MainWindow8(object):
 
     def b2(self):
         global b2Pressed
+        global y
         print("Pressed b2")
-        b2Pressed = True
+        if y == 0:
+            b2Pressed = True
+            y = 1
+        else:
+            b2Pressed = False
+            y = 0
+            n = str("stopped data translation")
+            it = QtGui.QStandardItem(n)
+            if self.i >= 40:
+                self.model.removeRows(self.i - 39, 3)
+                self.i = 38
+                self.model.appendRow(it)
+                self.listView.scrollToBottom()
+            else:
+                self.model.appendRow(it)
+                self.listView.scrollToBottom()
+                self.i += 1
+
 
     def reportProgress(self, n):
         global deviceName
@@ -222,8 +241,8 @@ class Ui_MainWindow8(object):
                 self.listView.scrollToBottom()
                 self.i += 1
         else:
-            n = Utility.filterDevices(deviceName, n)
-            it = QtGui.QStandardItem(n)
+            x = Utility.filterDevices(deviceName, n)
+            it = QtGui.QStandardItem(x)
             if self.i >= 40:
                 self.model.removeRows(self.i - 39, 3)
                 self.i = 38
