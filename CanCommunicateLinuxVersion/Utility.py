@@ -314,7 +314,7 @@ def steeringSensor(mesg):
         #procesar el mensaje y traducir el dato
 
     dataF = dataF*0.13
-    n = "steeringSensor"+str(dataF)+timestamp
+    n = "steeringSensor"+"               "+str(dataF)+"                "+timestamp
     print(x)
     return n
 

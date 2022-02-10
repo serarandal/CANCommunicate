@@ -135,7 +135,7 @@ class Ui_MainWindow8(object):
         self.label_2.setText(_translate("MainWindow", "Data"))
         self.pushButton.setText(_translate("MainWindow", "Filter by id without translation"))
         self.label.setText(_translate("MainWindow", "Sensor name"))
-        self.pushButton_2.setText(_translate("MainWindow", "Add translation to filter"))
+        self.pushButton_2.setText(_translate("MainWindow", "Switch to understandable data"))
 
     def b1(self):
         global b
@@ -229,7 +229,7 @@ class Ui_MainWindow8(object):
         elif b2Pressed == False:
             n = str(n)
             g = n.split("/")
-            n = deviceName + "                  " + g[1] + "                     " + g[2]
+            n = deviceName + "               " + g[1] + "                     " + g[2]
             it = QtGui.QStandardItem(n)
             if self.i >= 40:
                 self.model.removeRows(self.i - 39, 3)
