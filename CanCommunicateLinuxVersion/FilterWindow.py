@@ -169,7 +169,6 @@ class Ui_MainWindow8(object):
                 print("Cannot open devices.txt, make sure it is created and you have reading rights")
             for item in content:
                 stritem = str(item)
-                print(stritem)
                 stritem = stritem.split("/")
                 strdi2 = stritem[0].split(" ")
                 if strdi2[1] == b:

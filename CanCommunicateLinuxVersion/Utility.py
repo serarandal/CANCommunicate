@@ -293,35 +293,30 @@ def filterDevices(deviceName,mesg):
     #    print("Error")
 def steeringSensor(mesg):
     id = 0x305
-    dataF =0.0
+    dataF =0
     patata = 0
     p = re.compile('[e-f]+')
     p2 = re.compile('[b-d]+')
-    print(id)
     x = mesg.split("/")
     data = x[1].split(" ")
-    print(data)
     timestamp = x[2]
-    for i in range(len(data)):
-        if i == 0 or i ==1:
-            m = p.match(data[i])
-            j = p2.match(data[i])
-            if m :#si es Falgo o Ealgo- hacer FF menos el valor y eso *0.13 para sacar el valor
-                dataF = dataF  + (255 - int(data[i],16))
-                patata = 1
-            elif j:
-                None
-            else:
-                dataF = dataF + int(data[i])
-                patata = 0
+    m = p.match(data[0])
+    j = p2.match(data[0])
+    for i in range(0,2):
+        if m :#si es Falgo o Ealgo- hacer FF menos el valor y eso *0.13 para sacar el valor
+            dataF = dataF  + (255 - int(data[i],16))
+            patata = 1
+        elif j:
+            None
+        else:
+            dataF = dataF + int(data[i])
+            patata = 0
         #procesar el mensaje y traducir el dato
-
     dataF = dataF*0.13
     if patata == 1:
         n = "steeringSensor"+"              -"+str(dataF)+"                "+timestamp
     else:
         n = "steeringSensor"+"               "+str(dataF)+"                "+timestamp
-        print(x)
     return n
 
 
