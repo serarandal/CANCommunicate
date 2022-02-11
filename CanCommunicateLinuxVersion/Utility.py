@@ -78,7 +78,7 @@ def connectCan():
         print("Cannot open frequency.txt, make sure it is created and you have reading rights")
     if sistema == 'Linux':
        try:
-            output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback on")
+            output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
             output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
             bustype = 'socketcan'
             can_interface = 'can0'
@@ -293,7 +293,8 @@ def filterDevices(deviceName,mesg):
     #    print("Error")
 def steeringSensor(mesg):
     id = 0x305
-    dataF =0
+    dataF =""
+    dataTemp = 0x0
     patata = 0
     p = re.compile('[e-f]+')
     p2 = re.compile('[b-d]+')
@@ -304,15 +305,23 @@ def steeringSensor(mesg):
     j = p2.match(data[0])
     for i in range(0,2):
         if m :#si es Falgo o Ealgo- hacer FF menos el valor y eso *0.13 para sacar el valor
-            dataF = dataF  + (255 - int(data[i],16))
+            if i == 0:
+                dataTemp = data[i]
+            else:
+                dataF = dataTemp+data[i]
             patata = 1
         elif j:
             None
         else:
-            dataF = dataF + int(data[i])
+            dataF = dataF + data[i]
             patata = 0
         #procesar el mensaje y traducir el dato
-    dataF = dataF*0.13
+    if patata == 1:
+        dataF = str((0xFFFF-int(dataF,16))*0.13)
+    else:
+        dataF = int(dataF,16)*0.13
+    #if str(dataF) == "4259.17":
+    #    dataF = "Fuera de rango"
     if patata == 1:
         n = "steeringSensor"+"              -"+str(dataF)+"                "+timestamp
     else:
