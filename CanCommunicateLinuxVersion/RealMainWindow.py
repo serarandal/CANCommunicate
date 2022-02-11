@@ -4,10 +4,9 @@
 
 import time
 import PyQt5.QtCore
-#import can
 from PyQt5 import QtCore, QtGui, QtWidgets
 import Utility
-import os
+
 a = 0
 
 class Worker(QtCore.QObject):
