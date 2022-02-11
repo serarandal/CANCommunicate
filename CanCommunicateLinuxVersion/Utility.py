@@ -317,9 +317,9 @@ def steeringSensor(mesg):
             patata = 0
         #procesar el mensaje y traducir el dato
     if patata == 1:
-        dataF = str((0xFFFF-int(dataF,16))*0.13)
+        dataF = str(round((0xFFFF-int(dataF,16))*0.13,2))
     else:
-        dataF = int(dataF,16)*0.13
+        dataF = round(int(dataF,16)*0.13,2)
     #if str(dataF) == "4259.17":
     #    dataF = "Fuera de rango"
     if patata == 1:
