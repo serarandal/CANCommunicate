@@ -1,11 +1,9 @@
-import PyQt5.QtCore
-#import can
-from PyQt5 import QtCore, QtGui, QtWidgets
+#Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
 
+import PyQt5.QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 import PreMadeWindow
 import Utility
-import os
-#from time import sleep
 
 class Popup6(object):
     def setupUi(self, PopupWindow6):

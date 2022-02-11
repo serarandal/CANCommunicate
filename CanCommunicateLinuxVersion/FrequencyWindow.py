@@ -1,10 +1,9 @@
+#Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
+
 import PyQt5.QtCore
-#import can
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 import Utility
-import os
-import time
 
 class Popup3(object):
     def setupUi(self, PopupWindow3):

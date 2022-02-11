@@ -78,7 +78,7 @@ def connectCan():
         print("Cannot open frequency.txt, make sure it is created and you have reading rights")
     if sistema == 'Linux':
        try:
-            output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off")
+            output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off") #if you need to debug just put on instead
             output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
             bustype = 'socketcan'
             can_interface = 'can0'
@@ -104,7 +104,7 @@ def connectCan():
 def setId_Data(id,data):
     global msg
 
-    print(data) #arbitration_id hex del id -> 0x608 #data=[]cada hex en su correspondiente int
+    print(data) #arbitration_id hex of the id -> 0x608
     try :
         msg = can.Message(arbitration_id=int(id,16),
                       data=data,
@@ -115,7 +115,7 @@ def setId_Data(id,data):
 def sendData():
     global bus
     try:
-        bus.send(msg)#need to be tested,if threadsafe doesnt work , add timegate (msg,1)
+        bus.send(msg)
         print("Message sent on {}".format(bus.channel_info))
     except can.CanError:
         print("Message NOT sent"+bus.state)
@@ -269,28 +269,7 @@ def filterDevices(deviceName,mesg):
     }
     # Get the function from switcher dictionary
     return switcher.get(deviceName, lambda: "Invalid month")
-    # Execute the function
-    #z = devicesCalculations.split(" ")
-    # y = g[1].split(" ")
-    # j =""
-    # k = deviceDataBytes.split(" ")
-    # l =0
-    # i= 1
-    # if z[1] == "M":#Motorola - Big endian, no girar
-    #    for i in range(1,len(y)):
-    #        for l in range(len(k)):
-    #            if str(i) == k[l]:#añadir if devicesdatabyte == item, sino esta en la lista de bytes importantes ignorarlo
-    #                j = j +y[i-1]
-    # else:
-    #    for i in range(1,len(y)):
-    #        for l in range(len(k)):
-    #            if str(i) == k[l]:#Intel - Little endian, girar
-    #                j = y[i-1]+j
-    # x = devicesCalculations.split(" ")
-    # try:
-    #    data = int(j,16)*float(x[2])
-    # except:
-    #    print("Error")
+
 def steeringSensor(mesg):
     id = 0x305
     dataF =""
@@ -304,7 +283,7 @@ def steeringSensor(mesg):
     m = p.match(data[0])
     j = p2.match(data[0])
     for i in range(0,2):
-        if m :#si es Falgo o Ealgo- hacer FF menos el valor y eso *0.13 para sacar el valor
+        if m :#if it is 0xFsomething or 0xEsomething, we have to make FF minus that data and that *0.13
             if i == 0:
                 dataTemp = data[i]
             else:
@@ -315,7 +294,7 @@ def steeringSensor(mesg):
         else:
             dataF = dataF + data[i]
             patata = 0
-        #procesar el mensaje y traducir el dato
+        #process the data and translate it
     if patata == 1:
         dataF = str(round((0xFFFF-int(dataF,16))*0.13,2))
     else:

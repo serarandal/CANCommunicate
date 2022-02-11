@@ -1,3 +1,4 @@
+#Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
 
 import PyQt5.QtCore
 #import can
