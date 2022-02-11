@@ -323,9 +323,9 @@ def steeringSensor(mesg):
     #if str(dataF) == "4259.17":
     #    dataF = "Fuera de rango"
     if patata == 1:
-        n = "steeringSensor"+"              -"+str(dataF)+"                "+timestamp
+        n = "steeringSensor"+"              -"+str(dataF)+"º               "+timestamp
     else:
-        n = "steeringSensor"+"               "+str(dataF)+"                "+timestamp
+        n = "steeringSensor"+"               "+str(dataF)+"º               "+timestamp
     return n
 
 
