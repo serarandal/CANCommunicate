@@ -9,7 +9,9 @@ import PasswordWindow
 import ManMadeWindow
 import AddNewMessages
 import FrequencyWindow
+import platform
 
+import Utility
 
 if __name__ == "__main__":
     import sys
@@ -62,6 +64,8 @@ if __name__ == "__main__":
     ui14.setupUi(PopupWindow7)
     ui15.setupUi(PopupWindow8)
     ui16.setupUi(MainWindow8)
+    if platform.system() != 'Linux':
+        Utility.findSerialNumberKorlan()
     MainWindow.show()
     sys.exit(app.exec_())
 

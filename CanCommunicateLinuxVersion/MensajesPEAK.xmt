@@ -1,0 +1,50 @@
+; A:\OneDrive - Universidad Politécnica de Madrid\Escritorio\ª.xmt
+;   CAN messages saved by PCAN-View v4.3.4.615
+;
+; Columns descriptions:
+; ~~~~~~~~~~~~~~~~~~~~~
+; +Message ID
+; |            +Cycle time in ms (0=manual)
+; |            |  +Data length
+; |            |  |  +Frame type
+; |            |  |  |  +Message data
+; |            |  |  |  |
+000h           0  8  D 00h 00h 00h 00h 00h 00h 00h 00h
+608h           0  8  D 22h 00h 00h 00h 00h 00h 00h 00h ; Manual
+608h           0  8  D 22h 00h 00h 00h 00h 01h 00h 01h ; Auto Neutral 1ª
+608h        1000  8  D 22h 00h 00h 00h 00h 01h 01h 01h  Paused ; Auto Adelante 1ª
+608h         100  8  D 22h 00h 00h 00h 00h 01h 01h 02h  Paused ; Auto Adelante 2ª
+608h           0  8  D 22h 00h 00h 00h 00h 01h 01h 03h ; Auto Adelante A1
+608h           0  8  D 22h 00h 00h 00h 00h 01h 01h 04h ; Auto Adelante A2
+608h           0  8  D 22h 00h 00h 00h 00h 01h 02h 01h ; Auto Atras 1ª
+608h           0  8  D 22h 00h 00h 00h 00h 01h 02h 02h ; Auto Atras 2ª
+608h           0  8  D 22h 00h 00h 00h 00h 01h 02h 03h ; Auto Atras A1
+608h           0  8  D 22h 00h 00h 00h 00h 01h 02h 04h ; Auto Atras A2
+608h           0  8  D 22h 00h 00h 00h 00h 01h 03h 01h ; Auto Pivotar 1ª
+608h           0  8  D 22h 00h 00h 00h 00h 01h 03h 02h ; Auto Pivotar 2ª
+608h           0  8  D 22h 00h 00h 00h 00h 01h 03h 03h ; Auto Pivotar A1
+608h           0  8  D 22h 00h 00h 00h 00h 01h 03h 04h ; Auto Pivotar A2
+605h       80000  8  D 22h 03h 00h 00h 01h 00h 00h 00h  Paused ; Activar RELE SEÑAL ON
+605h        1000  8  D 22h 03h 00h 00h 00h 00h 00h 00h  Paused ; Activar RELE SEÑAL OFF
+605h       80000  8  D 22h 01h 00h 00h 00h 00h 00h 00h  Paused ; Mensaje tensión 0V
+605h       80000  8  D 22h 01h 00h 00h 4Bh 00h 00h 00h  Paused ; Mensaje tensión 0.75V
+605h       80000  8  D 22h 01h 00h 00h 6Ch 00h 00h 00h  Paused ; Mensaje tensión 1.08V
+605h       80000  8  D 22h 01h 00h 00h 22h 01h 00h 00h  Paused ; Mensaje tensión 2.90V
+605h       80000  8  D 22h 01h 00h 00h 2Ch 01h 00h 00h  Paused ; Mensaje tensión 3V
+605h       80000  8  D 22h 01h 00h 00h 3Bh 01h 00h 00h  Paused ; Mensaje tensión 3.15V
+605h       80000  8  D 22h 01h 00h 00h 9Dh 01h 00h 00h  Paused ; Mensaje tensión 4.13V
+605h       80000  8  D 22h 01h 00h 00h F4h 01h 00h 00h  Paused ; Mensaje tensión 5V
+605h       80000  8  D 22h 02h 00h 00h 01h 00h 00h 00h  Paused ; Activar salida tensión
+605h       80000  8  D 22h 02h 00h 00h 00h 00h 00h 00h  Paused ; Desactivar salida tensión
+605h       80000  8  D 22h 01h 00h 00h 9Eh 01h 00h 00h  Paused ; Mensaje tensión Custom
+605h       80000  8  D 22h 03h 00h 00h 03h 00h 00h 00h  Paused ; Activar RELE PISON ON
+605h       80000  8  D 22h 03h 00h 00h 02h 00h 00h 00h  Paused ; Activar RELE PISON OFF
+606h           0  8  D 22h 01h 02h 07h 00h 00h 00h 00h ; GPIO Binario en b3 (14)
+606h           0  8  D 22h 01h 02h 0Eh 00h 00h 00h 00h ; GPIO Binario en b3 (14)
+606h           0  8  D 22h 01h 02h 0Fh 00h 00h 00h 00h ; GPIO Binario en b3 (14)
+200h           0  8  D 00h 00h 00h 00h 00h 00h 00h 00h ; Iniciar Conf
+201h           0  8  D 01h 00h 00h 00h 00h 00h 00h 00h ; Establecer valor EEPROM
+202h           0  8  D 00h 00h 00h 00h 00h 00h 00h 00h ; Pedir valor EEPROM
+005h           0  2  D 19h 00h ; Slow
+005h           0  2  D 19h 01h ; normal
+005h           0  2  D 19h 02h ; fast
