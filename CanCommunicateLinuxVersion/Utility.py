@@ -18,16 +18,7 @@ password = ""
 ready = False
 sistema = platform.system()
 frequency =""
-usb2can = None
-serialNumber =""
 
-class CANALMSG(ct.Structure):
-    _fields_ = [("flags",ct.c_ulong),
-                ("obid",ct.c_ulong),
-                ("id",ct.c_ulong),
-                ("count",ct.c_ubyte),
-                ("data",ct.c_ubyte*8),
-                ("timestamp",ct.c_ulong)]
 
 def setPassword(passW):
     global password
@@ -78,8 +69,6 @@ def connectCan():
     global bus
     global password
     global frequency
-    global usb2can
-    global serialNumber
     try:
         with open("password.txt") as f:
             password = f.read()
@@ -101,8 +90,7 @@ def connectCan():
            print("No usb2can connected")
     else:
         try:
-            usb2can = ct.CDLL("usb2can.dll")
-            usb2can.CanalOpen(serialNumber,frequency)
+            None
         except:
             print("No usb2can connected")
     try:
@@ -122,7 +110,7 @@ def setId_Data(id,data):
                       data=data,
                       is_extended_id=False)
         else:
-            msg = CANALMSG(id=id,data=data)
+            None
     except:
         print("The id cannot be \"\" or the data cannot be \"\"")
 
@@ -133,7 +121,7 @@ def sendData():
             bus.send(msg)
             print("Message sent on {}".format(bus.channel_info))
         else:
-            usb2can.CanalSend(msg)
+            None
     except can.CanError:
         print("Message NOT sent"+bus.state)
 

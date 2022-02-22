@@ -10,6 +10,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+Messages/
 env/
 build/
 develop-eggs/
@@ -150,3 +151,5 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+*.txt
+*.xmt
