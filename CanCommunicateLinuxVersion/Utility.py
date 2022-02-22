@@ -6,7 +6,8 @@ import platform
 import subprocess as sp
 import threading
 import re
-import ctypes as ct
+import serial_selector
+import usb2canInterface
 
 msg = can.Message()
 msg2 = can.Message()
@@ -90,7 +91,7 @@ def connectCan():
            print("No usb2can connected")
     else:
         try:
-            None
+            bus = usb2canInterface.Usb2canBus(bitrate=frequency)
         except:
             print("No usb2can connected")
     try:
@@ -105,12 +106,9 @@ def setId_Data(id,data):
 
     print(data) #arbitration_id hex of the id -> 0x608
     try :
-        if sistema == 'Linux':
-            msg = can.Message(arbitration_id=int(id,16),
-                      data=data,
-                      is_extended_id=False)
-        else:
-            None
+        msg = can.Message(arbitration_id=int(id,16),
+                    data=data,
+                    is_extended_id=False)
     except:
         print("The id cannot be \"\" or the data cannot be \"\"")
 
@@ -121,7 +119,7 @@ def sendData():
             bus.send(msg)
             print("Message sent on {}".format(bus.channel_info))
         else:
-            None
+            bus.send(msg)
     except can.CanError:
         print("Message NOT sent"+bus.state)
 
