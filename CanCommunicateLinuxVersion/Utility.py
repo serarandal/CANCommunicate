@@ -1,10 +1,12 @@
 #Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
+import subprocess
 
 import can
 import platform
 import subprocess as sp
 import threading
 import re
+import ctypes as ct
 
 msg = can.Message()
 msg2 = can.Message()
@@ -16,6 +18,16 @@ password = ""
 ready = False
 sistema = platform.system()
 frequency =""
+usb2can = None
+serialNumber =""
+
+class CANALMSG(ct.Structure):
+    _fields_ = [("flags",ct.c_ulong),
+                ("obid",ct.c_ulong),
+                ("id",ct.c_ulong),
+                ("count",ct.c_ubyte),
+                ("data",ct.c_ubyte*8),
+                ("timestamp",ct.c_ulong)]
 
 def setPassword(passW):
     global password
@@ -66,6 +78,8 @@ def connectCan():
     global bus
     global password
     global frequency
+    global usb2can
+    global serialNumber
     try:
         with open("password.txt") as f:
             password = f.read()
@@ -87,16 +101,13 @@ def connectCan():
            print("No usb2can connected")
     else:
         try:
-            output = sp.getoutput("echo " + password + " | sudo -S ip link set can0 up type can bitrate " + frequency + " loopback off")
-            output2 = sp.getoutput("echo " + password + " | sudo -S ip link set up can0")
-            bustype = 'usb2can'
-            can_interface = 'can0'
-            bus = can.ThreadSafeBus(can_interface,bustype=bustype)
+            usb2can = ct.CDLL("usb2can.dll")
+            usb2can.CanalOpen(serialNumber,frequency)
         except:
             print("No usb2can connected")
-
     try:
-        initThreads()
+        if sistema == 'Linux':
+            initThreads()
     except:
         print("Error threads")
     return output +"\n"+  output2
@@ -106,19 +117,31 @@ def setId_Data(id,data):
 
     print(data) #arbitration_id hex of the id -> 0x608
     try :
-        msg = can.Message(arbitration_id=int(id,16),
+        if sistema == 'Linux':
+            msg = can.Message(arbitration_id=int(id,16),
                       data=data,
                       is_extended_id=False)
+        else:
+            msg = CANALMSG(id=id,data=data)
     except:
         print("The id cannot be \"\" or the data cannot be \"\"")
 
 def sendData():
     global bus
     try:
-        bus.send(msg)
-        print("Message sent on {}".format(bus.channel_info))
+        if sistema == 'Linux':
+            bus.send(msg)
+            print("Message sent on {}".format(bus.channel_info))
+        else:
+            usb2can.CanalSend(msg)
     except can.CanError:
         print("Message NOT sent"+bus.state)
+
+def findSerialNumberKorlan():
+    global serialNumber
+    output2 = sp.getoutput("wmic path CIM_LogicalDevice where \"Description like 'USB%'\" get DeviceID")
+    pa=output2.split("\\")
+    serialNumber = pa[2]
 
 def processMessage(msg):
     finish = False
