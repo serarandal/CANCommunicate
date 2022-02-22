@@ -1,0 +1,24 @@
+; E:\_LABIE\PROYECTOS\Automatización en general\Mensajes CAN\Mensajes CAN_CANADAD_TENSION.xmt
+; CAN messages saved by PCAN-View 4.2.5
+;
+; Columns descriptions:
+; ~~~~~~~~~~~~~~~~~~~~~
+; +Message ID
+; |            +Cycle time in ms (0=manual)
+; |            |  +Data length
+; |            |  |  +Frame type
+; |            |  |  |  +Message data
+; |            |  |  |  |
+605h       80000  8  D 22h 03h 00h 00h 01h 00h 00h 00h  Paused ; Activar RELE SEÑAL ON
+605h        1000  8  D 22h 03h 00h 00h 00h 00h 00h 00h  Paused ; Activar RELE SEÑAL OFF
+605h       80000  8  D 22h 01h 00h 00h 00h 00h 00h 00h  Paused ; Mensaje tensión 0V
+605h       80000  8  D 22h 01h 00h 00h 4Bh 00h 00h 00h  Paused ; Mensaje tensión 0.75V
+605h       80000  8  D 22h 01h 00h 00h 6Ch 00h 00h 00h  Paused ; Mensaje tensión 1.074V
+605h       80000  8  D 22h 01h 00h 00h 22h 01h 00h 00h  Paused ; Mensaje tensión 2.90V
+605h       80000  8  D 22h 01h 00h 00h 2Ch 01h 00h 00h  Paused ; Mensaje tensión 3V
+605h       80000  8  D 22h 01h 00h 00h 3Bh 01h 00h 00h  Paused ; Mensaje tensión 3.15V
+605h       80000  8  D 22h 01h 00h 00h 9Dh 01h 00h 00h  Paused ; Mensaje tensión 4.13V
+605h       80000  8  D 22h 01h 00h 00h F4h 01h 00h 00h  Paused ; Mensaje tensión 5V
+605h       80000  8  D 22h 02h 00h 00h 01h 00h 00h 00h  Paused ; Activar salida tensión
+605h       80000  8  D 22h 02h 00h 00h 00h 00h 00h 00h  Paused ; Desactivar salida tensión
+605h       80000  8  D 22h 01h 00h 00h 9Eh 01h 00h 00h  Paused ; Mensaje tensión 4.13V
