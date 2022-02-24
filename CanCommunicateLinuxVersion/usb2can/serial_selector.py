@@ -4,14 +4,14 @@
 """
 
 from __future__ import division, print_function, absolute_import
-
+import platform
 import logging
-
-try:
-    import win32com.client
-except ImportError:
-    logging.warning("win32com.client module required for usb2can")
-    raise
+if platform.system() != 'Linux':
+    try:
+        import win32com.client
+    except ImportError:
+        logging.warning("win32com.client module required for usb2can")
+        raise
 
 
 def WMIDateStringToDate(dtmDate):
