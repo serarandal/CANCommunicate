@@ -6,8 +6,6 @@ import platform
 import subprocess as sp
 import threading
 import re
-import usb2can.serial_selector
-import usb2can.usb2canInterface
 
 msg = can.Message()
 msg2 = can.Message()
@@ -19,9 +17,11 @@ password = ""
 ready = False
 sistema = platform.system()
 frequency =""
+import usb2canAbstractionFile
+import usb2canInteface
 
 
-def setPassword(passW):
+def setPassword(passW): #LW
     global password
     with open("password.txt",'r')as f:
         data = f.read()
@@ -34,7 +34,7 @@ def setPassword(passW):
         return True
 
 
-def setFrequency(fre):
+def setFrequency(fre): #LW
     global frequency
     if fre == "":
         return False
@@ -66,15 +66,18 @@ def testOneCan():#Normal reading
 def testTwoCan():#Filter reading
     global processedMsgFiltered
     return processedMsgFiltered
+
 def connectCan():
     global bus
     global password
     global frequency
-    try:
-        with open("password.txt") as f:
-            password = f.read()
-    except:
-        print("Cannot open password.txt, make sure it is created and you have reading rights")
+
+    if sistema =='Linux':
+        try:
+            with open("password.txt") as f:
+                password = f.read()
+        except:
+            print("Cannot open password.txt, make sure it is created and you have reading rights")
     try:
         with open("frequency.txt") as f:
             frequency = f.read()
@@ -91,7 +94,8 @@ def connectCan():
            print("No usb2can connected")
     else:
         try:
-            bus = usb2can.usb2canInterface.Usb2canBus(bitrate=frequency)
+            bus = usb2canInteface.Usb2canBus(channel="2E6C6544",dll="./usb2can.dll")
+            print(bus.state)
         except:
             print("No usb2can connected")
     try:
@@ -99,7 +103,10 @@ def connectCan():
             initThreads()
     except:
         print("Error threads")
-    return output +"\n"+  output2
+    if sistema == 'Linux':
+        return output +"\n"+  output2
+    else:
+        return "intentado conectar al korlan"
 
 def setId_Data(id,data):
     global msg
@@ -119,7 +126,11 @@ def sendData():
             bus.send(msg)
             print("Message sent on {}".format(bus.channel_info))
         else:
-            bus.send(msg)
+            try:
+                bus.send(msg)
+                print(bus.state)
+            except can.CanError:
+                print("Trying to write to a readonly bus?")
     except can.CanError:
         print("Message NOT sent"+bus.state)
 
