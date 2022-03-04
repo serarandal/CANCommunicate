@@ -17,6 +17,7 @@ password = ""
 ready = False
 sistema = platform.system()
 frequency =""
+serialNumber =""
 import usb2canAbstractionFile
 import usb2canInteface
 
@@ -94,7 +95,7 @@ def connectCan():#LW
            print("No usb2can connected")
     else:
         try:
-            bus = usb2canInteface.Usb2canBus(channel="2E6C6544",dll="./usb2can.dll")
+            bus = usb2canInteface.Usb2canBus(channel=serialNumber,dll="./usb2can.dll")
             print(bus.state)
         except:
             print("No usb2can connected")

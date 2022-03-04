@@ -69,3 +69,4 @@ if __name__ == "__main__":
     MainWindow.show()
     sys.exit(app.exec_())
 
+#tasks -> try catch findSerial -> Test in other devices -> Make the guide -> Make it only an exe
