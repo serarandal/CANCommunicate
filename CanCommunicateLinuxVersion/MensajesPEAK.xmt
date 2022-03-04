@@ -45,6 +45,6 @@
 200h           0  8  D 00h 00h 00h 00h 00h 00h 00h 00h ; Iniciar Conf
 201h           0  8  D 01h 00h 00h 00h 00h 00h 00h 00h ; Establecer valor EEPROM
 202h           0  8  D 00h 00h 00h 00h 00h 00h 00h 00h ; Pedir valor EEPROM
-005h           0  2  D 19h 00h ; Slow
-005h           0  2  D 19h 01h ; normal
-005h           0  2  D 19h 02h ; fast
+005h           0  2  D 19h 00h 00h 00h 00h 00h 00h 00h ; Slow
+005h           0  2  D 19h 01h 00h 00h 00h 00h 00h 00h ; normal
+005h           0  2  D 19h 02h 00h 00h 00h 00h 00h 00h ; fast

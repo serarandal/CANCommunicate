@@ -67,7 +67,7 @@ def testTwoCan():#Filter reading
     global processedMsgFiltered
     return processedMsgFiltered
 
-def connectCan():
+def connectCan():#LW
     global bus
     global password
     global frequency
@@ -99,8 +99,7 @@ def connectCan():
         except:
             print("No usb2can connected")
     try:
-        if sistema == 'Linux':
-            initThreads()
+        initThreads()
     except:
         print("Error threads")
     if sistema == 'Linux':
@@ -108,7 +107,7 @@ def connectCan():
     else:
         return "intentado conectar al korlan"
 
-def setId_Data(id,data):
+def setId_Data(id,data): #LW
     global msg
 
     print(data) #arbitration_id hex of the id -> 0x608
@@ -119,7 +118,7 @@ def setId_Data(id,data):
     except:
         print("The id cannot be \"\" or the data cannot be \"\"")
 
-def sendData():
+def sendData():#LW
     global bus
     try:
         if sistema == 'Linux':
@@ -134,13 +133,13 @@ def sendData():
     except can.CanError:
         print("Message NOT sent"+bus.state)
 
-def findSerialNumberKorlan():
+def findSerialNumberKorlan(): #No funciona en todos los windows, falta probar en otros ordenadores
     global serialNumber
     output2 = sp.getoutput("wmic path CIM_LogicalDevice where \"Description like 'USB%'\" get DeviceID")
     pa=output2.split("\\")
     serialNumber = pa[2]
-
-def processMessage(msg):
+    print(serialNumber)
+def processMessage(msg):#LW
     finish = False
     i=2
     imagen = "Rx"+" " +str(hex(msg.arbitration_id))
@@ -156,7 +155,7 @@ def processMessage(msg):
     return imagen
 
 
-def processCreationNewMessages(filepath):
+def processCreationNewMessages(filepath):#LW
     try:
         with open(filepath, 'r', encoding='iso-8859-1') as f:
             content = f.readlines()
@@ -177,15 +176,24 @@ def processCreationNewMessages(filepath):
             name = name + "M.txt"
         except IndexError:
             name = "nonameM.txt"
-        sp.getoutput("touch "+name)
+        if sistema != 'Linux':
+            sp.getoutput("tipe null >> "+name)
+        else:
+            sp.getoutput("touch "+name)
         b = a[0].split()
         id = b[0][:-1]
         data = b [4][:-1] +" "+b[5][:-1]+" "+b[6][:-1]+" "+b[7][:-1]+" "+b[8][:-1]+" "+b[9][:-1]+" "+b[10][:-1]+" "+b[11][:-1]+" "
-        sp.getoutput("echo "+id+" "+data+" > "+name)
-        sp.getoutput("mv *M.txt Messages")
-        return True
+        if sistema != 'Linux':
+            sp.getoutput("Echo "+id+" "+data+" > "+name)
+        else:
+            sp.getoutput("echo "+id+" "+data+" > "+name)
+        if sistema != 'Linux':
+            sp.getoutput("move *M.txt Messages")
+        else:
+            sp.getoutput("mv *M.txt Messages")
+    return True
 
-def sendPremadeData(filename):
+def sendPremadeData(filename):#LW
     dataF = []
     with open("Messages/"+filename, 'r', encoding='iso-8859-1') as f:
         content = f.readline()
@@ -202,7 +210,7 @@ def sendPremadeData(filename):
     sendData()
     return sData
 
-def processManData(id,data):
+def processManData(id,data):#LW
     global idG
     global dataG
     idG = id
@@ -216,20 +224,24 @@ def processManData(id,data):
         dataF.append(int(b[i],16))
     setId_Data(id,dataF)
 
-def createNewPreMadeMessage(name):
+def createNewPreMadeMessage(name):#LW
     global idG
     global dataG
 
     name = name + "M.txt"
-    sp.getoutput("echo " + idG + " " + dataG + " > " + name)
-    a=sp.getoutput("mv *M.txt Messages")
+    if sistema != 'Linux':
+        sp.getoutput("Echo " + idG + " " + dataG + " > " + name)
+        a = sp.getoutput("move *M.txt Messages")
+    else:
+        sp.getoutput("echo " + idG + " " + dataG + " > " + name)
+        a=sp.getoutput("mv *M.txt Messages")
     if a == "":
         return True
     else:
         print(a)
         return False
 
-def waiter_thread(event):
+def waiter_thread(event):#LW
     global msg
     global processedMsg
     global processedMsgFiltered
@@ -250,13 +262,13 @@ def processThreadInfo():#doesn't work with threads, but usefull enough to save
     else:
         return "NoMessages"
 
-def initThreads():
+def initThreads():#LW
     stop_event = threading.Event()
     w = threading.Thread(target=waiter_thread, args=[stop_event])
     w.setDaemon(True)
     w.start()
 
-def processedMsgFilter(msg):
+def processedMsgFilter(msg):#LW
     finish = False
     i = 2
     imagen = str(hex(msg.arbitration_id))
@@ -272,7 +284,7 @@ def processedMsgFilter(msg):
     return imagen
 
 
-def filterDevices(deviceName,mesg):
+def filterDevices(deviceName,mesg):#LW
     switcher = {
         "steeringSensor": steeringSensor(mesg),
         2: two,

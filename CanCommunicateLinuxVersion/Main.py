@@ -65,8 +65,7 @@ if __name__ == "__main__":
     ui15.setupUi(PopupWindow8)
     ui16.setupUi(MainWindow8)
     if platform.system() != 'Linux':
-    #Utility.findSerialNumberKorlan()
-        None
+        Utility.findSerialNumberKorlan()
     MainWindow.show()
     sys.exit(app.exec_())
 
