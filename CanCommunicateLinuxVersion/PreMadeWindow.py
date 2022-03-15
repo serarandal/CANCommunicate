@@ -8,7 +8,7 @@ import time
 
 a=0
 
-class Worker(QtCore.QObject):
+class Worker(QtCore.QObject): # reading thread
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
     def run(self):
@@ -48,7 +48,7 @@ class Worker(QtCore.QObject):
     def stop(self):
         self.isKilled = True
 
-class Ui_MainWindow2(object):
+class Ui_MainWindow2(object): #UI class
     def setupUi(self, MainWindow2,MainWindow3):
         self.MainWindow2 = MainWindow2
         self.MainWindow3 = MainWindow3

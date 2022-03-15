@@ -4,7 +4,7 @@ import PyQt5.QtCore
 from PyQt5 import QtCore, QtGui, QtWidgets
 import Utility
 
-class Popup(object):
+class Popup(object): #UI class
     def setupUi(self,PopupWindow):
         PopupWindow.setObjectName("Form")
         PopupWindow.resize(400, 300)
@@ -28,7 +28,7 @@ class Popup(object):
         Form.setWindowTitle(_translate("Form", "Popup1"))
         self.label.setText(_translate("Form", "Contraseña Guardada"))
 
-class Popup2(object):
+class Popup2(object): #UI class
     def setupUi(self,PopupWindow2):
         PopupWindow2.setObjectName("Form")
         PopupWindow2.resize(400, 300)
@@ -52,7 +52,7 @@ class Popup2(object):
         Form.setWindowTitle(_translate("Form", "Popup2"))
         self.label.setText(_translate("Form", "Fallo al guardar"))
 
-class Ui_MainWindow6(object):
+class Ui_MainWindow6(object): #UI class
     def setupUi(self, MainWindow6,PopupWindow,PopupWindow2):
         self.Popup = PopupWindow
         self.Popup2 = PopupWindow2
@@ -72,7 +72,7 @@ class Ui_MainWindow6(object):
         self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
         self.pushButton6 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton6.setObjectName("pushButton")
-        self.pushButton6.clicked.connect(self.b1)
+        self.pushButton6.clicked.connect(self.saveNewPasswordButton)
         self.pushButton6.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton6, 1, 2, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -98,7 +98,7 @@ class Ui_MainWindow6(object):
         MainWindow6.setWindowTitle(_translate("MainWindow", "MainWindow6"))
         self.pushButton6.setText(_translate("MainWindow", "AddPassword"))
 
-    def b1(self):
+    def saveNewPasswordButton(self):
         print("Pushed add new password button:")
         pas=self.plainTextEdit.toPlainText()
         savePass = Utility.setPassword(pas)

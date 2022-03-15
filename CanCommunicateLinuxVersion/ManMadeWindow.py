@@ -7,7 +7,7 @@ import time
 
 a = 0
 
-class Worker(QtCore.QObject):
+class Worker(QtCore.QObject): #reading thread class
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
     def run(self):
@@ -47,7 +47,7 @@ class Worker(QtCore.QObject):
     def stop(self):
         self.isKilled = True
 
-class Ui_MainWindow3(object):
+class Ui_MainWindow3(object): #UI class
     def setupUi(self, MainWindow3,MainWindow2,MainWindow5):
         self.id = "a"
         self.data = "0"
@@ -70,7 +70,7 @@ class Ui_MainWindow3(object):
         sizePolicy.setHeightForWidth(self.pushButton_4.sizePolicy().hasHeightForWidth())
         self.pushButton_4.setSizePolicy(sizePolicy)
         self.pushButton_4.setObjectName("pushButton_4")
-        self.pushButton_4.clicked.connect(self.b4)
+        self.pushButton_4.clicked.connect(self.readingCanButton)
         self.pushButton_4.setFont(self.Font)
         self.verticalLayout_3.addWidget(self.pushButton_4)
         self.listView = QtWidgets.QListView(self.centralwidget)
@@ -86,7 +86,7 @@ class Ui_MainWindow3(object):
         sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
         self.pushButton.setSizePolicy(sizePolicy)
         self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.b1)
+        self.pushButton.clicked.connect(self.sendMessageButton)
         self.pushButton.setFont(self.Font)
         self.verticalLayout_3.addWidget(self.pushButton)
         self.gridLayout = QtWidgets.QGridLayout()
@@ -95,7 +95,7 @@ class Ui_MainWindow3(object):
         self.gridLayout.setObjectName("gridLayout")
         self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_5.setObjectName("pushButton_5")
-        self.pushButton_5.clicked.connect(self.b5)
+        self.pushButton_5.clicked.connect(self.saveMessageButton)
         self.pushButton_5.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton_5, 1, 5, 1, 1)
         self.plainTextEdit_2 = QtWidgets.QPlainTextEdit(self.centralwidget)
@@ -128,7 +128,7 @@ class Ui_MainWindow3(object):
         self.gridLayout.addItem(spacerItem2, 1, 3, 1, 1)
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_2.clicked.connect(self.b2)
+        self.pushButton_2.clicked.connect(self.setIdDataButton)
         self.pushButton_2.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton_2, 1, 1, 1, 1)
         self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
@@ -139,7 +139,7 @@ class Ui_MainWindow3(object):
         self.verticalLayout_3.addLayout(self.gridLayout)
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_3.clicked.connect(self.b3)
+        self.pushButton_3.clicked.connect(self.changetoPremadeWindowButton)
         self.pushButton_3.setFont(self.Font)
         self.verticalLayout_3.addWidget(self.pushButton_3)
         MainWindow3.setCentralWidget(self.centralwidget)
@@ -166,19 +166,19 @@ class Ui_MainWindow3(object):
         self.pushButton_6.setText(_translate("MainWindow", "Change Mode Data"))
         self.pushButton_3.setText(_translate("MainWindow", "Change Mode"))
 
-    def b3(self):
+    def changetoPremadeWindowButton(self):
         print("Pushed change window button:")
         self.MainWindow2.show()
         self.MainWindow3.hide()
 
 
-    def b2(self):
+    def setIdDataButton(self):
         print("Pushed button to set id and data:")
         self.id = self.plainTextEdit.toPlainText()
         self.data = self.plainTextEdit_2.toPlainText()
         Utility.processManData(self.id, self.data)
 
-    def b4(self):
+    def readingCanButton(self):
         global a
         if a == 0:
             a=1
@@ -190,7 +190,7 @@ class Ui_MainWindow3(object):
             self.stopLongTask()
             a=0
 
-    def b1(self):
+    def sendMessageButton(self):
         print("Pushed send message button:")
         patata = self.id
         patata = "Tx" + " 0x" + patata + " " + self.data
@@ -199,14 +199,14 @@ class Ui_MainWindow3(object):
         self.listView.scrollToBottom()
         Utility.sendData()
 
-    def b5(self):
+    def saveMessageButton(self):
         print("Pushed show save message gui:")
         self.MainWindow5.show()
 
     def b6(self):
         print("Pushed Change Mode Data")
 
-    def reportProgress(self, n):
+    def reportProgress(self, n):# use to print the reading thread into the list view
         n = str(n)
         it = QtGui.QStandardItem(n)
         if self.i >= 40:
@@ -219,7 +219,7 @@ class Ui_MainWindow3(object):
             self.listView.scrollToBottom()
             self.i += 1
             
-    def runLongTask(self):
+    def runLongTask(self): #use to execute the reading thread
         self.thread = QtCore.QThread()
         self.worker = Worker()
         self.worker.moveToThread(self.thread)
@@ -230,6 +230,6 @@ class Ui_MainWindow3(object):
         self.worker.progress.connect(self.reportProgress)
         self.thread.start()
 
-    def stopLongTask(self):
+    def stopLongTask(self): #use to stop the reading thread
         print("here")
         self.worker.stop()

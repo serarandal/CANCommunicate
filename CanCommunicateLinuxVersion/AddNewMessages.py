@@ -6,7 +6,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import Utility
 import os
 #from time import sleep
-class Popup7(object):
+class Popup7(object): #UI class
     def setupUi(self, PopupWindow7):
         PopupWindow7.setObjectName("Form")
         PopupWindow7.resize(400, 300)
@@ -30,7 +30,7 @@ class Popup7(object):
         Form.setWindowTitle(_translate("Form", "Popup"))
         self.label.setText(_translate("Form", "Nuevos mensajes generados"))
 
-class Popup8(object):
+class Popup8(object): #UI class
     def setupUi(self, PopupWindow8):
         PopupWindow8.setObjectName("Form")
         PopupWindow8.resize(400, 300)
@@ -54,7 +54,7 @@ class Popup8(object):
         Form.setWindowTitle(_translate("Form", "Popup2"))
         self.label.setText(_translate("Form", "Fallo al guardar,revise permisos y si existe el archivo .xmt"))
 
-class Ui_MainWindow4(object):
+class Ui_MainWindow4(object): #UI class
     def setupUi(self, MainWindow4,PopupWindow7,PopupWindow8):
         self.MainWindow4 = MainWindow4
         self.PopupWindow7 = PopupWindow7
@@ -107,7 +107,7 @@ class Ui_MainWindow4(object):
         self.pushButton4.setText(_translate("MainWindow", "Explore"))
         self.pushButton4_2.setText(_translate("MainWindow", "AddMessage"))
 
-    def setBrowerPath(self):
+    def setBrowerPath(self): #use to pick the path , it opens an explorer window
         try:
             file_path, file_type = QtWidgets.QFileDialog.getOpenFileName(self.MainWindow4, 'open file','./Messages')
             self.text.setText(file_path)
@@ -116,7 +116,7 @@ class Ui_MainWindow4(object):
         except:
             print("Cannot open file browser,try to add rights to this code ")
 
-    def addMessages(self):
+    def addMessages(self): # use to add new messages based on the file choosed on the explorer
         filepath = self.text.text()
         a = Utility.processCreationNewMessages(filepath)
         if a == True:

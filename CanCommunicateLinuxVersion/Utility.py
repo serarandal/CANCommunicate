@@ -8,7 +8,6 @@ import threading
 import re
 import usb2can.serial_selector
 import usb2can.usb2canInterface
-
 msg = can.Message()
 msg2 = can.Message()
 processedMsg = None
@@ -23,12 +22,12 @@ frequency =""
 
 def setPassword(passW):
     global password
-    with open("password.txt",'r')as f:
+    with open("password.txt",'r')as f: #LW
         data = f.read()
     if data == passW :
         return True
     else:
-        with open("password.txt",'w') as f:
+        with open("password.txt",'w') as f: #LW
             f.write(passW)
         password = passW
         return True
@@ -39,12 +38,12 @@ def setFrequency(fre):
     if fre == "":
         return False
     else:
-        with open("frequency.txt",'r')as f:
+        with open("frequency.txt",'r')as f: #LW
             data = f.read()
         if data == fre :
             return True
         else:
-            with open("frequency.txt",'w') as f:
+            with open("frequency.txt",'w') as f: #LW
                 f.write(fre)
             frequency = fre
             return True
@@ -71,12 +70,12 @@ def connectCan():
     global password
     global frequency
     try:
-        with open("password.txt") as f:
+        with open("password.txt") as f: #LW
             password = f.read()
     except:
         print("Cannot open password.txt, make sure it is created and you have reading rights")
     try:
-        with open("frequency.txt") as f:
+        with open("frequency.txt") as f: #LW
             frequency = f.read()
     except:
         print("Cannot open frequency.txt, make sure it is created and you have reading rights")
@@ -91,7 +90,7 @@ def connectCan():
            print("No usb2can connected")
     else:
         try:
-            bus = usb2can.usb2canInterface.Usb2canBus(bitrate=frequency)
+            bus = usb2can.usb2canInterface.Usb2canBus(bitrate=frequency) #W
         except:
             print("No usb2can connected")
     try:
@@ -106,7 +105,7 @@ def setId_Data(id,data):
 
     print(data) #arbitration_id hex of the id -> 0x608
     try :
-        msg = can.Message(arbitration_id=int(id,16),
+        msg = can.Message(arbitration_id=int(id,16), #LW
                     data=data,
                     is_extended_id=False)
     except:
@@ -115,21 +114,18 @@ def setId_Data(id,data):
 def sendData():
     global bus
     try:
-        if sistema == 'Linux':
-            bus.send(msg)
+            bus.send(msg) #LW
             print("Message sent on {}".format(bus.channel_info))
-        else:
-            bus.send(msg)
     except can.CanError:
         print("Message NOT sent"+bus.state)
 
-def findSerialNumberKorlan():
+def findSerialNumberKorlan(): #Not in use, but usefull if serial_selector dies.
     global serialNumber
-    output2 = sp.getoutput("wmic path CIM_LogicalDevice where \"Description like 'USB%'\" get DeviceID")
+    output2 = sp.getoutput("wmic path CIM_LogicalDevice where \"Description like 'USB%'\" get DeviceID") #W
     pa=output2.split("\\")
     serialNumber = pa[2]
 
-def processMessage(msg):
+def processMessage(msg): #L
     finish = False
     i=2
     imagen = "Rx"+" " +str(hex(msg.arbitration_id))
@@ -145,9 +141,9 @@ def processMessage(msg):
     return imagen
 
 
-def processCreationNewMessages(filepath):
+def processCreationNewMessages(filepath): #L
     try:
-        with open(filepath, 'r', encoding='iso-8859-1') as f:
+        with open(filepath, 'r', encoding='iso-8859-1') as f: #LW
             content = f.readlines()
     except:
         print("No messages inside")
@@ -166,17 +162,17 @@ def processCreationNewMessages(filepath):
             name = name + "M.txt"
         except IndexError:
             name = "nonameM.txt"
-        sp.getoutput("touch "+name)
+        sp.getoutput("touch "+name) #L
         b = a[0].split()
         id = b[0][:-1]
         data = b [4][:-1] +" "+b[5][:-1]+" "+b[6][:-1]+" "+b[7][:-1]+" "+b[8][:-1]+" "+b[9][:-1]+" "+b[10][:-1]+" "+b[11][:-1]+" "
-        sp.getoutput("echo "+id+" "+data+" > "+name)
-        sp.getoutput("mv *M.txt Messages")
+        sp.getoutput("echo "+id+" "+data+" > "+name) #L
+        sp.getoutput("mv *M.txt Messages") #L
         return True
 
 def sendPremadeData(filename):
     dataF = []
-    with open("Messages/"+filename, 'r', encoding='iso-8859-1') as f:
+    with open("Messages/"+filename, 'r', encoding='iso-8859-1') as f: #LW
         content = f.readline()
         print(content)
     b = content.split()
@@ -191,7 +187,7 @@ def sendPremadeData(filename):
     sendData()
     return sData
 
-def processManData(id,data):
+def processManData(id,data):#LW
     global idG
     global dataG
     idG = id
@@ -205,7 +201,7 @@ def processManData(id,data):
         dataF.append(int(b[i],16))
     setId_Data(id,dataF)
 
-def createNewPreMadeMessage(name):
+def createNewPreMadeMessage(name): #L
     global idG
     global dataG
 
@@ -245,7 +241,7 @@ def initThreads():
     w.setDaemon(True)
     w.start()
 
-def processedMsgFilter(msg):
+def processedMsgFilter(msg): #L
     finish = False
     i = 2
     imagen = str(hex(msg.arbitration_id))
@@ -261,7 +257,7 @@ def processedMsgFilter(msg):
     return imagen
 
 
-def filterDevices(deviceName,mesg):
+def filterDevices(deviceName,mesg): #LW
     switcher = {
         "steeringSensor": steeringSensor(mesg),
         2: two,
@@ -279,7 +275,7 @@ def filterDevices(deviceName,mesg):
     # Get the function from switcher dictionary
     return switcher.get(deviceName, lambda: "Invalid month")
 
-def steeringSensor(mesg):
+def steeringSensor(mesg): #LW
     id = 0x305
     dataF =""
     dataTemp = 0x0

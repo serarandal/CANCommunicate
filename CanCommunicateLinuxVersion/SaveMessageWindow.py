@@ -5,7 +5,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import PreMadeWindow
 import Utility
 
-class Popup6(object):
+class Popup6(object): #UI class
     def setupUi(self, PopupWindow6):
         PopupWindow6.setObjectName("Form")
         PopupWindow6.resize(400, 300)
@@ -29,7 +29,7 @@ class Popup6(object):
         Form2.setWindowTitle(_translate("Form", "Popup2"))
         self.label.setText(_translate("Form", "Error al guardar el nuevo mensaje"))
 
-class Popup5(object):
+class Popup5(object): #UI class
     def setupUi(self, PopupWindow5):
         PopupWindow5.setObjectName("Form")
         PopupWindow5.resize(400, 300)
@@ -53,7 +53,7 @@ class Popup5(object):
         Form.setWindowTitle(_translate("Form", "Popup1"))
         self.label.setText(_translate("Form", "Nuevo mensaje Guardado"))
 
-class Ui_MainWindow5(object):
+class Ui_MainWindow5(object): #UI class
     def setupUi(self,MainWindow5,ui2,PopupWindow5,PopupWindow6):
         self.Popup = PopupWindow5
         self.ui2 = ui2
@@ -73,7 +73,7 @@ class Ui_MainWindow5(object):
         self.gridLayout.addWidget(self.lineEdit,2,2,1,1)
         self.pushButton5_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton5_2.setObjectName("pushButton5_2")
-        self.pushButton5_2.clicked.connect(self.b1)
+        self.pushButton5_2.clicked.connect(self.saveNewMessagesButton)
         self.pushButton5_2.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton5_2,2,3,1,1)
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -94,7 +94,7 @@ class Ui_MainWindow5(object):
         self.retranslateUi(MainWindow5)
         QtCore.QMetaObject.connectSlotsByName(MainWindow5)
 
-    def b1(self):
+    def saveNewMessagesButton(self):
         name=self.lineEdit.text()
         print(name)
         print("Pushed add new message button:")

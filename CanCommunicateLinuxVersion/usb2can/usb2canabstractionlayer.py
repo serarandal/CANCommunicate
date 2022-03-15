@@ -1,4 +1,5 @@
 # coding: utf-8
+#Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
 
 """
 This wrapper is for windows or direct access via CANAL API.

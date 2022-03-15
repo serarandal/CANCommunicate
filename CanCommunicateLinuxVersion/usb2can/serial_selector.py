@@ -1,7 +1,6 @@
 # coding: utf-8
+#Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
 
-"""
-"""
 
 from __future__ import division, print_function, absolute_import
 import platform

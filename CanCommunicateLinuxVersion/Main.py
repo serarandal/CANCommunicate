@@ -64,7 +64,7 @@ if __name__ == "__main__":
     ui14.setupUi(PopupWindow7)
     ui15.setupUi(PopupWindow8)
     ui16.setupUi(MainWindow8)
-    if platform.system() != 'Linux':
+    if platform.system() != 'Linux': #need the serial number of the usb2can to be able to work in windows
         Utility.findSerialNumberKorlan()
     MainWindow.show()
     sys.exit(app.exec_())

@@ -9,7 +9,7 @@ import Utility
 
 a = 0
 
-class Worker(QtCore.QObject):
+class Worker(QtCore.QObject):  #reading thread
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
     def run(self):
@@ -49,7 +49,7 @@ class Worker(QtCore.QObject):
     def stop(self):
         self.isKilled = True
 
-class Ui_MainWindow(object):
+class Ui_MainWindow(object): #UI class
     def setupUi(self, MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7,MainWindow8):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 609)
@@ -76,39 +76,39 @@ class Ui_MainWindow(object):
         self.gridLayout.addItem(spacerItem, 3, 0, 1, 1)
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_3.clicked.connect(self.b3)
+        self.pushButton_3.clicked.connect(self.premadeWindowButton)
         self.pushButton_3.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton_3, 12, 0, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem1, 9, 0, 1, 1)
         self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_5.setObjectName("pushButton_5")
-        self.pushButton_5.clicked.connect(self.b5)
+        self.pushButton_5.clicked.connect(self.newmessagesWindowButton)
         self.pushButton_5.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton_5, 0, 0, 1, 1)
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.b1)
+        self.pushButton.clicked.connect(self.connectCanButton)
         self.pushButton.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton, 6, 0, 1, 1)
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_2.clicked.connect(self.b2)
+        self.pushButton_2.clicked.connect(self.readingCanButton)
         self.pushButton_2.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton_2, 7, 0, 1, 1)
         self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_6.setObjectName("pushButton_6")
-        self.pushButton_6.clicked.connect(self.b6)
+        self.pushButton_6.clicked.connect(self.passwordWindowButton)
         self.pushButton_6.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton_6, 5, 0, 1, 1)
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_4.setObjectName("pushButton_4")
-        self.pushButton_4.clicked.connect(self.b4)
+        self.pushButton_4.clicked.connect(self.manmadeWindowButton)
         self.pushButton_4.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton_4, 10, 0, 1, 1)
         self.pushButton_7 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_7.setObjectName("pushButton_7")
-        self.pushButton_7.clicked.connect(self.b7)
+        self.pushButton_7.clicked.connect(self.frequencyWindowButton)
         self.pushButton_7.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton_7, 4, 0, 1, 1)
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -120,7 +120,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.listView, 1, 0, 1, 1)
         self.pushButton_8 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_8.setObjectName("pushButton_8")
-        self.pushButton_8.clicked.connect(self.b8)
+        self.pushButton_8.clicked.connect(self.filterWindowButton)
         self.pushButton_8.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton_8, 2, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -147,49 +147,49 @@ class Ui_MainWindow(object):
         self.pushButton_7.setText(_translate("MainWindow", "Set new frequency"))
         self.pushButton_8.setText(_translate("MainWindow", "Filter"))
 
-    def b1(self):
+    def connectCanButton(self):
         print("Pushed connect to can button:")
         status = Utility.connectCan()
         it = QtGui.QStandardItem(status)
         self.model.appendRow(it)
 
-    def b2(self):
+    def readingCanButton(self):#it executes the reading thread
         global a
         if a == 0:
             a = 1
             print("Pushed reading can button:")
             self.runLongTask()
         else:
-            print("Already reading(ManuallyMadeWindow)")
+            print("Already reading(RealMainWindow)")
             print("stopping")
             self.stopLongTask()
             a = 0
 
-    def b3(self):
+    def premadeWindowButton(self): #Premadewindow
         print("Pushed show premade gui:")
         self.MainWindow2.show()
 
-    def b4(self):
+    def manmadeWindowButton(self): #Manmadewindow
         print("Pushed show manmade gui:")
         self.MainWindow3.show()
 
-    def b5(self):  # wait 10 seconds and close it
+    def newmessagesWindowButton(self):  # New messages window
         print("Pushed show add new messages gui:")
         self.MainWindow4.show()
 
-    def b6(self):
+    def passwordWindowButton(self): #Password gui
         print("Pushed show password gui:")
         self.MainWindow6.show()
 
-    def b7(self):
+    def frequencyWindowButton(self): #Frequency gui
         print("Pushed change frequency gui:")
         self.MainWindow7.show()
 
-    def b8(self):
+    def filterWindowButton(self): #Filter gui
         print("Pushed filter gui:")
         self.MainWindow8.show()
 
-    def reportProgress(self, n):
+    def reportProgress(self, n): #use to print the reading thread into the list view
         n = str(n)
         it = QtGui.QStandardItem(n)
         if self.i >= 40:
@@ -202,7 +202,7 @@ class Ui_MainWindow(object):
             self.listView.scrollToBottom()
             self.i += 1
 
-    def runLongTask(self):
+    def runLongTask(self): #use to execute the reading thread
         self.thread = QtCore.QThread()
         self.worker = Worker()
         self.worker.moveToThread(self.thread)
@@ -213,6 +213,6 @@ class Ui_MainWindow(object):
         self.worker.progress.connect(self.reportProgress)
         self.thread.start()
 
-    def stopLongTask(self):
+    def stopLongTask(self): #use to stop the reading thread
         print("here")
         self.worker.stop()

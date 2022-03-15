@@ -13,7 +13,7 @@ y = 0
 b2Pressed = False
 
 
-class Worker(QtCore.QObject):
+class Worker(QtCore.QObject): #Reading thread class
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
 
@@ -67,7 +67,7 @@ class Worker(QtCore.QObject):
         self.isKilled = True
 
 
-class Ui_MainWindow8(object):
+class Ui_MainWindow8(object): #UI class
     def setupUi(self, MainWindow8):
         MainWindow8.setObjectName("MainWindow")
         MainWindow8.resize(800, 600)
@@ -86,7 +86,7 @@ class Ui_MainWindow8(object):
         self.gridLayout.addWidget(self.label_2, 2, 1, 1, 1)
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.b1)
+        self.pushButton.clicked.connect(self.startFilterButton)
         self.pushButton.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton, 0, 1, 1, 1)
         self.listView = QtWidgets.QListView(self.centralwidget)
@@ -113,7 +113,7 @@ class Ui_MainWindow8(object):
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_2.setFont(self.Font)
-        self.pushButton_2.clicked.connect(self.b2)
+        self.pushButton_2.clicked.connect(self.addDataTranslationButton)
         self.gridLayout.addWidget(self.pushButton_2, 1, 1, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
         MainWindow8.setCentralWidget(self.centralwidget)
@@ -136,7 +136,7 @@ class Ui_MainWindow8(object):
         self.label.setText(_translate("MainWindow", "Sensor name"))
         self.pushButton_2.setText(_translate("MainWindow", "Switch to understandable data"))
 
-    def b1(self):
+    def startFilterButton(self):
         global b
         global a
         global d
@@ -184,7 +184,7 @@ class Ui_MainWindow8(object):
             self.stopLongTask()
             a = 0
 
-    def b2(self):
+    def addDataTranslationButton(self): #with this, you change the ui printing hex to real data
         global b2Pressed
         global y
         print("Pressed b2")
@@ -207,7 +207,7 @@ class Ui_MainWindow8(object):
                 self.i += 1
 
 
-    def reportProgress(self, n):
+    def reportProgress(self, n): #use to print the reading thread into the list view
         global deviceName
         global deviceDataBytes
         global devicesCalculations
@@ -251,7 +251,7 @@ class Ui_MainWindow8(object):
                 self.listView.scrollToBottom()
                 self.i += 1
 
-    def runLongTask(self):
+    def runLongTask(self):#use to execute the reading thread
         self.thread = QtCore.QThread()
         self.worker = Worker()
         self.worker.moveToThread(self.thread)
@@ -262,7 +262,7 @@ class Ui_MainWindow8(object):
         self.worker.progress.connect(self.reportProgress)
         self.thread.start()
 
-    def stopLongTask(self):
+    def stopLongTask(self):#use to stop the reading thread
         print("here")
         n = "Stopped reading"
         it = QtGui.QStandardItem(n)
