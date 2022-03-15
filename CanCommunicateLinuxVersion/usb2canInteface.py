@@ -11,8 +11,7 @@ import logging
 from ctypes import byref
 
 from can import BusABC, Message, CanError
-from .usb2canabstractionlayer import *
-from .serial_selector import find_serial_devices
+from usb2canAbstractionFile import *
 
 # Set up logging
 log = logging.getLogger('can.usb2can')
@@ -97,13 +96,6 @@ class Usb2canBus(BusABC):
         else:
             device_id = channel
 
-        # search for a serial number if the device_id is None or empty
-        if not device_id:
-            devices = find_serial_devices()
-            if not devices:
-                raise CanError("could not automatically find any device")
-            device_id = devices[0]
-
         # convert to kb/s and cap: max rate is 1000 kb/s
         baudrate = min(int(bitrate // 1000), 1000)
 
@@ -123,8 +115,6 @@ class Usb2canBus(BusABC):
         else:
             status = self.can.send(self.handle, byref(tx))
 
-        if status != CANAL_ERROR_SUCCESS:
-            raise CanError("could not send message: status == {}".format(status))
 
 
     def _recv_internal(self, timeout):
@@ -138,14 +128,8 @@ class Usb2canBus(BusABC):
             time = 0 if timeout is None else int(timeout * 1000)
             status = self.can.blocking_receive(self.handle, byref(messagerx), time)
 
-        if status == CANAL_ERROR_SUCCESS:
-            rx = message_convert_rx(messagerx)
-        elif status == CANAL_ERROR_RCV_EMPTY or status == CANAL_ERROR_TIMEOUT:
-            rx = None
-        else:
-            log.error('Canal Error %s', status)
-            rx = None
 
+        rx = message_convert_rx(messagerx)
         return rx, False
 
     def shutdown(self):
@@ -156,9 +140,6 @@ class Usb2canBus(BusABC):
         """
         status = self.can.close(self.handle)
 
-        if status != CANAL_ERROR_SUCCESS:
-            raise CanError("could not shut down bus: status == {}".format(status))
-
     @staticmethod
     def _detect_available_configs(serial_matcher=None):
         """
@@ -167,9 +148,9 @@ class Usb2canBus(BusABC):
         :param str serial_matcher (optional):
             search string for automatic detection of the device serial
         """
-        if serial_matcher:
-            channels = find_serial_devices(serial_matcher)
-        else:
-            channels = find_serial_devices()
+        #if serial_matcher:
+        #    channels = find_serial_devices(serial_matcher)
+        #else:
+        channels = None
 
         return [{'interface': 'usb2can', 'channel': c} for c in channels]

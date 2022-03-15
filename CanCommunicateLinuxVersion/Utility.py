@@ -6,8 +6,8 @@ import platform
 import subprocess as sp
 import threading
 import re
-import usb2can.serial_selector
-import usb2can.usb2canInterface
+import usb2canInteface
+
 msg = can.Message()
 msg2 = can.Message()
 processedMsg = None
@@ -90,7 +90,7 @@ def connectCan():
            print("No usb2can connected")
     else:
         try:
-            bus = usb2can.usb2canInterface.Usb2canBus(bitrate=frequency) #W
+            bus = usb2canInteface.Usb2canBus(bitrate=frequency) #W
         except:
             print("No usb2can connected")
     try:
