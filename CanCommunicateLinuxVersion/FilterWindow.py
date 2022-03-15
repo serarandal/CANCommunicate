@@ -11,7 +11,7 @@ d = ""
 c = ""
 y = 0
 b2Pressed = False
-
+deviceName = "Not in devices.txt"
 
 class Worker(QtCore.QObject): #Reading thread class
     finished = QtCore.pyqtSignal()
@@ -171,7 +171,10 @@ class Ui_MainWindow8(object): #UI class
                 stritem = stritem.split("/")
                 strdi2 = stritem[0].split(" ")
                 if strdi2[1] == b:
-                    deviceName = strdi2[0]
+                    if strdi2[0] != "" and strdi2[0] != None:
+                        deviceName = strdi2[0]
+                    else:
+                        deviceName = "Not in devices.txt"
         else:
             alreadyopen = 1
         if a == 0:
@@ -239,7 +242,10 @@ class Ui_MainWindow8(object): #UI class
                 self.listView.scrollToBottom()
                 self.i += 1
         else:
-            x = Utility.filterDevices(deviceName, n)
+            if deviceName == "Not in devices.txt" or deviceName == None or deviceName == "":
+                x = "Not in devices.txt"
+            else:
+                x = Utility.filterDevices(deviceName, n)
             it = QtGui.QStandardItem(x)
             if self.i >= 40:
                 self.model.removeRows(self.i - 39, 3)
