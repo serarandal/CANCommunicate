@@ -48,10 +48,6 @@ def setFrequency(fre):
             frequency = fre
             return True
 
-def debugReadCan(): #not in use
-    global bus
-    for msg in bus:
-        print(msg.data)
 
 def readOneCan():#not in use
     global bus
@@ -119,11 +115,14 @@ def sendData():
     except can.CanError:
         print("Message NOT sent"+bus.state)
 
-def findSerialNumberKorlan(): #Not in use, but usefull if serial_selector dies.
+def findSerialNumberKorlan(): #In use, usefull if serial_selector dies.
     global serialNumber
-    output2 = sp.getoutput("wmic path CIM_LogicalDevice where \"Description like 'USB%'\" get DeviceID") #W
-    pa=output2.split("\\")
-    serialNumber = pa[2]
+    try:
+        output2 = sp.getoutput("wmic path CIM_LogicalDevice where \"Description like 'USB%'\" get DeviceID") #W
+        pa=output2.split("\\")
+        serialNumber = pa[2]
+    except:
+        print("Error finding device")
 
 def processMessage(msg): #L
     finish = False
