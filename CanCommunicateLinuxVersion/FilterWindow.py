@@ -212,8 +212,6 @@ class Ui_MainWindow8(object): #UI class
 
     def reportProgress(self, n): #use to print the reading thread into the list view
         global deviceName
-        global deviceDataBytes
-        global devicesCalculations
         global b2Pressed
         if n == "NoMessagesFromThatSource" or n == "NoNewMessagesFromThatSource":
             n = str(n)
