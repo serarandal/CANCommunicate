@@ -1,5 +1,4 @@
 #Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
-import subprocess
 
 import can
 import platform
@@ -162,9 +161,14 @@ def processCreationNewMessages(filepath): #L
         except IndexError:
             name = "nonameM.txt"
         sp.getoutput("touch "+name) #L
-        b = a[0].split()
-        id = b[0][:-1]
-        data = b [4][:-1] +" "+b[5][:-1]+" "+b[6][:-1]+" "+b[7][:-1]+" "+b[8][:-1]+" "+b[9][:-1]+" "+b[10][:-1]+" "+b[11][:-1]+" "
+        try:
+            b = a[0].split()
+            id = b[0][:-1]
+            data = b [4][:-1] +" "+b[5][:-1]+" "+b[6][:-1]+" "+b[7][:-1]+" "+b[8][:-1]+" "+b[9][:-1]+" "+b[10][:-1]+" "+b[11][:-1]+" "
+        except:
+            id="0"
+            data="0"
+            print("No tiene 8 bytes de data, rellenalo en el archivo por ahora")
         sp.getoutput("echo "+id+" "+data+" > "+name) #L
         sp.getoutput("mv *M.txt Messages") #L
         return True
