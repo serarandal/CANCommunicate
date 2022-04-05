@@ -17,7 +17,7 @@ password = ""
 ready = False
 sistema = platform.system()
 frequency =""
-
+serialnumber =""
 
 def setPassword(passW):
     global password
@@ -85,7 +85,7 @@ def connectCan():
            print("No usb2can connected")
     else:
         try:
-            bus = usb2canInteface.Usb2canBus(bitrate=frequency) #W
+            bus = usb2canInteface.Usb2canBus(serialnumber,bitrate=frequency) #W
         except:
             print("No usb2can connected")
     try:
