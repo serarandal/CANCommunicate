@@ -5,7 +5,6 @@ import platform
 import subprocess as sp
 import threading
 import re
-import usb2canInteface
 
 msg = can.Message()
 msg2 = can.Message()
@@ -17,32 +16,35 @@ password = ""
 ready = False
 sistema = platform.system()
 frequency =""
-serialnumber =""
+SerialNumber=""
+import usb2canAbstractionFile
+import usb2canInteface
 
-def setPassword(passW):
+
+def setPassword(passW): #LW
     global password
-    with open("password.txt",'r')as f: #LW
+    with open("password.txt",'r')as f:
         data = f.read()
     if data == passW :
         return True
     else:
-        with open("password.txt",'w') as f: #LW
+        with open("password.txt",'w') as f:
             f.write(passW)
         password = passW
         return True
 
 
-def setFrequency(fre):
+def setFrequency(fre): #LW
     global frequency
     if fre == "":
         return False
     else:
-        with open("frequency.txt",'r')as f: #LW
+        with open("frequency.txt",'r')as f:
             data = f.read()
         if data == fre :
             return True
         else:
-            with open("frequency.txt",'w') as f: #LW
+            with open("frequency.txt",'w') as f:
                 f.write(fre)
             frequency = fre
             return True
@@ -60,17 +62,20 @@ def testOneCan():#Normal reading
 def testTwoCan():#Filter reading
     global processedMsgFiltered
     return processedMsgFiltered
+
 def connectCan():
     global bus
     global password
     global frequency
+
+    if sistema =='Linux':
+        try:
+            with open("password.txt") as f:
+                password = f.read()
+        except:
+            print("Cannot open password.txt, make sure it is created and you have reading rights")
     try:
-        with open("password.txt") as f: #LW
-            password = f.read()
-    except:
-        print("Cannot open password.txt, make sure it is created and you have reading rights")
-    try:
-        with open("frequency.txt") as f: #LW
+        with open("frequency.txt") as f:
             frequency = f.read()
     except:
         print("Cannot open frequency.txt, make sure it is created and you have reading rights")
@@ -85,7 +90,8 @@ def connectCan():
            print("No usb2can connected")
     else:
         try:
-            bus = usb2canInteface.Usb2canBus(serialnumber,bitrate=frequency) #W
+            bus = usb2canInteface.Usb2canBus(channel=serialNumber,dll="./usb2can.dll")
+            print(bus.state)
         except:
             print("No usb2can connected")
     try:
@@ -93,14 +99,17 @@ def connectCan():
             initThreads()
     except:
         print("Error threads")
-    return output +"\n"+  output2
+    if sistema == 'Linux':
+        return output +"\n"+  output2
+    else:
+        return "intentando conectar al korlan"
 
 def setId_Data(id,data):
     global msg
 
     print(data) #arbitration_id hex of the id -> 0x608
     try :
-        msg = can.Message(arbitration_id=int(id,16), #LW
+        msg = can.Message(arbitration_id=int(id,16),
                     data=data,
                     is_extended_id=False)
     except:
@@ -109,21 +118,28 @@ def setId_Data(id,data):
 def sendData():
     global bus
     try:
-            bus.send(msg) #LW
+        if sistema == 'Linux':
+            bus.send(msg)
             print("Message sent on {}".format(bus.channel_info))
+        else:
+            try:
+                bus.send(msg)
+                print(bus.state)
+            except can.CanError:
+                print("Trying to write to a readonly bus?")
     except can.CanError:
         print("Message NOT sent"+bus.state)
 
-def findSerialNumberKorlan(): #In use, usefull if serial_selector dies.
+def findSerialNumberKorlan():
     global serialNumber
     try:
-        output2 = sp.getoutput("wmic path CIM_LogicalDevice where \"Description like 'USB%'\" get DeviceID") #W
+        output2 = sp.getoutput("wmic path CIM_LogicalDevice where \"Description like 'USB%'\" get DeviceID")
         pa=output2.split("\\")
         serialNumber = pa[2]
+        print(serialNumber)
     except:
-        print("Error finding device")
-
-def processMessage(msg): #L
+        print("No device connected")
+def processMessage(msg):
     finish = False
     i=2
     imagen = "Rx"+" " +str(hex(msg.arbitration_id))
@@ -139,9 +155,9 @@ def processMessage(msg): #L
     return imagen
 
 
-def processCreationNewMessages(filepath): #L
+def processCreationNewMessages(filepath):
     try:
-        with open(filepath, 'r', encoding='iso-8859-1') as f: #LW
+        with open(filepath, 'r', encoding='iso-8859-1') as f:
             content = f.readlines()
     except:
         print("No messages inside")
@@ -160,22 +176,17 @@ def processCreationNewMessages(filepath): #L
             name = name + "M.txt"
         except IndexError:
             name = "nonameM.txt"
-        sp.getoutput("touch "+name) #L
-        try:
-            b = a[0].split()
-            id = b[0][:-1]
-            data = b [4][:-1] +" "+b[5][:-1]+" "+b[6][:-1]+" "+b[7][:-1]+" "+b[8][:-1]+" "+b[9][:-1]+" "+b[10][:-1]+" "+b[11][:-1]+" "
-        except:
-            id="0"
-            data="0"
-            print("No tiene 8 bytes de data, rellenalo en el archivo por ahora")
-        sp.getoutput("echo "+id+" "+data+" > "+name) #L
-        sp.getoutput("mv *M.txt Messages") #L
+        sp.getoutput("touch "+name)
+        b = a[0].split()
+        id = b[0][:-1]
+        data = b [4][:-1] +" "+b[5][:-1]+" "+b[6][:-1]+" "+b[7][:-1]+" "+b[8][:-1]+" "+b[9][:-1]+" "+b[10][:-1]+" "+b[11][:-1]+" "
+        sp.getoutput("echo "+id+" "+data+" > "+name)
+        sp.getoutput("mv *M.txt Messages")
         return True
 
 def sendPremadeData(filename):
     dataF = []
-    with open("Messages/"+filename, 'r', encoding='iso-8859-1') as f: #LW
+    with open("Messages/"+filename, 'r', encoding='iso-8859-1') as f:
         content = f.readline()
         print(content)
     b = content.split()
@@ -190,7 +201,7 @@ def sendPremadeData(filename):
     sendData()
     return sData
 
-def processManData(id,data):#LW
+def processManData(id,data):
     global idG
     global dataG
     idG = id
@@ -204,7 +215,7 @@ def processManData(id,data):#LW
         dataF.append(int(b[i],16))
     setId_Data(id,dataF)
 
-def createNewPreMadeMessage(name): #L
+def createNewPreMadeMessage(name):
     global idG
     global dataG
 
@@ -244,7 +255,7 @@ def initThreads():
     w.setDaemon(True)
     w.start()
 
-def processedMsgFilter(msg): #L
+def processedMsgFilter(msg):
     finish = False
     i = 2
     imagen = str(hex(msg.arbitration_id))
@@ -260,7 +271,7 @@ def processedMsgFilter(msg): #L
     return imagen
 
 
-def filterDevices(deviceName,mesg): #LW
+def filterDevices(deviceName,mesg):
     switcher = {
         "steeringSensor": steeringSensor(mesg),
         2: two,
@@ -278,7 +289,7 @@ def filterDevices(deviceName,mesg): #LW
     # Get the function from switcher dictionary
     return switcher.get(deviceName, lambda: "Invalid month")
 
-def steeringSensor(mesg): #LW
+def steeringSensor(mesg):
     id = 0x305
     dataF =""
     dataTemp = 0x0
