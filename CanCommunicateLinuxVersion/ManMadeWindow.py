@@ -7,7 +7,7 @@ import time
 
 a = 0
 
-class Worker(QtCore.QObject): #reading thread class
+class Worker(QtCore.QObject): # reading thread
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
     def run(self):
@@ -19,16 +19,15 @@ class Worker(QtCore.QObject): #reading thread class
         t1 = time.perf_counter()
         msg2 = ""
         while 1 and self.isKilled==False:
-            if t1 - t0 >0.1 :
                 msg = Utility.testOneCan()
                 t0 = time.perf_counter()
-                if msg == "" or msg == None :
+                if msg == "" or msg == None and t1 - t0 > 100:
                     if j == 0:
                         self.progress.emit("NoMessages")
                         j=1
                     else:
                         None
-                elif msg is msg2 :
+                elif msg is msg2 and t1 - t0 > 100:
                     if z == 0:
                         self.progress.emit("NoNewMessages")
                         z=1
@@ -37,10 +36,8 @@ class Worker(QtCore.QObject): #reading thread class
                 else:
                     msg2 = msg
                     self.progress.emit(msg)
-                    j = 0
                     z = 0
-            else :
-                t1 = time.perf_counter()
+                    t1 = time.perf_counter()
 
         self.finished.emit()
 
