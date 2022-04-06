@@ -1,6 +1,7 @@
 #Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
 import subprocess
 
+from screeninfo import get_monitors
 import can
 import platform
 import subprocess as sp
@@ -21,6 +22,14 @@ serialNumber =""
 import usb2canAbstractionFile
 import usb2canInteface
 
+
+
+def getResolution():
+    for m in get_monitors():
+        if m.width < 1900 and m.height < 1000:
+            return "small"
+        else:
+            return "big"
 
 def setPassword(passW): #LW
     global password
