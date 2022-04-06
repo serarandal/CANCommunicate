@@ -10,7 +10,7 @@ import re
 msg = can.Message()
 msg2 = can.Message()
 processedMsg = []
-processedMsgFiltered = None
+processedMsgFiltered = []
 idG = ""
 dataG = ""
 password = ""
@@ -70,7 +70,11 @@ def testOneCan():#Normal reading
 
 def testTwoCan():#Filter reading
     global processedMsgFiltered
-    return processedMsgFiltered
+    try:
+        aux = processedMsgFiltered.pop(0)
+    except:
+        aux = ""
+    return aux
 
 def connectCan():#LW
     global bus
@@ -263,7 +267,7 @@ def waiter_thread(event):#LW
     while True:
         msg = bus.recv()
         processedMsg.append(processMessage(msg))
-        processedMsgFiltered = processedMsgFilter(msg)
+        processedMsgFiltered.append(processedMsgFilter(msg))
 
 def processThreadInfo():#doesn't work with threads, but usefull enough to save
     global msg2
