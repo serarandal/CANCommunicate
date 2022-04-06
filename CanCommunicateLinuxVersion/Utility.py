@@ -350,9 +350,9 @@ def steeringSensor(mesg):
     else:
         dataF = round(int(dataF,16)*0.13,2)
     if patata == 1:
-        n = "steeringSensor"+"              -"+str(dataF)+"º               "+timestamp
+        n = "steeringSensor"+"              -"+str(dataF)+"º               "+data+" "+timestamp
     else:
-        n = "steeringSensor"+"               "+str(dataF)+"º               "+timestamp
+        n = "steeringSensor"+"               "+str(dataF)+"º               "+data+" "+timestamp
     return n
 
 

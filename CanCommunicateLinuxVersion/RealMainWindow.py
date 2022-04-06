@@ -47,7 +47,7 @@ class Worker(QtCore.QObject): # reading thread
         self.isKilled = True
 
 class Ui_MainWindow(object): #UI class
-    def setupUi(self, MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7,MainWindow8):
+    def setupUi(self, MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7,MainWindow8,MainWindow9):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 609)
         self.MainWindow2 = MainWindow2
@@ -56,6 +56,7 @@ class Ui_MainWindow(object): #UI class
         self.MainWindow6 = MainWindow6
         self.MainWindow7 = MainWindow7
         self.MainWindow8 = MainWindow8
+        self.MainWindow9 = MainWindow9 #TEST
         self.i = 0
         self.connected = False
         self.model = QtGui.QStandardItemModel()
@@ -168,6 +169,7 @@ class Ui_MainWindow(object): #UI class
     def premadeWindowButton(self): #Premadewindow
         print("Pushed show premade gui:")
         self.MainWindow2.show()
+        self.MainWindow9.show() #TEST
 
     def manmadeWindowButton(self): #Manmadewindow
         print("Pushed show manmade gui:")

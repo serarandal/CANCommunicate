@@ -10,6 +10,7 @@ import ManMadeWindow
 import AddNewMessages
 import FrequencyWindow
 import platform
+import SendWindowManTEST
 
 import Utility
 
@@ -24,6 +25,7 @@ if __name__ == "__main__":
     MainWindow6 = QtWidgets.QMainWindow()
     MainWindow7 = QtWidgets.QMainWindow()
     MainWindow8 = QtWidgets.QMainWindow()
+    MainWindow9 = QtWidgets.QMainWindow() #TEST
     PopupWindow = QtWidgets.QWidget()
     PopupWindow2 = QtWidgets.QWidget()
     PopupWindow3 = QtWidgets.QWidget()
@@ -48,7 +50,8 @@ if __name__ == "__main__":
     ui14 = AddNewMessages.Popup7()
     ui15 = AddNewMessages.Popup8()
     ui16 = FilterWindow.Ui_MainWindow8()
-    ui.setupUi(MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7,MainWindow8)
+    ui17 = SendWindowManTEST.Ui_MainWindow7() # TEST
+    ui.setupUi(MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7,MainWindow8,MainWindow9)
     ui2.setupUi(MainWindow2,MainWindow3)
     ui3.setupUi(MainWindow3,MainWindow2,MainWindow5)
     ui4.setupUi(MainWindow4,PopupWindow7,PopupWindow8,ui2)
@@ -64,6 +67,7 @@ if __name__ == "__main__":
     ui14.setupUi(PopupWindow7)
     ui15.setupUi(PopupWindow8)
     ui16.setupUi(MainWindow8)
+    ui17.setupUi(MainWindow9) #TEST
     if platform.system() != 'Linux': #need the serial number of the usb2can to be able to work in windows
         Utility.findSerialNumberKorlan()
     MainWindow.show()
