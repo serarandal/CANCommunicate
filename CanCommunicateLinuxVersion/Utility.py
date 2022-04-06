@@ -9,7 +9,7 @@ import re
 
 msg = can.Message()
 msg2 = can.Message()
-processedMsg = None
+processedMsg = []
 processedMsgFiltered = None
 idG = ""
 dataG = ""
@@ -62,7 +62,11 @@ def readOneCan():#not in use
 
 def testOneCan():#Normal reading
     global processedMsg
-    return processedMsg
+    try:
+        aux = processedMsg.pop(0)
+    except:
+        aux = ""
+    return aux
 
 def testTwoCan():#Filter reading
     global processedMsgFiltered
@@ -252,7 +256,7 @@ def waiter_thread(event):#LW
     print("Starting the reading worker real thread")
     while True:
         msg = bus.recv()
-        processedMsg = processMessage(msg)
+        processedMsg.append(processMessage(msg))
         processedMsgFiltered = processedMsgFilter(msg)
 
 def processThreadInfo():#doesn't work with threads, but usefull enough to save
