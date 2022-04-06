@@ -1,12 +1,14 @@
 #Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
-import subprocess
 
 from screeninfo import get_monitors
+import datetime
 import can
 import platform
 import subprocess as sp
 import threading
 import re
+import usb2canAbstractionFile
+import usb2canInteface
 
 msg = can.Message()
 msg2 = can.Message()
@@ -19,9 +21,18 @@ ready = False
 sistema = platform.system()
 frequency =""
 serialNumber =""
-import usb2canAbstractionFile
-import usb2canInteface
+p = 0
+file = None
 
+def logReading(logmsg):
+    global file
+    if p == 0:
+        x = datetime.datetime.now()
+        name = "log_"+str(x.year)+":"+str(x.month)+":"+str(x.day)+" "+str(x.hour)+":"+str(x.minute)+".txt"
+        file = open(name,'w')
+        file.write(logmsg)
+    else:
+        file.write(logmsg)
 
 
 def getResolution():

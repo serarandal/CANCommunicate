@@ -157,11 +157,13 @@ class Ui_MainWindow(object): #UI class
             a = 1
             print("Pushed reading can button:")
             self.pushButton_2.setStyleSheet("background-color:green")
+            #open file for log
             self.runLongTask()
         else:
             print("Already reading(RealMainWindow)")
             print("stopping")
             self.pushButton_2.setStyleSheet("")
+            #close file for log
             self.stopLongTask()
             a = 0
 
