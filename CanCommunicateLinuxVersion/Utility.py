@@ -134,7 +134,7 @@ def sendData():#LW
     except can.CanError:
         print("Message NOT sent"+bus.state)
 
-def findSerialNumberKorlan(): #No funciona en todos los windows, falta probar en otros ordenadores
+def findSerialNumberKorlan():
     global serialNumber
     try:
         output2 = sp.getoutput("wmic path CIM_LogicalDevice where \"Description like 'USB%'\" get DeviceID")
