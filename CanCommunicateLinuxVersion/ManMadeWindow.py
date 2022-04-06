@@ -183,10 +183,12 @@ class Ui_MainWindow3(object): #UI class
         if a == 0:
             a=1
             print("Pushed reading can button:")
+            self.pushButton_4.setStyleSheet("background-color:green")
             self.runLongTask()
         else:
             print("Already reading(ManuallyMadeWindow)")
             print("stopping")
+            self.pushButton_4.setStyleSheet("")
             self.stopLongTask()
             a=0
 

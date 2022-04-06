@@ -152,16 +152,19 @@ class Ui_MainWindow(object): #UI class
         status = Utility.connectCan()
         it = QtGui.QStandardItem(status)
         self.model.appendRow(it)
+        self.pushButton.setStyleSheet("background-color: green")
 
     def readingCanButton(self):#it executes the reading thread
         global a
         if a == 0:
             a = 1
             print("Pushed reading can button:")
+            self.pushButton_2.setStyleSheet("background-color:green")
             self.runLongTask()
         else:
             print("Already reading(RealMainWindow)")
             print("stopping")
+            self.pushButton_2.setStyleSheet("")
             self.stopLongTask()
             a = 0
 
