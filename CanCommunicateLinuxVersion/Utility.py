@@ -206,11 +206,17 @@ def sendPremadeData(filename):#LW
     with open("Messages/"+filename, 'r', encoding='iso-8859-1') as f:
         content = f.readline()
         print(content)
-    b = content.split()
-    id = b[0]
-    data = b[1]+ b[2] +  b[3] +  b[4] + b[5] + b[6] +b[7] +b[8]
-    print(data)
-    b.pop(0)
+    try:
+        b = content.split()
+        id = b[0]
+        data = ""
+        for i in range (len(b)):
+            data = data + b[i]
+        #data = b[1]+ b[2] +  b[3] +  b[4] + b[5] + b[6] +b[7] +b[8]
+        print(data)
+        b.pop(0)
+    except:
+        print("a")
     for i in range(len(b)):
         dataF.append(int(b[i],16))
     sData=id+"/"+data

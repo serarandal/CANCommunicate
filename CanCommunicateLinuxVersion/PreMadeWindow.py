@@ -134,21 +134,24 @@ class Ui_MainWindow2(object): #UI class
         patata = data.split("/")
         data = patata[1]
         length = len(data)
-        while finish == False:
-            if i >= length:
-                finish = True
-            data = data[:i] + " " + data[i:]
-            i = i + 3
-        if length == 16:
-            data = data[:length + 4] + " " + data[length + 4:]
-        if length == 14:
-            data = data[:length + 3] + " " + data[length + 3:]
-        if length == 12:
-            data = data[:length + 2] + " " + data[length + 2]
-        patata = "Tx" + " 0x" + patata[0] + " " + data
-        it = QtGui.QStandardItem(patata)
-        self.model2_2.appendRow(it)
-        self.listView2_2.scrollToBottom()
+        try:
+            while finish == False:
+                if i >= length:
+                    finish = True
+                data = data[:i] + " " + data[i:]
+                i = i + 3
+            if length == 16:
+                data = data[:length + 4] + " " + data[length + 4:]
+            if length == 14:
+                data = data[:length + 3] + " " + data[length + 3:]
+            if length == 12:
+                data = data[:length + 2] + " " + data[length + 2]
+            patata = "Tx" + " 0x" + patata[0] + " " + data
+            it = QtGui.QStandardItem(patata)
+            self.model2_2.appendRow(it)
+            self.listView2_2.scrollToBottom()
+        except:
+            print("Error in message data format, check again")
 
     def addItemsListView(self):
         self.model2.clear()
