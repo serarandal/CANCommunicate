@@ -239,7 +239,7 @@ def createNewPreMadeMessage(name):#LW
     else:
         sp.getoutput("echo " + idG + " " + dataG + " > " + name)
         a=sp.getoutput("mv *M.txt Messages")
-    if a == "":
+    if a == "" or platform.system() != 'Linux':
         return True
     else:
         print(a)
