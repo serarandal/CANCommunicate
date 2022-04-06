@@ -63,14 +63,14 @@ class Ui_MainWindow2(object): #UI class
         self.gridLayout.setObjectName("gridLayout")
         self.listView_2 = QtWidgets.QListView(self.centralwidget)
         self.listView_2.setObjectName("listView_2")
-        self.listView_2.setViewMode(QtWidgets.QListView.IconMode)
-        self.size=PyQt5.QtCore.QSize(500,500)
-        self.listView_2.setIconSize(self.size)
+        #self.listView_2.setViewMode(QtWidgets.QListView.IconMode)
+        #self.size=PyQt5.QtCore.QSize(500,500)
+        #self.listView_2.setIconSize(self.size)
         self.Font=PyQt5.QtGui.QFont('Arial',16)
-        self.Font2=PyQt5.QtGui.QFont('Arial',10)
+        self.Font2=PyQt5.QtGui.QFont('Arial',20)
         self.listView_2.setFont(self.Font2)
         self.listView_2.setModel(self.model2)
-        self.listView_2.setAutoScroll(True)
+        self.listView_2.setAutoScroll(False)
         self.gridLayout.addWidget(self.listView_2, 4, 0, 1, 1)
         self.pushButton2_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton2_2.setObjectName("pushButton2_2")
@@ -80,7 +80,7 @@ class Ui_MainWindow2(object): #UI class
         self.listView2_2.setObjectName("listView")
         self.listView2_2.setModel(self.model2_2)
         self.listView2_2.setFont(self.Font)
-        self.listView2_2.setAutoScroll(True)
+        self.listView2_2.setAutoScroll(False)
         self.gridLayout.addWidget(self.listView2_2, 1, 0, 1, 1)
         self.pushButton2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton2.setObjectName("pushButton2")
@@ -154,10 +154,9 @@ class Ui_MainWindow2(object): #UI class
         self.listView2_2.scrollToBottom()
 
     def addItemsListView(self):
-        icon = QtGui.QIcon("icon.png")
         self.model2.clear()
         for file in sorted(os.listdir("Messages")):
-            it = QtGui.QStandardItem(icon,file)
+            it = QtGui.QStandardItem(file)
             self.model2.appendRow(it)
 
     def reportProgress(self, n):
