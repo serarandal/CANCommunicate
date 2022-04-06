@@ -5,7 +5,7 @@ import PyQt5.QtCore
 from PyQt5 import QtCore, QtGui, QtWidgets
 import Utility
 import os
-#from time import sleep
+
 class Popup7(object): #UI class
     def setupUi(self, PopupWindow7):
         PopupWindow7.setObjectName("Form")
@@ -55,10 +55,11 @@ class Popup8(object): #UI class
         self.label.setText(_translate("Form", "Fallo al guardar,revise permisos y si existe el archivo .xmt"))
 
 class Ui_MainWindow4(object): #UI class
-    def setupUi(self, MainWindow4,PopupWindow7,PopupWindow8):
+    def setupUi(self, MainWindow4,PopupWindow7,PopupWindow8,ui2):
         self.MainWindow4 = MainWindow4
         self.PopupWindow7 = PopupWindow7
         self.PopupWindow8 = PopupWindow8
+        self.MainWindow2 = ui2
         self.Font = PyQt5.QtGui.QFont('Arial', 14)
         MainWindow4.setObjectName("MainWindow4")
         MainWindow4.resize(800, 600)
@@ -121,6 +122,7 @@ class Ui_MainWindow4(object): #UI class
         a = Utility.processCreationNewMessages(filepath)
         if a == True:
             self.PopupWindow7.show()
+            self.MainWindow2.addItemsListView()
             self.MainWindow4.close()
         else :
             self.PopupWindow8.show()

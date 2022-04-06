@@ -51,7 +51,7 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7,MainWindow8)
     ui2.setupUi(MainWindow2,MainWindow3)
     ui3.setupUi(MainWindow3,MainWindow2,MainWindow5)
-    ui4.setupUi(MainWindow4,PopupWindow7,PopupWindow8)
+    ui4.setupUi(MainWindow4,PopupWindow7,PopupWindow8,ui2)
     ui5.setupUi(MainWindow5,ui2,PopupWindow5,PopupWindow6)
     ui6.setupUi(MainWindow6,PopupWindow,PopupWindow2)
     ui7.setupUi(PopupWindow)

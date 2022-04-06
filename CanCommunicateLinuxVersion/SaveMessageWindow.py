@@ -100,7 +100,7 @@ class Ui_MainWindow5(object): #UI class
         print("Pushed add new message button:")
         save = Utility.createNewPreMadeMessage(name)
         if save == True:
-            PreMadeWindow.Ui_MainWindow2.addItemsListView(self.ui2)
+            self.ui2.addItemsListView()
             self.MainWindow5.close()
             self.Popup.show()
         else:
