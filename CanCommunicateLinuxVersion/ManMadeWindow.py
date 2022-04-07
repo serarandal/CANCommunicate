@@ -8,9 +8,10 @@ import time
 a = 0
 
 
-class Worker(QtCore.QObject): # reading thread
+class Worker(QtCore.QObject):  # reading thread
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
+
     def run(self):
         print("Starting the reading worker gui thread")
         self.isKilled = False
@@ -19,26 +20,33 @@ class Worker(QtCore.QObject): # reading thread
         t0 = time.perf_counter()
         t1 = time.perf_counter()
         msg2 = ""
-        while 1 and self.isKilled==False:
-                msg = Utility.testOneCan()
-                t0 = time.perf_counter()
-                if msg == "" or msg == None and t1 - t0 > 100:
-                    if j == 0:
-                        self.progress.emit("NoMessages")
-                        j=1
-                    else:
-                        None
-                elif msg is msg2 and t1 - t0 > 100:
-                    if z == 0:
-                        self.progress.emit("NoNewMessages")
-                        z=1
-                    else:
-                        None
+        msgStorage = []
+        while 1 and self.isKilled == False:
+            msg = Utility.testOneCan()
+            if msg !="":
+                msgStorage.append(msg)
+            t1 = time.perf_counter()
+            if msg == "" or msg == None and t1 - t0 > 100 or len(msgStorage)==0:
+                if j == 0:
+                    self.progress.emit("NoMessages")
+                    j = 1
                 else:
-                    msg2 = msg
-                    self.progress.emit(msg)
+                    None
+            elif msg is msg2 and t1 - t0 > 100:
+                if z == 0:
+                    self.progress.emit("NoNewMessages")
+                    z = 1
+                else:
+                    None
+            else:
+                msg2 = msg
+                if t1 - t0 > 0.0001:
+                    t0 = time.perf_counter()
+                    self.progress.emit(msgStorage.pop(0))
                     z = 0
                     t1 = time.perf_counter()
+                else:
+                    None
 
         self.finished.emit()
 

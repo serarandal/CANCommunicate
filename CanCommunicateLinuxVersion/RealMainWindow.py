@@ -4,7 +4,7 @@ import time
 import PyQt5.QtCore
 from PyQt5 import QtCore, QtGui, QtWidgets
 import Utility
-
+from time import sleep
 a = 0
 
 
@@ -20,10 +20,13 @@ class Worker(QtCore.QObject):  # reading thread
         t0 = time.perf_counter()
         t1 = time.perf_counter()
         msg2 = ""
+        msgStorage = []
         while 1 and self.isKilled == False:
             msg = Utility.testOneCan()
-            t0 = time.perf_counter()
-            if msg == "" or msg == None and t1 - t0 > 100:
+            if msg !="":
+                msgStorage.append(msg)
+            t1 = time.perf_counter()
+            if msg == "" or msg == None and t1 - t0 > 100 or len(msgStorage)==0:
                 if j == 0:
                     self.progress.emit("NoMessages")
                     j = 1
@@ -37,9 +40,13 @@ class Worker(QtCore.QObject):  # reading thread
                     None
             else:
                 msg2 = msg
-                self.progress.emit(msg)
-                z = 0
-                t1 = time.perf_counter()
+                if t1 - t0 > 0.0001:
+                    t0 = time.perf_counter()
+                    self.progress.emit(msgStorage.pop(0))
+                    z = 0
+                    t1 = time.perf_counter()
+                else:
+                    None
 
         self.finished.emit()
 
@@ -55,8 +62,6 @@ class Ui_MainWindow(object):
         self.MainWindow6 = MainWindow6
         self.MainWindow7 = MainWindow7
         self.MainWindow8 = MainWindow8
-        # self.MainWindow9 = MainWindow9 # TEST
-        #self.MainWindow10 = MainWindow10 # TEST2
         self.i = 0
         self.connected = False
         self.model = QtGui.QStandardItemModel()
@@ -155,13 +160,11 @@ class Ui_MainWindow(object):
             a = 1
             print("Pushed reading can button:")
             self.pushButton_8.setStyleSheet("background-color:green")
-            #open file for log
             self.runLongTask()
         else:
             print("Already reading(RealMainWindow)")
             print("stopping")
             self.pushButton_8.setStyleSheet("")
-            #close file for log
             self.stopLongTask()
             a = 0
 
@@ -173,7 +176,6 @@ class Ui_MainWindow(object):
     def manmadeWindowButton(self): #Manmadewindow
         print("Pushed show manmade gui:")
         self.MainWindow3.show()
-        #self.MainWindow9.show()
 
     def newmessagesWindowButton(self):  # New messages window
         print("Pushed show add new messages gui:")

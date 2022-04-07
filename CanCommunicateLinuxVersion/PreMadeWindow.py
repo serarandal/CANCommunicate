@@ -21,10 +21,13 @@ class Worker(QtCore.QObject):  # reading thread
         t0 = time.perf_counter()
         t1 = time.perf_counter()
         msg2 = ""
+        msgStorage = []
         while 1 and self.isKilled == False:
             msg = Utility.testOneCan()
-            t0 = time.perf_counter()
-            if msg == "" or msg == None and t1 - t0 > 100:
+            if msg !="":
+                msgStorage.append(msg)
+            t1 = time.perf_counter()
+            if msg == "" or msg == None and t1 - t0 > 100 or len(msgStorage)==0:
                 if j == 0:
                     self.progress.emit("NoMessages")
                     j = 1
@@ -38,9 +41,13 @@ class Worker(QtCore.QObject):  # reading thread
                     None
             else:
                 msg2 = msg
-                self.progress.emit(msg)
-                z = 0
-                t1 = time.perf_counter()
+                if t1 - t0 > 0.0001:
+                    t0 = time.perf_counter()
+                    self.progress.emit(msgStorage.pop(0))
+                    z = 0
+                    t1 = time.perf_counter()
+                else:
+                    None
 
         self.finished.emit()
 
