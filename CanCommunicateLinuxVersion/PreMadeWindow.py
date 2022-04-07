@@ -1,4 +1,4 @@
-#Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
+# Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
 
 import PyQt5.QtCore
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -6,11 +6,13 @@ import Utility
 import os
 import time
 
-a=0
+a = 0
 
-class Worker(QtCore.QObject): # reading thread
+
+class Worker(QtCore.QObject):  # reading thread
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
+
     def run(self):
         print("Starting the reading worker gui thread")
         self.isKilled = False
@@ -19,74 +21,107 @@ class Worker(QtCore.QObject): # reading thread
         t0 = time.perf_counter()
         t1 = time.perf_counter()
         msg2 = ""
-        while 1 and self.isKilled==False:
-                msg = Utility.testOneCan()
-                t0 = time.perf_counter()
-                if msg == "" or msg == None and t1 - t0 > 100:
-                    if j == 0:
-                        self.progress.emit("NoMessages")
-                        j=1
-                    else:
-                        None
-                elif msg is msg2 and t1 - t0 > 100:
-                    if z == 0:
-                        self.progress.emit("NoNewMessages")
-                        z=1
-                    else:
-                        None
+        while 1 and self.isKilled == False:
+            msg = Utility.testOneCan()
+            t0 = time.perf_counter()
+            if msg == "" or msg == None and t1 - t0 > 100:
+                if j == 0:
+                    self.progress.emit("NoMessages")
+                    j = 1
                 else:
-                    msg2 = msg
-                    self.progress.emit(msg)
-                    z = 0
-                    t1 = time.perf_counter()
+                    None
+            elif msg is msg2 and t1 - t0 > 100:
+                if z == 0:
+                    self.progress.emit("NoNewMessages")
+                    z = 1
+                else:
+                    None
+            else:
+                msg2 = msg
+                self.progress.emit(msg)
+                z = 0
+                t1 = time.perf_counter()
 
         self.finished.emit()
 
     def stop(self):
         self.isKilled = True
 
-class Ui_MainWindow2(object): #UI class
+
+class Ui_MainWindow2(object):
     def setupUi(self, MainWindow2,MainWindow3):
+        MainWindow2.setObjectName("MainWindow")
+        MainWindow2.resize(800, 600)
         self.MainWindow2 = MainWindow2
         self.MainWindow3 = MainWindow3
         self.i = 0
-        MainWindow2.setObjectName("MainWindow2")
-        MainWindow2.resize(800, 600)
         self.model2 = QtGui.QStandardItemModel()
         self.model2_2 = QtGui.QStandardItemModel()
+        self.model2_3 = QtGui.QStandardItemModel()
+        self.Font = PyQt5.QtGui.QFont('Arial', 16)
+        self.Font2 = PyQt5.QtGui.QFont('Arial', 20)
         self.centralwidget = QtWidgets.QWidget(MainWindow2)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
+        self.splitter = QtWidgets.QSplitter(self.centralwidget)
+        self.splitter.setOrientation(QtCore.Qt.Horizontal)
+        self.splitter.setObjectName("splitter")
+        self.label = QtWidgets.QLabel(self.splitter)
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.splitter)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout.addWidget(self.splitter, 1, 1, 1, 1)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.listView = QtWidgets.QListView(self.centralwidget)
+        self.listView.setMinimumSize(QtCore.QSize(200, 200))
+        self.listView.setMaximumSize(QtCore.QSize(950, 16777215))
+        self.listView.setObjectName("listView")
+        self.listView.setFont(self.Font)
+        self.listView.setModel(self.model2_2)
+        self.listView.setAutoScroll(False)
+        self.horizontalLayout.addWidget(self.listView)
         self.listView_2 = QtWidgets.QListView(self.centralwidget)
+        self.listView_2.setMinimumSize(QtCore.QSize(200, 200))
+        self.listView_2.setMaximumSize(QtCore.QSize(950, 16777215))
         self.listView_2.setObjectName("listView_2")
-        #self.listView_2.setViewMode(QtWidgets.QListView.IconMode)
-        #self.size=PyQt5.QtCore.QSize(500,500)
-        #self.listView_2.setIconSize(self.size)
-        self.Font=PyQt5.QtGui.QFont('Arial',16)
-        self.Font2=PyQt5.QtGui.QFont('Arial',20)
-        self.listView_2.setFont(self.Font2)
-        self.listView_2.setModel(self.model2)
+        self.listView_2.setFont(self.Font)
+        self.listView_2.setModel(self.model2_3)
         self.listView_2.setAutoScroll(False)
-        self.gridLayout.addWidget(self.listView_2, 4, 0, 1, 1)
-        self.pushButton2_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton2_2.setObjectName("pushButton2_2")
-        self.pushButton2_2.clicked.connect(self.b1)
-        self.gridLayout.addWidget(self.pushButton2_2, 5, 0, 1, 1)
-        self.listView2_2 = QtWidgets.QListView(self.centralwidget)
-        self.listView2_2.setObjectName("listView")
-        self.listView2_2.setModel(self.model2_2)
-        self.listView2_2.setFont(self.Font)
-        self.listView2_2.setAutoScroll(False)
-        self.gridLayout.addWidget(self.listView2_2, 1, 0, 1, 1)
-        self.pushButton2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton2.setObjectName("pushButton2")
-        self.pushButton2.clicked.connect(self.b3)
-        self.gridLayout.addWidget(self.pushButton2, 2, 0, 1, 1)
-        self.pushButton2_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton2_3.setObjectName("pushButton_3")
-        self.pushButton2_3.clicked.connect(self.b2)
-        self.gridLayout.addWidget(self.pushButton2_3, 0, 0, 1, 1)
+        self.horizontalLayout.addWidget(self.listView_2)
+        self.gridLayout.addLayout(self.horizontalLayout, 2, 0, 1, 2)
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2.setMaximumSize(QtCore.QSize(2000, 30))
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_2.clicked.connect(self.b3)
+        self.verticalLayout.addWidget(self.pushButton_2)
+        self.listView_3 = QtWidgets.QListView(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.listView_3.sizePolicy().hasHeightForWidth())
+        self.listView_3.setSizePolicy(sizePolicy)
+        self.listView_3.setMinimumSize(QtCore.QSize(200, 200))
+        self.listView_3.setMaximumSize(QtCore.QSize(1920, 350))
+        self.listView_3.setObjectName("listView_3")
+        self.listView_3.setFont(self.Font2)
+        self.listView_3.setModel(self.model2)
+        self.listView_3.setAutoScroll(False)
+        self.verticalLayout.addWidget(self.listView_3)
+        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_3.setMaximumSize(QtCore.QSize(2000, 30))
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_3.clicked.connect(self.b1)
+        self.verticalLayout.addWidget(self.pushButton_3)
+        self.gridLayout.addLayout(self.verticalLayout, 3, 0, 1, 2)
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.b2)
+        self.gridLayout.addWidget(self.pushButton, 0, 1, 1, 1)
         MainWindow2.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow2)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -96,15 +131,18 @@ class Ui_MainWindow2(object): #UI class
         self.statusbar.setObjectName("statusbar")
         MainWindow2.setStatusBar(self.statusbar)
         self.addItemsListView()
+
         self.retranslateUi(MainWindow2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow2)
 
     def retranslateUi(self, MainWindow2):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow2.setWindowTitle(_translate("MainWindow2", "MainWindow2"))
-        self.pushButton2_2.setText(_translate("MainWindow2", "ChangeMode"))
-        self.pushButton2.setText(_translate("MainWindow2", "SendData"))
-        self.pushButton2_3.setText(_translate("MainWindow2", "ReadCan"))
+        MainWindow2.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.label.setText(_translate("MainWindow", "Read"))
+        self.label_2.setText(_translate("MainWindow", "Write"))
+        self.pushButton_2.setText(_translate("MainWindow", "Send Message"))
+        self.pushButton_3.setText(_translate("MainWindow", "Change Mode"))
+        self.pushButton.setText(_translate("MainWindow", "Read CAN"))
 
     def b1(self):
         print("Pushed change window button:")
@@ -116,12 +154,12 @@ class Ui_MainWindow2(object): #UI class
         if a == 0:
             a=1
             print("Pushed reading can button:")
-            self.pushButton2_3.setStyleSheet("background-color:green")
+            self.pushButton.setStyleSheet("background-color:green")
             self.runLongTask()
         else:
             print("Already reading(ManuallyMadeWindow)")
             print("stopping")
-            self.pushButton2_3.setStyleSheet("")
+            self.pushButton.setStyleSheet("")
             self.stopLongTask()
             a = 0
 
@@ -129,7 +167,7 @@ class Ui_MainWindow2(object): #UI class
         finish = False
         i = 2
         print("Send_Premade_Data:")
-        index=self.listView_2.selectedIndexes()
+        index=self.listView_3.selectedIndexes()
         data=Utility.sendPremadeData(index[0].data())
         patata = data.split("/")
         data = patata[1]
@@ -148,8 +186,8 @@ class Ui_MainWindow2(object): #UI class
                 data = data[:length + 2] + " " + data[length + 2]
             patata = "Tx" + " 0x" + patata[0] + " " + data
             it = QtGui.QStandardItem(patata)
-            self.model2_2.appendRow(it)
-            self.listView2_2.scrollToBottom()
+            self.model2_3.appendRow(it)
+            self.listView_2.scrollToBottom()
         except:
             print("Error in message data format, check again")
 
@@ -166,10 +204,10 @@ class Ui_MainWindow2(object): #UI class
             self.model2_2.removeRows(self.i - 39, 3)
             self.i = 38
             self.model2_2.appendRow(it)
-            self.listView2_2.scrollToBottom()
+            self.listView.scrollToBottom()
         else:
             self.model2_2.appendRow(it)
-            self.listView2_2.scrollToBottom()
+            self.listView.scrollToBottom()
             self.i += 1
 
     def runLongTask(self):

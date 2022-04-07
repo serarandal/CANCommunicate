@@ -56,6 +56,7 @@ class Ui_MainWindow(object):
         self.MainWindow7 = MainWindow7
         self.MainWindow8 = MainWindow8
         # self.MainWindow9 = MainWindow9 # TEST
+        #self.MainWindow10 = MainWindow10 # TEST2
         self.i = 0
         self.connected = False
         self.model = QtGui.QStandardItemModel()
@@ -167,6 +168,7 @@ class Ui_MainWindow(object):
     def premadeWindowButton(self): #Premadewindow
         print("Pushed show premade gui:")
         self.MainWindow2.show()
+
 
     def manmadeWindowButton(self): #Manmadewindow
         print("Pushed show manmade gui:")

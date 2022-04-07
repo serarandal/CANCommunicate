@@ -56,6 +56,7 @@ class Ui_MainWindow3(object):
         self.MainWindow5 = MainWindow5
         self.Font = PyQt5.QtGui.QFont('Arial', 14)
         self.model3 = QtGui.QStandardItemModel()
+        self.model4 = QtGui.QStandardItemModel()
         MainWindow3.setObjectName("MainWindow")
         MainWindow3.resize(669, 580)
         self.centralwidget = QtWidgets.QWidget(MainWindow3)
@@ -130,6 +131,9 @@ class Ui_MainWindow3(object):
         self.gridLayout.addWidget(self.listView, 5, 2, 1, 1)
         self.listView2 = QtWidgets.QListView(self.centralwidget)
         self.listView2.setObjectName("listView")
+        self.listView2.setModel(self.model4)
+        self.listView2.setAutoScroll(False)
+        self.listView2.setFont(self.Font)
         self.gridLayout.addWidget(self.listView2, 5, 3, 1, 1)
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setObjectName("label_3")
@@ -195,8 +199,8 @@ class Ui_MainWindow3(object):
         patata = self.id
         patata = "Tx" + " 0x" + patata + " " + self.data
         it = QtGui.QStandardItem(patata)
-        self.model3.appendRow(it)
-        self.listView.scrollToBottom()
+        self.model4.appendRow(it)
+        self.listView2.scrollToBottom()
         Utility.sendData()
 
     def saveMessageButton(self):
