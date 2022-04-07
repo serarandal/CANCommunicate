@@ -13,10 +13,64 @@ import time
 import Utility
 
 
+
+class Popup9(object): #UI class
+    def setupUi(self, PopupWindow9):
+        self.Font = PyQt5.QtGui.QFont('Arial', 14)
+        PopupWindow9.setObjectName("Form")
+        PopupWindow9.resize(400, 300)
+        self.gridLayout = QtWidgets.QGridLayout(PopupWindow9)
+        self.gridLayout.setObjectName("gridLayout")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
+        self.label = QtWidgets.QLabel(PopupWindow9)
+        self.label.setObjectName("label")
+        self.label.setFont(self.Font)
+        self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem1, 0, 2, 1, 1)
+
+        self.retranslateUi(PopupWindow9)
+        QtCore.QMetaObject.connectSlotsByName(PopupWindow9)
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Popup1"))
+        self.label.setText(_translate("Form", "New configuration saved"))
+
+class Popup10(object): #UI class
+    def setupUi(self, PopupWindow10):
+        self.Font = PyQt5.QtGui.QFont('Arial', 14)
+        PopupWindow10.setObjectName("Form")
+        PopupWindow10.resize(400, 300)
+        self.gridLayout = QtWidgets.QGridLayout(PopupWindow10)
+        self.gridLayout.setObjectName("gridLayout")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
+        self.label = QtWidgets.QLabel(PopupWindow10)
+        self.label.setObjectName("label")
+        self.label.setFont(self.Font)
+        self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem1, 0, 2, 1, 1)
+
+        self.retranslateUi(PopupWindow10)
+        QtCore.QMetaObject.connectSlotsByName(PopupWindow10)
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Popup2"))
+        self.label.setText(_translate("Form", "Error while saving"))
+
+
+
+
 class Ui_Dialog(object):
-    def setupUi(self, Dialog):
+    def setupUi(self, Dialog ,PopupWindow9,PopupWindow10):
         Dialog.setObjectName("Dialog")
         Dialog.resize(1683, 1080)
+        self.PopupWindow9 = PopupWindow9
+        self.PopupWindow10 = PopupWindow10
         self.Font = PyQt5.QtGui.QFont('Arial', 14)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(Dialog)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -111,6 +165,7 @@ class Ui_Dialog(object):
         self.pushButton.setMaximumSize(QtCore.QSize(200, 30))
         self.pushButton.setFont(self.Font)
         self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.saveConfiguration)
         self.horizontalLayout.addWidget(self.pushButton)
         self.horizontalLayout_2.addLayout(self.horizontalLayout)
 
@@ -127,3 +182,18 @@ class Ui_Dialog(object):
         self.operation_label.setText(_translate("Dialog", "Operation(blank default)"))
         self.offset_label.setText(_translate("Dialog", "Offset"))
         self.pushButton.setText(_translate("Dialog", "Save Configuration"))
+
+    def saveConfiguration(self):
+        if self.comboBox_2.currentText() == "/":
+            aux = "|"
+        else:
+            aux = self.comboBox_2.currentText()
+        with open("devices.txt",'w') as f:
+            f.write(self.textEdit_2.toPlainText()+" "+self.textEdit_3.toPlainText()+"/"+self.textEdit.toPlainText()+"/"+aux+" "+self.textEdit_4.toPlainText())
+
+        with open("devices.txt",'r') as f:
+            data = f.read()
+        if data != "":
+            self.PopupWindow9.show()
+        else:
+            self.PopupWindow10.show()
