@@ -325,7 +325,7 @@ def processedMsgFilter(msg):#LW
 def filterDevices(deviceName,mesg):#LW
     switcher = {
         "steeringSensor": steeringSensor(mesg),
-        2: two,
+        "everythingElse": myfilter(mesg),
         3: three,
         4: four,
         5: five,
@@ -339,6 +339,66 @@ def filterDevices(deviceName,mesg):#LW
     }
     # Get the function from switcher dictionary
     return switcher.get(deviceName, lambda: "Invalid month")
+
+def myfilter(mesg):
+    mesgdivided = mesg.split("/")
+    mesgid = mesgdivided[0]
+    mesgdata = mesgdivided[1]
+    mesgtimestamp = mesgdivided[2]
+    stringgoingback = ""
+    datasave = ""
+    almosttheredata=0.0
+    almosttheredatastr =""
+    with open("devices.txt",'r') as f:
+        content = f.readlines()
+    for item in content:
+        stringbyspace = item.split("/")
+        nameandid = stringbyspace[0]
+        itembytes = stringbyspace[1]
+        itembytes = itembytes.split(" ")
+        operationandoffset = stringbyspace[2]
+        operationandoffset = operationandoffset.split(" ")
+        operation = operationandoffset[0]
+        offset = operationandoffset[1]
+        nameandidsplit = nameandid.split(" ")
+        name = nameandidsplit[0]
+        id = nameandidsplit[1]
+        if mesgid == id:
+            #this is the sensor
+            for i in range(0,len(mesgdata)):
+                for j in range (0,len(itembytes)):
+                    if mesgdata[i] == itembytes[j]:
+                        datasave = datasave+" "+mesgdata[i]
+            if operation == "|":
+                for i in range(0, len(datasave)):
+                    if i == 0:
+                        almosttheredata = datasave[i]
+                    else:
+                        almosttheredata = almosttheredata / float(datasave[i])
+            elif operation == "+":
+                for i in range(0,len(datasave)):
+                    almosttheredata= almosttheredata+float(datasave[i])
+            elif operation == "-":
+                for i in range(0,len(datasave)):
+                    almosttheredata= almosttheredata-float(datasave[i])
+            elif operation == "*":
+                for i in range(0, len(datasave)):
+                    if i == 0:
+                        almosttheredata = datasave[i]
+                    else:
+                        almosttheredata = almosttheredata * float(datasave[i])
+            elif operation == " ":
+                for i in range(0,len(datasave)):
+                    almosttheredatastr = almosttheredatastr+datasave[i]
+            if operation == " ":
+                finaldata = float(almosttheredatastr)*float(offset)
+            else:
+                finaldata = almosttheredata*float(offset)
+
+            stringgoingback =name+"       "+finaldata+"         "+mesgdata+"         "+mesgtimestamp
+
+            return stringgoingback
+
 
 def steeringSensor(mesg):
     id = 0x305

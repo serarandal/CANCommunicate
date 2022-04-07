@@ -249,6 +249,8 @@ class Ui_MainWindow8(object):
             if deviceName == "Not in devices.txt" or deviceName == None or deviceName == "":
                 x = "Not in devices.txt"
             else:
+                if deviceName != "steeringSensor":
+                    deviceName = "everythingElse"
                 x = Utility.filterDevices(deviceName, n)
             it = QtGui.QStandardItem(x)
             if self.i >= 40:
