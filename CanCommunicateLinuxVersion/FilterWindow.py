@@ -1,5 +1,4 @@
 #Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
-
 import PyQt5
 from PyQt5 import QtCore, QtGui, QtWidgets
 import time
@@ -66,9 +65,9 @@ class Worker(QtCore.QObject): #Reading thread class
     def stop(self):
         self.isKilled = True
 
-
-class Ui_MainWindow8(object): #UI class
-    def setupUi(self, MainWindow8):
+class Ui_MainWindow8(object):
+    def setupUi(self, MainWindow8,Dialog):
+        self.Dialog = Dialog
         MainWindow8.setObjectName("MainWindow")
         MainWindow8.resize(800, 600)
         self.Font = PyQt5.QtGui.QFont('Arial', 14)
@@ -92,14 +91,12 @@ class Ui_MainWindow8(object): #UI class
         self.listView = QtWidgets.QListView(self.centralwidget)
         self.listView.setObjectName("listView")
         self.listView.setModel(self.model)
-        self.listView.setFont(self.Font)
         self.gridLayout.addWidget(self.listView, 3, 0, 1, 2)
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setObjectName("label")
         self.label.setFont(self.Font)
         self.gridLayout.addWidget(self.label, 2, 0, 1, 1)
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setFont(self.Font)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -115,10 +112,14 @@ class Ui_MainWindow8(object): #UI class
         self.pushButton_2.setFont(self.Font)
         self.pushButton_2.clicked.connect(self.addDataTranslationButton)
         self.gridLayout.addWidget(self.pushButton_2, 1, 1, 1, 1)
+        self.pushButton_config = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_config.setObjectName("pushButton_config")
+        self.pushButton_config.clicked.connect(self.configWindow)
+        self.gridLayout.addWidget(self.pushButton_config, 1, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
         MainWindow8.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow8)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
         self.menubar.setObjectName("menubar")
         MainWindow8.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow8)
@@ -131,10 +132,12 @@ class Ui_MainWindow8(object): #UI class
     def retranslateUi(self, MainWindow8):
         _translate = QtCore.QCoreApplication.translate
         MainWindow8.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_2.setText(_translate("MainWindow", "Data"))
-        self.pushButton.setText(_translate("MainWindow", "Filter by id without translation"))
-        self.label.setText(_translate("MainWindow", "Sensor name"))
-        self.pushButton_2.setText(_translate("MainWindow", "Switch to understandable data"))
+        self.label_2.setText(_translate("MainWindow", "TextLabel"))
+        self.pushButton.setText(_translate("MainWindow", "PushButton"))
+        self.label.setText(_translate("MainWindow", "TextLabel"))
+        self.pushButton_2.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton_config.setText(_translate("MainWindow", "Config"))
+
 
     def startFilterButton(self):
         global b
@@ -256,6 +259,11 @@ class Ui_MainWindow8(object): #UI class
                 self.model.appendRow(it)
                 self.listView.scrollToBottom()
                 self.i += 1
+
+
+    def configWindow(self):
+        self.Dialog.show()
+
 
     def runLongTask(self):#use to execute the reading thread
         self.thread = QtCore.QThread()
