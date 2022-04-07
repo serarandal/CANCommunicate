@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-#Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
+# Created by Sergio Aranda Lizano - MIT licence , see github for more instructions#
 
 import time
 import PyQt5.QtCore
@@ -9,9 +7,11 @@ import Utility
 
 a = 0
 
-class Worker(QtCore.QObject): # reading thread
+
+class Worker(QtCore.QObject):  # reading thread
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
+
     def run(self):
         print("Starting the reading worker gui thread")
         self.isKilled = False
@@ -20,47 +20,48 @@ class Worker(QtCore.QObject): # reading thread
         t0 = time.perf_counter()
         t1 = time.perf_counter()
         msg2 = ""
-        while 1 and self.isKilled==False:
-                msg = Utility.testOneCan()
-                t0 = time.perf_counter()
-                if msg == "" or msg == None and t1 - t0 > 100:
-                    if j == 0:
-                        self.progress.emit("NoMessages")
-                        j=1
-                    else:
-                        None
-                elif msg is msg2 and t1 - t0 > 100:
-                    if z == 0:
-                        self.progress.emit("NoNewMessages")
-                        z=1
-                    else:
-                        None
+        while 1 and self.isKilled == False:
+            msg = Utility.testOneCan()
+            t0 = time.perf_counter()
+            if msg == "" or msg == None and t1 - t0 > 100:
+                if j == 0:
+                    self.progress.emit("NoMessages")
+                    j = 1
                 else:
-                    msg2 = msg
-                    self.progress.emit(msg)
-                    z = 0
-                    t1 = time.perf_counter()
+                    None
+            elif msg is msg2 and t1 - t0 > 100:
+                if z == 0:
+                    self.progress.emit("NoNewMessages")
+                    z = 1
+                else:
+                    None
+            else:
+                msg2 = msg
+                self.progress.emit(msg)
+                z = 0
+                t1 = time.perf_counter()
 
         self.finished.emit()
 
     def stop(self):
         self.isKilled = True
 
-class Ui_MainWindow(object): #UI class
+
+class Ui_MainWindow(object):
     def setupUi(self, MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7,MainWindow8):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 609)
         self.MainWindow2 = MainWindow2
         self.MainWindow3 = MainWindow3
         self.MainWindow4 = MainWindow4
         self.MainWindow6 = MainWindow6
         self.MainWindow7 = MainWindow7
         self.MainWindow8 = MainWindow8
-        #self.MainWindow9 = MainWindow9 # TEST
+        # self.MainWindow9 = MainWindow9 # TEST
         self.i = 0
         self.connected = False
         self.model = QtGui.QStandardItemModel()
         self.Font = PyQt5.QtGui.QFont('Arial', 14)
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(800, 640)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -70,57 +71,33 @@ class Ui_MainWindow(object): #UI class
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem, 3, 0, 1, 1)
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_3.clicked.connect(self.premadeWindowButton)
-        self.pushButton_3.setFont(self.Font)
-        self.gridLayout.addWidget(self.pushButton_3, 12, 0, 1, 1)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem1, 9, 0, 1, 1)
-        self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.pushButton_5.clicked.connect(self.newmessagesWindowButton)
-        self.pushButton_5.setFont(self.Font)
-        self.gridLayout.addWidget(self.pushButton_5, 0, 0, 1, 1)
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.connectCanButton)
-        self.pushButton.setFont(self.Font)
-        self.gridLayout.addWidget(self.pushButton, 6, 0, 1, 1)
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_2.clicked.connect(self.readingCanButton)
-        self.pushButton_2.setFont(self.Font)
-        self.gridLayout.addWidget(self.pushButton_2, 7, 0, 1, 1)
-        self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_6.setObjectName("pushButton_6")
-        self.pushButton_6.clicked.connect(self.passwordWindowButton)
-        self.pushButton_6.setFont(self.Font)
-        self.gridLayout.addWidget(self.pushButton_6, 5, 0, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_3, 10, 0, 1, 1)
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_4.setObjectName("pushButton_4")
-        self.pushButton_4.clicked.connect(self.manmadeWindowButton)
-        self.pushButton_4.setFont(self.Font)
-        self.gridLayout.addWidget(self.pushButton_4, 10, 0, 1, 1)
-        self.pushButton_7 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_7.setObjectName("pushButton_7")
-        self.pushButton_7.clicked.connect(self.frequencyWindowButton)
-        self.pushButton_7.setFont(self.Font)
-        self.gridLayout.addWidget(self.pushButton_7, 4, 0, 1, 1)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem2, 13, 0, 1, 1)
-        self.listView = QtWidgets.QListView(self.centralwidget)
-        self.listView.setObjectName("listView")
-        self.listView.setModel(self.model)
-        self.listView.setFont(self.Font)
-        self.gridLayout.addWidget(self.listView, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_4, 8, 0, 1, 1)
         self.pushButton_8 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_8.setObjectName("pushButton_8")
-        self.pushButton_8.clicked.connect(self.filterWindowButton)
-        self.pushButton_8.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton_8, 2, 0, 1, 1)
+        self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_5.setObjectName("pushButton_5")
+        self.gridLayout.addWidget(self.pushButton_5, 0, 0, 1, 1)
+        self.pushButton_7 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_7.setObjectName("pushButton_7")
+        self.gridLayout.addWidget(self.pushButton_7, 3, 0, 1, 1)
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setObjectName("pushButton")
+        self.gridLayout.addWidget(self.pushButton, 5, 0, 1, 1)
+        self.listView = QtWidgets.QListView(self.centralwidget)
+        self.listView.setObjectName("listView")
+        self.gridLayout.addWidget(self.listView, 1, 0, 1, 1)
+        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.gridLayout.addWidget(self.pushButton_2, 6, 0, 1, 1)
+        self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_6.setObjectName("pushButton_6")
+        self.gridLayout.addWidget(self.pushButton_6, 4, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -136,14 +113,15 @@ class Ui_MainWindow(object): #UI class
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton_3.setText(_translate("MainWindow", "Send premade messages"))
-        self.pushButton_5.setText(_translate("MainWindow", "Add new messages from PEAK"))
-        self.pushButton.setText(_translate("MainWindow", "Connect CAN"))
-        self.pushButton_2.setText(_translate("MainWindow", "Read CAN"))
-        self.pushButton_6.setText(_translate("MainWindow", "Set new password"))
-        self.pushButton_4.setText(_translate("MainWindow", "Send messages manually"))
-        self.pushButton_7.setText(_translate("MainWindow", "Set new frequency"))
-        self.pushButton_8.setText(_translate("MainWindow", "Filter"))
+        self.pushButton_3.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton_4.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton_8.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton_5.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton_7.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton_2.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton_6.setText(_translate("MainWindow", "PushButton"))
+
 
     def connectCanButton(self):
         print("Pushed connect to can button:")
