@@ -115,6 +115,7 @@ class Ui_MainWindow8(object):
         self.pushButton_config = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_config.setObjectName("pushButton_config")
         self.pushButton_config.clicked.connect(self.configWindow)
+        self.pushButton_config.setFont(self.Font)
         self.gridLayout.addWidget(self.pushButton_config, 1, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
         MainWindow8.setCentralWidget(self.centralwidget)
@@ -132,10 +133,10 @@ class Ui_MainWindow8(object):
     def retranslateUi(self, MainWindow8):
         _translate = QtCore.QCoreApplication.translate
         MainWindow8.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_2.setText(_translate("MainWindow", "TextLabel"))
-        self.pushButton.setText(_translate("MainWindow", "PushButton"))
-        self.label.setText(_translate("MainWindow", "TextLabel"))
-        self.pushButton_2.setText(_translate("MainWindow", "PushButton"))
+        self.label_2.setText(_translate("MainWindow", "Data"))
+        self.pushButton.setText(_translate("MainWindow", "Filter by id without translation"))
+        self.label.setText(_translate("MainWindow", "Sensor name"))
+        self.pushButton_2.setText(_translate("MainWindow", "Switch to understandable data"))
         self.pushButton_config.setText(_translate("MainWindow", "Config"))
 
 
