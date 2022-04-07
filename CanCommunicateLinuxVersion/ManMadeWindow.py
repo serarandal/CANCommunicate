@@ -7,6 +7,7 @@ import time
 
 a = 0
 
+
 class Worker(QtCore.QObject): # reading thread
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(str)
@@ -44,7 +45,8 @@ class Worker(QtCore.QObject): # reading thread
     def stop(self):
         self.isKilled = True
 
-class Ui_MainWindow3(object): #UI class
+
+class Ui_MainWindow3(object):
     def setupUi(self, MainWindow3,MainWindow2,MainWindow5):
         self.id = "a"
         self.data = "0"
@@ -55,93 +57,92 @@ class Ui_MainWindow3(object): #UI class
         self.Font = PyQt5.QtGui.QFont('Arial', 14)
         self.model3 = QtGui.QStandardItemModel()
         MainWindow3.setObjectName("MainWindow")
-        MainWindow3.resize(1382, 726)
+        MainWindow3.resize(669, 580)
         self.centralwidget = QtWidgets.QWidget(MainWindow3)
         self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.centralwidget)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_4.sizePolicy().hasHeightForWidth())
-        self.pushButton_4.setSizePolicy(sizePolicy)
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.pushButton_4.clicked.connect(self.readingCanButton)
-        self.pushButton_4.setFont(self.Font)
-        self.verticalLayout_3.addWidget(self.pushButton_4)
-        self.listView = QtWidgets.QListView(self.centralwidget)
-        self.listView.setObjectName("listView")
-        self.listView.setModel(self.model3)
-        self.listView.setAutoScroll(True)
-        self.listView.setFont(self.Font)
-        self.verticalLayout_3.addWidget(self.listView)
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy)
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.sendMessageButton)
-        self.pushButton.setFont(self.Font)
-        self.verticalLayout_3.addWidget(self.pushButton)
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.centralwidget)
+        self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()
-        self.gridLayout.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
-        self.gridLayout.setContentsMargins(-1, 0, -1, -1)
         self.gridLayout.setObjectName("gridLayout")
-        self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.pushButton_5.clicked.connect(self.saveMessageButton)
-        self.pushButton_5.setFont(self.Font)
-        self.gridLayout.addWidget(self.pushButton_5, 1, 5, 1, 1)
-        self.plainTextEdit_2 = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit_2.setObjectName("plainTextEdit_2")
-        self.plainTextEdit_2.setFont(self.Font)
-        self.gridLayout.addWidget(self.plainTextEdit_2, 1, 4, 1, 1)
+        self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit.setFont(self.Font)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.textEdit.sizePolicy().hasHeightForWidth())
+        self.textEdit.setSizePolicy(sizePolicy)
+        self.textEdit.setMinimumSize(QtCore.QSize(20, 20))
+        self.textEdit.setMaximumSize(QtCore.QSize(400, 50))
+        self.textEdit.setObjectName("textEdit")
+        self.gridLayout.addWidget(self.textEdit, 8, 3, 1, 1)
+        self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_4.setObjectName("pushButton_4")
+        self.pushButton_4.clicked.connect(self.changetoPremadeWindowButton)
+        self.pushButton_4.setFont(self.Font)
+        self.gridLayout.addWidget(self.pushButton_4, 9, 3, 1, 1)
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setObjectName("label")
         self.label.setFont(self.Font)
-        self.gridLayout.addWidget(self.label, 0, 2, 1, 1)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem, 1, 6, 1, 1)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem1, 1, 0, 1, 1)
-        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
+        self.gridLayout.addWidget(self.label, 7, 3, 1, 1)
+        self.textEdit_2 = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit_2.setFont(self.Font)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.plainTextEdit.sizePolicy().hasHeightForWidth())
-        self.plainTextEdit.setSizePolicy(sizePolicy)
-        self.plainTextEdit.setMinimumSize(QtCore.QSize(50, 50))
-        self.plainTextEdit.setObjectName("plainTextEdit")
-        self.plainTextEdit.setFont(self.Font)
-        self.gridLayout.addWidget(self.plainTextEdit, 1, 2, 1, 1)
+        sizePolicy.setHeightForWidth(self.textEdit_2.sizePolicy().hasHeightForWidth())
+        self.textEdit_2.setSizePolicy(sizePolicy)
+        self.textEdit_2.setMinimumSize(QtCore.QSize(20, 20))
+        self.textEdit_2.setMaximumSize(QtCore.QSize(200, 50))
+        self.textEdit_2.setObjectName("textEdit_2")
+        self.gridLayout.addWidget(self.textEdit_2, 8, 2, 1, 1)
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.setIdDataButton)
+        self.gridLayout.addWidget(self.pushButton, 8, 1, 1, 1)
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setObjectName("label_2")
         self.label_2.setFont(self.Font)
-        self.gridLayout.addWidget(self.label_2, 0, 4, 1, 1)
-        spacerItem2 = QtWidgets.QSpacerItem(30, 30, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem2, 1, 3, 1, 1)
+        self.gridLayout.addWidget(self.label_2, 7, 2, 1, 1)
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_2.clicked.connect(self.setIdDataButton)
-        self.pushButton_2.setFont(self.Font)
-        self.gridLayout.addWidget(self.pushButton_2, 1, 1, 1, 1)
-        self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_6.setObjectName("pushButton_6")
-        self.pushButton_6.clicked.connect(self.b6)
-        self.pushButton_6.setFont(self.Font)
-        self.gridLayout.addWidget(self.pushButton_6, 2, 4, 1, 1)
-        self.verticalLayout_3.addLayout(self.gridLayout)
+        self.pushButton_2.clicked.connect(self.saveMessageButton)
+        self.gridLayout.addWidget(self.pushButton_2, 9, 2, 1, 1)
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_3.clicked.connect(self.changetoPremadeWindowButton)
-        self.pushButton_3.setFont(self.Font)
-        self.verticalLayout_3.addWidget(self.pushButton_3)
+        self.pushButton_3.clicked.connect(self.sendMessageButton)
+        self.gridLayout.addWidget(self.pushButton_3, 6, 2, 1, 1)
+        self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_5.clicked.connect(self.readingCanButton)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton_5.sizePolicy().hasHeightForWidth())
+        self.pushButton_5.setSizePolicy(sizePolicy)
+        self.pushButton_5.setMinimumSize(QtCore.QSize(20, 20))
+        self.pushButton_5.setMaximumSize(QtCore.QSize(10000, 30))
+        self.pushButton_5.setObjectName("pushButton_5")
+        self.gridLayout.addWidget(self.pushButton_5, 1, 2, 1, 1)
+        self.listView = QtWidgets.QListView(self.centralwidget)
+        self.listView.setObjectName("listView")
+        self.listView.setModel(self.model3)
+        self.listView.setAutoScroll(False)
+        self.listView.setFont(self.Font)
+        self.gridLayout.addWidget(self.listView, 5, 2, 1, 1)
+        self.listView2 = QtWidgets.QListView(self.centralwidget)
+        self.listView2.setObjectName("listView")
+        self.gridLayout.addWidget(self.listView2, 5, 3, 1, 1)
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setObjectName("label_3")
+        self.label_3.setFont(self.Font)
+        self.gridLayout.addWidget(self.label_3, 2, 2, 1, 1)
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setObjectName("label_4")
+        self.label_4.setFont(self.Font)
+        self.gridLayout.addWidget(self.label_4, 2, 3, 1, 1)
+        self.gridLayout_2.addLayout(self.gridLayout, 0, 1, 1, 1)
         MainWindow3.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow3)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1382, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 669, 22))
         self.menubar.setObjectName("menubar")
         MainWindow3.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow3)
@@ -153,41 +154,41 @@ class Ui_MainWindow3(object): #UI class
 
     def retranslateUi(self, MainWindow3):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow3.setWindowTitle(_translate("MainWindow", "MainWindow3"))
-        self.pushButton_4.setText(_translate("MainWindow", "Read Can"))
-        self.pushButton.setText(_translate("MainWindow", "Send"))
-        self.pushButton_5.setText(_translate("MainWindow", "Save as new message"))
-        self.label.setText(_translate("MainWindow", "ID"))
-        self.label_2.setText(_translate("MainWindow", "DATA (put the bytes with a blank space in between ej:\"82 82 82\")"))
-        self.pushButton_2.setText(_translate("MainWindow", "Set ID and DATA"))
-        self.pushButton_6.setText(_translate("MainWindow", "Change Mode Data"))
-        self.pushButton_3.setText(_translate("MainWindow", "Change Mode"))
+        MainWindow3.setWindowTitle(_translate("MainWindow", "ManMessages"))
+        self.pushButton_4.setText(_translate("MainWindow", "ChangeMode"))
+        self.label.setText(_translate("MainWindow", "Data please put it in like:22 22 22 with an space between bytes"))
+        self.pushButton.setText(_translate("MainWindow", "SetIdData"))
+        self.label_2.setText(_translate("MainWindow", "ID"))
+        self.pushButton_2.setText(_translate("MainWindow", "SaveMessage"))
+        self.pushButton_3.setText(_translate("MainWindow", "SendMessage"))
+        self.pushButton_5.setText(_translate("MainWindow", "ReadCan"))
+        self.label_3.setText(_translate("MainWindow", "Read"))
+        self.label_4.setText(_translate("MainWindow", "Write"))
 
     def changetoPremadeWindowButton(self):
         print("Pushed change window button:")
         self.MainWindow2.show()
         self.MainWindow3.hide()
 
-
     def setIdDataButton(self):
         print("Pushed button to set id and data:")
-        self.id = self.plainTextEdit.toPlainText()
-        self.data = self.plainTextEdit_2.toPlainText()
+        self.id = self.textEdit.toPlainText()
+        self.data = self.textEdit_2.toPlainText()
         Utility.processManData(self.id, self.data)
 
     def readingCanButton(self):
         global a
         if a == 0:
-            a=1
+            a = 1
             print("Pushed reading can button:")
-            self.pushButton_4.setStyleSheet("background-color:green")
+            self.pushButton_5.setStyleSheet("background-color:green")
             self.runLongTask()
         else:
             print("Already reading(ManuallyMadeWindow)")
             print("stopping")
-            self.pushButton_4.setStyleSheet("")
+            self.pushButton_5.setStyleSheet("")
             self.stopLongTask()
-            a=0
+            a = 0
 
     def sendMessageButton(self):
         print("Pushed send message button:")
@@ -205,7 +206,7 @@ class Ui_MainWindow3(object): #UI class
     def b6(self):
         print("Pushed Change Mode Data")
 
-    def reportProgress(self, n):# use to print the reading thread into the list view
+    def reportProgress(self, n):  # use to print the reading thread into the list view
         n = str(n)
         it = QtGui.QStandardItem(n)
         if self.i >= 40:
@@ -217,8 +218,8 @@ class Ui_MainWindow3(object): #UI class
             self.model3.appendRow(it)
             self.listView.scrollToBottom()
             self.i += 1
-            
-    def runLongTask(self): #use to execute the reading thread
+
+    def runLongTask(self):  # use to execute the reading thread
         self.thread = QtCore.QThread()
         self.worker = Worker()
         self.worker.moveToThread(self.thread)
@@ -229,6 +230,6 @@ class Ui_MainWindow3(object): #UI class
         self.worker.progress.connect(self.reportProgress)
         self.thread.start()
 
-    def stopLongTask(self): #use to stop the reading thread
+    def stopLongTask(self):  # use to stop the reading thread
         print("here")
         self.worker.stop()

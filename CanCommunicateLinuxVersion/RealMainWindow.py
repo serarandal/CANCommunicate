@@ -56,6 +56,7 @@ class Ui_MainWindow(object): #UI class
         self.MainWindow6 = MainWindow6
         self.MainWindow7 = MainWindow7
         self.MainWindow8 = MainWindow8
+        #self.MainWindow9 = MainWindow9 # TEST
         self.i = 0
         self.connected = False
         self.model = QtGui.QStandardItemModel()
@@ -174,6 +175,7 @@ class Ui_MainWindow(object): #UI class
     def manmadeWindowButton(self): #Manmadewindow
         print("Pushed show manmade gui:")
         self.MainWindow3.show()
+        #self.MainWindow9.show()
 
     def newmessagesWindowButton(self):  # New messages window
         print("Pushed show add new messages gui:")
