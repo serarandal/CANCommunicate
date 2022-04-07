@@ -368,38 +368,22 @@ def myfilter(mesg):
         name = nameandidsplit[0]
         id = nameandidsplit[1]
         if mesgid == id:
+            mesgdataDivided = mesgdata.split(" ")
             #this is the sensor
-            for i in range(0,len(mesgdata)):
-                for j in range (0,len(itembytes)):
-                    if mesgdata[i] == itembytes[j]:
-                        datasave = datasave+" "+mesgdata[i]
+            while len(itembytes)!=0:
+                datasave = datasave + mesgdataDivided(itembytes.pop(0))
             if operation == "|":
-                for i in range(0, len(datasave)):
-                    if i == 0:
-                        almosttheredata = datasave[i]
-                    else:
-                        almosttheredata = almosttheredata / float(datasave[i])
+                finaldata = int(datasave,16)/float(offset)
             elif operation == "+":
-                for i in range(0,len(datasave)):
-                    almosttheredata= almosttheredata+float(datasave[i])
+                finaldata = int(datasave,16)+float(offset)
             elif operation == "-":
-                for i in range(0,len(datasave)):
-                    almosttheredata= almosttheredata-float(datasave[i])
+                finaldata = int(datasave, 16) - float(offset)
             elif operation == "*":
-                for i in range(0, len(datasave)):
-                    if i == 0:
-                        almosttheredata = datasave[i]
-                    else:
-                        almosttheredata = almosttheredata * float(datasave[i])
-            elif operation == " ":
-                for i in range(0,len(datasave)):
-                    almosttheredatastr = almosttheredatastr+datasave[i]
-            if operation == " ":
-                finaldata = float(almosttheredatastr)*float(offset)
+                finaldata = int(datasave, 16) * float(offset)
             else:
-                finaldata = almosttheredata*float(offset)
+                finaldata = int(datasave,16)
 
-            stringgoingback =name+"       "+finaldata+"         "+mesgdata+"         "+mesgtimestamp
+            stringgoingback =name+"       "+str(finaldata)+"         "+mesgdata+"         "+mesgtimestamp
 
             return stringgoingback
 
