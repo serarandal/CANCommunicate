@@ -196,6 +196,7 @@ class Ui_MainWindow(object):
     def reportProgress(self, n): #use to print the reading thread into the list view
         n = str(n)
         it = QtGui.QStandardItem(n)
+        Utility.logWriting(n)
         if self.i >= 40:
             self.model.removeRows(self.i - 39, 3)
             self.i = 38

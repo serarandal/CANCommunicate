@@ -206,6 +206,7 @@ class Ui_MainWindow2(object):
 
     def reportProgress(self, n):
         n = str(n)
+        Utility.logWriting(n)
         it = QtGui.QStandardItem(n)
         if self.i >= 40:
             self.model2_2.removeRows(self.i - 39, 3)

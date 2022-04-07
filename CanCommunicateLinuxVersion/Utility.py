@@ -24,15 +24,19 @@ serialNumber =""
 p = 0
 file = None
 
-def logReading(logmsg):
+def logWriting(logmsg):
     global file
-    if p == 0:
+    global p
+    try:
         x = datetime.datetime.now()
-        name = "log_"+str(x.year)+":"+str(x.month)+":"+str(x.day)+" "+str(x.hour)+":"+str(x.minute)+".txt"
-        file = open(name,'w')
+        name = "log_"+str(x.year)+";"+str(x.month)+";"+str(x.day)+" "+str(x.hour)+";"+str(x.minute)+".txt"
+        file = open("Logs/"+name,'a')
         file.write(logmsg)
-    else:
-        file.write(logmsg)
+        file.write("\n")
+        p = 1
+    except:
+        print("error opening and writing inside the new log file")
+
 
 
 def getResolution():

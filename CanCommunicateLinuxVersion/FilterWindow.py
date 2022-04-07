@@ -252,6 +252,7 @@ class Ui_MainWindow8(object):
                 if deviceName != "steeringSensor":
                     deviceName = "everythingElse"
                 x = Utility.filterDevices(deviceName, n)
+                Utility.logWriting(x)
             it = QtGui.QStandardItem(x)
             if self.i >= 40:
                 self.model.removeRows(self.i - 39, 3)
