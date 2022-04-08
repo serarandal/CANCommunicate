@@ -26,7 +26,7 @@ class Worker(QtCore.QObject):  # reading thread
             if msg !="":
                 msgStorage.append(msg)
             t1 = time.perf_counter()
-            if msg == "" or msg == None and t1 - t0 > 100 or len(msgStorage)==0:
+            if msg == "" or msg == None and t1 - t0 > 100 and len(msgStorage)==0:
                 if j == 0:
                     self.progress.emit("NoMessages")
                     j = 1
@@ -55,15 +55,19 @@ class Worker(QtCore.QObject):  # reading thread
 
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7,MainWindow8):
+    def setupUi(self, MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7,MainWindow8,ui2,ui3,ui16):
         self.MainWindow2 = MainWindow2
         self.MainWindow3 = MainWindow3
         self.MainWindow4 = MainWindow4
         self.MainWindow6 = MainWindow6
         self.MainWindow7 = MainWindow7
         self.MainWindow8 = MainWindow8
+        self.ui2 = ui2
+        self.ui3 = ui3
+        self.ui16 = ui16
         self.i = 0
         self.connected = False
+        self.status = False
         self.model = QtGui.QStandardItemModel()
         self.Font = PyQt5.QtGui.QFont('Arial', 14)
         MainWindow.setObjectName("MainWindow")
@@ -149,18 +153,34 @@ class Ui_MainWindow(object):
 
     def connectCanButton(self):
         print("Pushed connect to can button:")
-        status = Utility.connectCan()
-        it = QtGui.QStandardItem(status)
+        self.status = Utility.connectCan()
+        self.ui2.setStatus(self.status)
+        self.ui3.setStatus(self.status)
+        self.ui16.setStatus(self.status)
+        if self.status == True:
+            it = "Connected to CAN"
+        else:
+            it = "Error trying to connect to CAN, try again with the usb2can connected"
+        it = QtGui.QStandardItem(it)
         self.model.appendRow(it)
-        self.pushButton_5.setStyleSheet("background-color: green")
-
+        if self.status == True:
+            self.pushButton_5.setStyleSheet("background-color: green")
+        else:
+            self.pushButton_5.setStyleSheet("background-color: yellow")
     def readingCanButton(self):#it executes the reading thread
         global a
         if a == 0:
             a = 1
             print("Pushed reading can button:")
-            self.pushButton_8.setStyleSheet("background-color:green")
-            self.runLongTask()
+            if self.status != True:
+                self.pushButton_8.setStyleSheet("background-color: yellow")
+                patata = "No esta conectado el usb2can, o falta pulsar el boton de conectar"
+                it = QtGui.QStandardItem(patata)
+                self.model.appendRow(it)
+                a = 0
+            else:
+                self.pushButton_8.setStyleSheet("background-color:green")
+                self.runLongTask()
         else:
             print("Already reading(RealMainWindow)")
             print("stopping")

@@ -123,22 +123,27 @@ def connectCan():#LW
             bustype = 'socketcan'
             can_interface = 'can0'
             bus = can.ThreadSafeBus(can_interface,bustype=bustype)
+            status = True
        except:
            print("No usb2can connected")
+           status = False
+
     else:
         try:
             bus = usb2canInteface.Usb2canBus(channel=serialNumber,dll="./usb2can.dll")
             print(bus.state)
+            status = True
         except:
             print("No usb2can connected")
+            status = False
     try:
         initThreads()
     except:
         print("Error threads")
     if sistema == 'Linux':
-        return output +"\n"+  output2
+        return status
     else:
-        return "intentado conectar al korlan"
+        return status
 
 def setId_Data(id,data): #LW
     global msg

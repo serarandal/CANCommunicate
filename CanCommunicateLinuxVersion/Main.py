@@ -55,7 +55,7 @@ if __name__ == "__main__":
     ui17 = FilterConfigWindow.Ui_Dialog()
     ui18 = FilterConfigWindow.Popup9()
     ui19 = FilterConfigWindow.Popup10()
-    ui.setupUi(MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7,MainWindow8)
+    ui.setupUi(MainWindow,MainWindow2,MainWindow3,MainWindow4,MainWindow6,MainWindow7,MainWindow8,ui2,ui3,ui16)
     ui2.setupUi(MainWindow2,MainWindow3)
     ui3.setupUi(MainWindow3,MainWindow2,MainWindow5)
     ui4.setupUi(MainWindow4,PopupWindow7,PopupWindow8,ui2)

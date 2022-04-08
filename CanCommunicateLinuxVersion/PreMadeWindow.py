@@ -27,7 +27,7 @@ class Worker(QtCore.QObject):  # reading thread
             if msg !="":
                 msgStorage.append(msg)
             t1 = time.perf_counter()
-            if msg == "" or msg == None and t1 - t0 > 100 or len(msgStorage)==0:
+            if msg == "" or msg == None and t1 - t0 > 100 and len(msgStorage)==0:
                 if j == 0:
                     self.progress.emit("NoMessages")
                     j = 1
@@ -61,6 +61,7 @@ class Ui_MainWindow2(object):
         MainWindow2.resize(800, 600)
         self.MainWindow2 = MainWindow2
         self.MainWindow3 = MainWindow3
+        self.status = False
         self.i = 0
         self.model2 = QtGui.QStandardItemModel()
         self.model2_2 = QtGui.QStandardItemModel()
@@ -138,6 +139,7 @@ class Ui_MainWindow2(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow2.setStatusBar(self.statusbar)
         self.addItemsListView()
+        self.setStatus(False)
 
         self.retranslateUi(MainWindow2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow2)
@@ -151,6 +153,10 @@ class Ui_MainWindow2(object):
         self.pushButton_3.setText(_translate("MainWindow", "Change Mode"))
         self.pushButton.setText(_translate("MainWindow", "Read CAN"))
 
+
+    def setStatus(self,status):
+        self.status = status
+
     def b1(self):
         print("Pushed change window button:")
         self.MainWindow3.show()
@@ -159,12 +165,19 @@ class Ui_MainWindow2(object):
     def b2(self):
         global a
         if a == 0:
-            a=1
+            a = 1
             print("Pushed reading can button:")
-            self.pushButton.setStyleSheet("background-color:green")
-            self.runLongTask()
+            if self.status != True:
+                self.pushButton.setStyleSheet("background-color: yellow")
+                patata = "No esta conectado el usb2can, o falta pulsar el boton de conectar"
+                it = QtGui.QStandardItem(patata)
+                self.model2_2.appendRow(it)
+                a = 0
+            else:
+                self.pushButton.setStyleSheet("background-color:green")
+                self.runLongTask()
         else:
-            print("Already reading(ManuallyMadeWindow)")
+            print("Already reading(RealMainWindow)")
             print("stopping")
             self.pushButton.setStyleSheet("")
             self.stopLongTask()

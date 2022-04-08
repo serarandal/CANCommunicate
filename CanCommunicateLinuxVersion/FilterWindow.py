@@ -140,6 +140,9 @@ class Ui_MainWindow8(object):
         self.pushButton_config.setText(_translate("MainWindow", "Config"))
 
 
+    def setStatus(self,status):
+        self.status = status
+
     def startFilterButton(self):
         global b
         global a

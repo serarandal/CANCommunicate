@@ -26,7 +26,7 @@ class Worker(QtCore.QObject):  # reading thread
             if msg !="":
                 msgStorage.append(msg)
             t1 = time.perf_counter()
-            if msg == "" or msg == None and t1 - t0 > 100 or len(msgStorage)==0:
+            if msg == "" or msg == None and t1 - t0 > 100 and len(msgStorage)==0:
                 if j == 0:
                     self.progress.emit("NoMessages")
                     j = 1
@@ -59,6 +59,7 @@ class Ui_MainWindow3(object):
         self.id = "a"
         self.data = "0"
         self.i = 0
+        self.status = False
         self.MainWindow3 = MainWindow3
         self.MainWindow2 = MainWindow2
         self.MainWindow5 = MainWindow5
@@ -177,6 +178,10 @@ class Ui_MainWindow3(object):
         self.label_3.setText(_translate("MainWindow", "Read"))
         self.label_4.setText(_translate("MainWindow", "Write"))
 
+
+    def setStatus(self,status):
+        self.status = status
+
     def changetoPremadeWindowButton(self):
         print("Pushed change window button:")
         self.MainWindow2.show()
@@ -193,8 +198,15 @@ class Ui_MainWindow3(object):
         if a == 0:
             a = 1
             print("Pushed reading can button:")
-            self.pushButton_5.setStyleSheet("background-color:green")
-            self.runLongTask()
+            if self.status != True:
+                self.pushButton_5.setStyleSheet("background-color: yellow")
+                patata = "No esta conectado el usb2can, o falta pulsar el boton de conectar"
+                it = QtGui.QStandardItem(patata)
+                self.model3.appendRow(it)
+                a = 0
+            else:
+                self.pushButton_5.setStyleSheet("background-color:green")
+                self.runLongTask()
         else:
             print("Already reading(ManuallyMadeWindow)")
             print("stopping")
