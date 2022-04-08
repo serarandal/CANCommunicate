@@ -100,7 +100,6 @@ def testTwoCan():#Filter reading
     except:
         aux = ""
     return aux
-
 def connectCan():#LW
     global bus
     global password
@@ -124,27 +123,67 @@ def connectCan():#LW
             bustype = 'socketcan'
             can_interface = 'can0'
             bus = can.ThreadSafeBus(can_interface,bustype=bustype)
-            status = True
        except:
            print("No usb2can connected")
-           status = False
-
     else:
         try:
             bus = usb2canInteface.Usb2canBus(channel=serialNumber,dll="./usb2can.dll")
             print(bus.state)
-            status = True
         except:
             print("No usb2can connected")
-            status = False
     try:
         initThreads()
     except:
         print("Error threads")
     if sistema == 'Linux':
-        return status
+        return output +"\n"+  output2
     else:
-        return status
+        return "intentado conectar al korlan"
+
+#def connectCan():#LW
+  #  global bus
+  #  global password
+  #  global frequency
+
+  #  if sistema =='Linux':
+  #      try:
+  #          with open("password.txt") as f:
+  #              password = f.read()
+  #      except:
+  #          print("Cannot open password.txt, make sure it is created and you have reading rights")
+  #  try:
+  #      with open("frequency.txt") as f:
+  #          frequency = f.read()
+  #  except:
+  #      print("Cannot open frequency.txt, make sure it is created and you have reading rights")
+ #   if sistema == 'Linux':
+ #      try:
+ #           output = sp.getoutput("echo "+password+" | sudo -S ip link set can0 up type can bitrate "+frequency+" loopback off") #if you need to debug just put on instead
+ #           output2 = sp.getoutput("echo "+password+" | sudo -S ip link set up can0")
+ #           bustype = 'socketcan'
+ #           can_interface = 'can0'
+ #           bus = can.ThreadSafeBus(can_interface,bustype=bustype)
+ #           status = True
+ #      except:
+ #          print("No usb2can connected")
+ #          status = False
+
+#    else:
+#        try:
+#            bus = usb2canInteface.Usb2canBus(channel=serialNumber,dll="./usb2can.dll")
+#            print(bus.state)
+#            status = True
+#        except:
+#            print("No usb2can connected")
+#            status = False
+#    try:
+#        initThreads()
+#    except:
+#        print("Error threads")
+#    if sistema == 'Linux':
+#        return status
+#    else:
+#        return status
 
 def setId_Data(id,data): #LW
     global msg
@@ -290,6 +329,7 @@ def createNewPreMadeMessage(name):#LW
         return False
 
 def waiter_thread(event):#LW
+    global bus
     global msg
     global processedMsg
     global processedMsgFiltered
