@@ -34,13 +34,13 @@ class Worker(QtCore.QObject): #Reading thread class
                 t0 = time.perf_counter()
                 if msg == "" or msg == None:
                     if j == 0:
-                        self.progress.emit("NoMessagesFromThatSource")
+                        self.progress.emit("No hay mensajes de esa fuente")
                         j = 1
                     else:
                         None
                 elif msg is msg2:
                     if z == 0:
-                        self.progress.emit("NoNewMessagesFromThatSource")
+                        self.progress.emit("no hay nuevos mensajes de esa fuente")
                         z = 1
                     else:
                         None
@@ -53,7 +53,7 @@ class Worker(QtCore.QObject): #Reading thread class
                         j = 0
                         z = 0
                     elif x == 0:
-                        self.progress.emit("NoNewMessagesFromThatSource")
+                        self.progress.emit("No hay mensajes de esa fuente")
                         x = 1
                     else:
                         None
@@ -133,10 +133,10 @@ class Ui_MainWindow8(object):
     def retranslateUi(self, MainWindow8):
         _translate = QtCore.QCoreApplication.translate
         MainWindow8.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_2.setText(_translate("MainWindow", "Data"))
-        self.pushButton.setText(_translate("MainWindow", "Filter by id without translation"))
-        self.label.setText(_translate("MainWindow", "Sensor name"))
-        self.pushButton_2.setText(_translate("MainWindow", "Switch to understandable data"))
+        self.label_2.setText(_translate("MainWindow", "Datos"))
+        self.pushButton.setText(_translate("MainWindow", "Filtrar por id sin traducir"))
+        self.label.setText(_translate("MainWindow", "Nombre"))
+        self.pushButton_2.setText(_translate("MainWindow", "Cambiar a modo traducir el dato"))
         self.pushButton_config.setText(_translate("MainWindow", "Config"))
 
 
@@ -206,7 +206,7 @@ class Ui_MainWindow8(object):
         else:
             b2Pressed = False
             y = 0
-            n = str("stopped data translation")
+            n = str("Se para la tradución de datos")
             it = QtGui.QStandardItem(n)
             if self.i >= 40:
                 self.model.removeRows(self.i - 39, 3)
@@ -285,7 +285,7 @@ class Ui_MainWindow8(object):
 
     def stopLongTask(self):#use to stop the reading thread
         print("here")
-        n = "Stopped reading"
+        n = "Se para la lectura"
         it = QtGui.QStandardItem(n)
         if self.i >= 40:
             self.model.removeRows(self.i - 39, 3)

@@ -97,7 +97,7 @@ class Ui_MainWindow7(object): #UI class
     def retranslateUi(self, MainWindow7):
         _translate = QtCore.QCoreApplication.translate
         MainWindow7.setWindowTitle(_translate("MainWindow", "MainWindow7"))
-        self.pushButton6.setText(_translate("MainWindow", "Set frecuency"))
+        self.pushButton6.setText(_translate("MainWindow", "Guardar frecuencia"))
 
     def saveNewFrequencyButton(self):
         print("Pushed save new frequency button:")

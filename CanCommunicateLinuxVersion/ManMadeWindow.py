@@ -168,15 +168,15 @@ class Ui_MainWindow3(object):
     def retranslateUi(self, MainWindow3):
         _translate = QtCore.QCoreApplication.translate
         MainWindow3.setWindowTitle(_translate("MainWindow", "ManMessages"))
-        self.pushButton_4.setText(_translate("MainWindow", "ChangeMode"))
-        self.label.setText(_translate("MainWindow", "Data please put it in like:22 22 22 with an space between bytes"))
-        self.pushButton.setText(_translate("MainWindow", "SetIdData"))
+        self.pushButton_4.setText(_translate("MainWindow", "Cambiar a modo mensajes ya creados"))
+        self.label.setText(_translate("MainWindow", "Data  porfavor introduzca siguiendo el formato:22 22 22"))
+        self.pushButton.setText(_translate("MainWindow", "Nuevo id y datos"))
         self.label_2.setText(_translate("MainWindow", "ID"))
-        self.pushButton_2.setText(_translate("MainWindow", "SaveMessage"))
-        self.pushButton_3.setText(_translate("MainWindow", "SendMessage"))
-        self.pushButton_5.setText(_translate("MainWindow", "ReadCan"))
-        self.label_3.setText(_translate("MainWindow", "Read"))
-        self.label_4.setText(_translate("MainWindow", "Write"))
+        self.pushButton_2.setText(_translate("MainWindow", "Guardar mensaje"))
+        self.pushButton_3.setText(_translate("MainWindow", "Enviar mensaje"))
+        self.pushButton_5.setText(_translate("MainWindow", "Leer el can"))
+        self.label_3.setText(_translate("MainWindow", "Recibido"))
+        self.label_4.setText(_translate("MainWindow", "Enviado"))
 
 
     def setStatus(self,status):

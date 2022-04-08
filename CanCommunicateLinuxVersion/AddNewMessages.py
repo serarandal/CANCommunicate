@@ -104,8 +104,8 @@ class Ui_MainWindow4(object): #UI class
         _translate = QtCore.QCoreApplication.translate
         MainWindow4.setWindowTitle(_translate("MainWindow", "AddMessage"))
         self.text.setText(_translate("MainWindow", ""))
-        self.pushButton4.setText(_translate("MainWindow", "Explore"))
-        self.pushButton4_2.setText(_translate("MainWindow", "AddMessage"))
+        self.pushButton4.setText(_translate("MainWindow", "Explorar archivos"))
+        self.pushButton4_2.setText(_translate("MainWindow", "Añadir Mensajes"))
 
     def setBrowerPath(self): #use to pick the path , it opens an explorer window
         try:

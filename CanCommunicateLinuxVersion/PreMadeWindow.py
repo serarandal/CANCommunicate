@@ -29,13 +29,13 @@ class Worker(QtCore.QObject):  # reading thread
             t1 = time.perf_counter()
             if msg == "" or msg == None and t1 - t0 > 100 and len(msgStorage)==0:
                 if j == 0:
-                    self.progress.emit("NoMessages")
+                    self.progress.emit("No hay mensajes")
                     j = 1
                 else:
                     None
             elif msg is msg2 and t1 - t0 > 100:
                 if z == 0:
-                    self.progress.emit("NoNewMessages")
+                    self.progress.emit("No hay nuevos mensajes")
                     z = 1
                 else:
                     None
@@ -147,11 +147,11 @@ class Ui_MainWindow2(object):
     def retranslateUi(self, MainWindow2):
         _translate = QtCore.QCoreApplication.translate
         MainWindow2.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "Read"))
-        self.label_2.setText(_translate("MainWindow", "Write"))
-        self.pushButton_2.setText(_translate("MainWindow", "Send Message"))
-        self.pushButton_3.setText(_translate("MainWindow", "Change Mode"))
-        self.pushButton.setText(_translate("MainWindow", "Read CAN"))
+        self.label.setText(_translate("MainWindow", "Recibidos"))
+        self.label_2.setText(_translate("MainWindow", "Enviados"))
+        self.pushButton_2.setText(_translate("MainWindow", "Enviar mensaje"))
+        self.pushButton_3.setText(_translate("MainWindow", "Cambiar a modo manual"))
+        self.pushButton.setText(_translate("MainWindow", "Leer CAN"))
 
 
     def setStatus(self,status):

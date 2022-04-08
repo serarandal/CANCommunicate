@@ -36,7 +36,7 @@ class Popup9(object): #UI class
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Popup1"))
-        self.label.setText(_translate("Form", "New configuration saved"))
+        self.label.setText(_translate("Form", "Nueva configuración guardada"))
 
 class Popup10(object): #UI class
     def setupUi(self, PopupWindow10):
@@ -60,7 +60,7 @@ class Popup10(object): #UI class
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Popup2"))
-        self.label.setText(_translate("Form", "Error while saving"))
+        self.label.setText(_translate("Form", "Error al guardar"))
 
 
 
@@ -85,8 +85,8 @@ class Ui_Dialog(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.Name_label.sizePolicy().hasHeightForWidth())
         self.Name_label.setSizePolicy(sizePolicy)
-        self.Name_label.setMinimumSize(QtCore.QSize(50, 50))
-        self.Name_label.setMaximumSize(QtCore.QSize(50, 50))
+        self.Name_label.setMinimumSize(QtCore.QSize(200, 50))
+        self.Name_label.setMaximumSize(QtCore.QSize(200, 50))
         self.Name_label.setObjectName("Name_label")
         self.verticalLayout.addWidget(self.Name_label)
         self.textEdit_2 = QtWidgets.QTextEdit(Dialog)
@@ -175,13 +175,13 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.Name_label.setText(_translate("Dialog", "Name"))
+        self.Name_label.setText(_translate("Dialog", "Nombre"))
         self.id_label.setText(_translate("Dialog", "Id"))
         self.bytes_label.setText(_translate("Dialog", "bytes "))
-        self.textEdit.setPlaceholderText(_translate("Dialog", "write it like this:2 3 4"))
-        self.operation_label.setText(_translate("Dialog", "Operation(blank default)"))
+        self.textEdit.setPlaceholderText(_translate("Dialog", "Ejemplo:2 3 4"))
+        self.operation_label.setText(_translate("Dialog", "Operation"))
         self.offset_label.setText(_translate("Dialog", "Offset"))
-        self.pushButton.setText(_translate("Dialog", "Save Configuration"))
+        self.pushButton.setText(_translate("Dialog", "Guardar configuración"))
 
     def saveConfiguration(self):
         if self.comboBox_2.currentText() == "/":

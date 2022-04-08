@@ -10,6 +10,7 @@ import re
 import usb2canAbstractionFile
 import usb2canInteface
 
+bus = None
 msg = can.Message()
 msg2 = can.Message()
 processedMsg = []

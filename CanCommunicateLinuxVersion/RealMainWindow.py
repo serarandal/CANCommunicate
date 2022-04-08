@@ -28,13 +28,13 @@ class Worker(QtCore.QObject):  # reading thread
             t1 = time.perf_counter()
             if msg == "" or msg == None and t1 - t0 > 100 and len(msgStorage)==0:
                 if j == 0:
-                    self.progress.emit("NoMessages")
+                    self.progress.emit("No hay mensajes")
                     j = 1
                 else:
                     None
             elif msg is msg2 and t1 - t0 > 100:
                 if z == 0:
-                    self.progress.emit("NoNewMessages")
+                    self.progress.emit("No hay nuevos mensajes")
                     z = 1
                 else:
                     None
@@ -141,14 +141,14 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton_3.setText(_translate("MainWindow", "Add new messages from PEAK"))
-        self.pushButton_4.setText(_translate("MainWindow", "Filter"))
-        self.pushButton_8.setText(_translate("MainWindow", "Read CAN"))
-        self.pushButton_5.setText(_translate("MainWindow", "Connect to CAN"))
-        self.pushButton_7.setText(_translate("MainWindow", "Set password"))
-        self.pushButton.setText(_translate("MainWindow", "Send messages manually window"))
-        self.pushButton_2.setText(_translate("MainWindow", "Send premade messages window"))
-        self.pushButton_6.setText(_translate("MainWindow", "Set frequency"))
+        self.pushButton_3.setText(_translate("MainWindow", "Añadir mensajes del PEAK"))
+        self.pushButton_4.setText(_translate("MainWindow", "Filtro"))
+        self.pushButton_8.setText(_translate("MainWindow", "Leer CAN"))
+        self.pushButton_5.setText(_translate("MainWindow", "Conectar al CAN"))
+        self.pushButton_7.setText(_translate("MainWindow", "Poner nueva contraseña"))
+        self.pushButton.setText(_translate("MainWindow", "ventana de envio de mensajes manuales"))
+        self.pushButton_2.setText(_translate("MainWindow", "ventana de envio de mensajes ya creados"))
+        self.pushButton_6.setText(_translate("MainWindow", "poner nueva frecuencia"))
 
 
     def connectCanButton(self):
@@ -158,9 +158,9 @@ class Ui_MainWindow(object):
         self.ui3.setStatus(self.status)
         self.ui16.setStatus(self.status)
         if self.status == True:
-            it = "Connected to CAN"
+            it = "Conectado al bus CAN"
         else:
-            it = "Error trying to connect to CAN, try again with the usb2can connected"
+            it = "Error intentando conectar al bus CAN, intente de nuevo con el usb2can conectado"
         it = QtGui.QStandardItem(it)
         self.model.appendRow(it)
         if self.status == True:

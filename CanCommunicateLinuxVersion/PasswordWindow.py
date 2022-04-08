@@ -96,7 +96,7 @@ class Ui_MainWindow6(object): #UI class
     def retranslateUi(self, MainWindow6):
         _translate = QtCore.QCoreApplication.translate
         MainWindow6.setWindowTitle(_translate("MainWindow", "MainWindow6"))
-        self.pushButton6.setText(_translate("MainWindow", "AddPassword"))
+        self.pushButton6.setText(_translate("MainWindow", "Guardar contraseña"))
 
     def saveNewPasswordButton(self):
         print("Pushed add new password button:")
